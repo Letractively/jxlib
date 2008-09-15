@@ -65,7 +65,7 @@ Now what is needed is for us to specify how Jx.Layout is going to behave. Using 
     var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 0, bottom: 0, minWidth: 100});
     var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 0, bottom: 0});
 }}}
-In Jx.Layout a width or height of “null” tells Layoout to fill it with all the available space. 
+In Jx.Layout a width or height of “null” tells jx.layout to fill it with all the available space. 
 
 Now that we have setup our basic layout lets go ahead and add some style properties so we can see what it is doing
 {{{
