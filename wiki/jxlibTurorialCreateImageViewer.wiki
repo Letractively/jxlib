@@ -50,9 +50,6 @@ window.addEvent('load', function() {
 </script>
 }}}
 
-We set the mainContainer to have just the bottom property (we'll get to that later) and the leftContariner is to have a width of 200px positioned a left:0px and top:0px.
-
-rightContainer has a position of left:200px top:px with a width of 'null' this tells jx.Layout to use all the remaining horizontal space for this container.
 
 == The onLoad Event ==
 
