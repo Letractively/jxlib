@@ -1,0 +1,3 @@
+#summary General Jx Concepts, applicable to some or most components
+
+= Introduction =

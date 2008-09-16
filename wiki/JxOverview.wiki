@@ -1,10 +1,76 @@
-#summary Jx Overview.
+#summary An Overview of Jx Components.
 
 = Introduction =
 
-This page is the overview of Jx components.
+Jx comprises a set of building blocks that assist a web developer in creating web-based applications.  Typical building blocks are buttons, menus, tabs, dialogs, panels and layout controls.  You pick and choose which components you need and plug them together with your content and custom application logic.  Jx also provides you with a consistent visual style for all the components that you are using, something that really makes an application more pleasant and easy to use for your end user.
 
+Jx is built on the excellent [http://mootools.net MooTools] library.
 
-= Details =
+== General Concepts ==
 
-blah blah blah
+This section covers general concepts that are applicable to all or many of the Jx components.  These topics stand alone, but are often refered to by specific components that employ the technique or concept described.
+
+  * [JxGeneralConcepts Options] - many Jx components have specific options that can be set when the component is created, this covers the general concept.
+  * [JxGeneralConcepts Events] - Jx uses an event mechanism to notify application code of various changes in state, this describes the general mechanisms associated with adding and removing event handlers.
+  * [JxGeneralConcepts Content Loading] - Jx components that embed your content use a standardized API for doing so.
+
+== Layout Components ==
+
+This section covers Jx components that specifically manage content and content containers.
+
+  * [JxLayout Layout] - a control that manages the size of elements based on a set of rules
+  * [JxSplitter Splitter] - a control that splits an HTML element horizontally or vertically and allows the user to resize the split areas.
+  * [JxPanel Panel Set] - manages a set of Panels in a vertical area such that the panels can be resized and consume the vertical space of the container (similar to the Outlook bar or an accordion).
+
+== Buttons ==
+
+This section covers various types of buttons, one of the most basic building blocks for applications.  Jx has a fairly sophisticated Button class and several useful sub-classes that implement common variations.
+
+  * [JxButton Button] - a simple clickable button.
+  * [JxButton Flyout Button] - exposes a panel when the button is clicked.
+  * [JxButton Color Button] - exposes a color picker when the button is clicked.
+  * [JxButton Multi Button] - a palette of buttons, one of which is in the toolbar - it can be changed by choosing a new button from a flyout, similar to a photoshop concept.
+  * [JxButton Combo Button] - an editable selection list.
+  * [JxButton Button Set] - not a visual widget, but groups toggle buttons together so that only one can be active at a time.
+
+== Toolbars ==
+
+Toolbars are used in a variety of situations to organize buttons, tabs, menus and other content.
+
+  * [JxToolbar Toolbar] - a container for buttons, tabs, menus and other content organized into a horizontal or vertical bar.
+  * [JxToolbar Toolbar Item] - a container for non-Jx components that allow them to work in toolbars correctly.
+  * [JxToolbar Toolbar Separator] - a visual separator in a toolbar that provides some sense of grouping of tools.
+
+== Tabs ==
+
+Tabs are a useful way of managing a set of content areas in a small visual area by having the content share the same area and allowing the user switch between them using tabs.
+
+  * [JxTab Tab] - a button that shows a content area when activated and hides it when deactivated.
+  * [JxTab Tab Box] - a combined tab bar and content area that you can put tabs into
+  * [JxTab Tab Set] - manages a set of tabs so that only one is active at a time
+  
+== Menus ==
+
+Menus are an excellent way to group hierarchies of functionality into a compact display.
+  
+  * [JxMenu Menu Item] - an entry in a menu
+  * [JxMenu Sub Menu] - a menu that goes in another menu
+  * [JxMenu Menu] - a menu that can contain menu items and sub menus, can be put in a toolbar.
+  * [JxMenu Context Menu] - a menu that can be shown anywhere, usually triggered by a right mouse click.
+
+== Trees ==
+
+Trees are excellent for representing hierarchical information
+
+  * [JxTree Tree Item] - an entry in a tree.
+  * [JxTree Tree Folder] - a folder in a tree, it contains folders and items.
+  * [JxTree Tree] - a root organizer for a tree.
+  
+== Panels and Dialogs ==
+  
+  * [JxPanel Panel] - a basic layout element with a title bar optional toolbars and a content area.
+  * [JxDialog Dialog] - a floating panel that looks like a panel but can be moved and resized.
+
+== Other Components ==
+
+  * [JxGrid Grid] - a tabular control that has fixed headers for rows and columns and scrollable content.
