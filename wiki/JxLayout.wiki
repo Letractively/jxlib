@@ -1,10 +1,10 @@
 #summary Working with Layout.
 
-= Working with Layout =
+= Working with the Jx Layout Component =
 
 == Introduction ==
 
-Jx contains several components that help you organize and manage content in your application.  The Jx.Layout component is the most fundamental of these and is used extensively throughout Jx.  The Jx.Splitter is a more generic component that splits an HTML element into two or more areas and allows the user to resize them.  Jx.PanelSet is a specialized version of Jx.Splitter that manages Jx.Panel instances in a vertical layout.
+Jx contains several components that help you organize and manage content in your application.  The Jx.Layout component is the most fundamental of these and is used extensively throughout Jx.  The [JxSplitter Jx.Splitter] is a more generic component that splits an HTML element into two or more areas and allows the user to resize them.  [JxPanel Jx.PanelSet] is a specialized version of [JxSplitter Jx.Splitter] that manages [JxPanel Jx.Panel] instances in a vertical layout.
 
 == Overview ==
 
