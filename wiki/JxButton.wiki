@@ -6,7 +6,7 @@ Buttons are basic building blocks for most web applications.  They provide the u
 
 == Jx.Button ==
 
-button-icon-label.png
+http://jxlib.googlecode.com/svn/wiki/button-icon-label.png
 
 The basic button object is Jx.Button.  Visually, a button may contain an image, some text or both.  When the button is clicked, it fires an event that the application developer can listen for and take some action on. 
 
