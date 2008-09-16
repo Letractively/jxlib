@@ -1,3 +1,260 @@
 #summary Working with Jx Buttons.
 
-= Introduction =
+= Working with Jx Buttons =
+
+Buttons are basic building blocks for most web applications.  They provide the user with something to click on in order to trigger some action.  In regular HTML pages, this would be represented as a hyperlink (using an <a> tag) or an HTML button (using a <button> or an <input> of type submit or reset).  Jx provides a basic button object as well as some other types of buttons that can be used in your applications. 
+
+== Jx.Button ==
+
+button-icon-label.png
+
+The basic button object is Jx.Button.  Visually, a button may contain an image, some text or both.  When the button is clicked, it fires an event that the application developer can listen for and take some action on. 
+
+A button has several visual states: 
+
+|| State || Not In Toolbar || In Toolbar || Description
+|| normal || button-normal-toolbar.png || button-normal.png || the button is just sitting there, looking cool
+|| hover || button-hover-toolbar.png || button-hover.png ||  the button responds to the mouse hovering over it by glowing
+|| active || button-active-toolbar.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down'
+
+Creating a new instance of Jx.Button is straightforward: 
+
+{{{
+var button = new Jx.Button();
+}}}
+
+At this point, the button doesn’t actually appear on your web page anywhere because we haven’t told it where we want it to go.  Buttons can be added to a web page in two different ways, in a [JxToolbar Toolbar] (discussed there) or directly to an existing HTML element using the *addTo* method (discussed here).
+
+First, we need a simple web page to work with: 
+
+{{{
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Jx.Button Examples</title>
+<script type="text/javascript" src="jx/jxlib.js"></script>
+<link rel="stylesheet" href="jx/jxskin_delicious.css" type="text/css">
+<script type="text/javascript">
+window.addEvent('load', function() {
+// add example code here
+}
+</script>
+</head>
+<body>
+<div id="buttonContainer"></div>
+</body>
+<html>
+}}}
+
+You can try out the examples below by pasting the code into the _load_ event handling function. 
+
+To make the button visible in your web page, use the *addTo(element)* method: 
+
+{{{
+var button = new Jx.Button();
+button.addTo('buttonContainer');
+}}}
+
+The *addTo* method takes one argument, a reference to an HTML element or the id of an HTML element to which the button is to be added.  In most examples, we are only using the id method.  But you can also do this: 
+
+{{{
+// $ is a MooTools helper function that is equivalent to 
+// document.getElementById(‘buttonContainer’);  See the 
+// MooTools documentation for more details.
+
+var el = $(‘buttonContainer);
+var button = new Jx.Button();
+button.addTo(el);
+
+// alternately you can do it in one step if you don’t need to keep a reference
+// to the created button object:
+// new Jx.Button().addTo(el);
+}}}
+
+You should see something like this: 
+
+button-empty.png
+
+This creates an empty button that isn’t very useful for the user because it has no indication of what it is for!  But it has all the behaviour of a button, including all the various states - try it out! 
+
+To create a more useful button, you can pass in one or more options. 
+
+{{{
+var button = new Jx.Button({
+    image: 'images/bug.png'
+    label: 'button'
+});
+button.addTo('buttonContainer');
+}}}
+
+button-icon-label.png
+
+So now we have a good looking button that provides the user with an indication of what the button will do when they click on it, but it doesn’t actually do anything when they click on it!  This is where [JxGeneralConcepts Events] come in. 
+
+A normal button fires a _click_ event when the user presses and releases a mouse button with the cursor over the button.  You can add an event handler for the _click_ event in one of two ways. 
+
+The first method is to provide the event handler as an option to the button constructor.  The option name is _onClick_ and the value is any function. 
+
+{{{
+var button1 = new Jx.Button({
+    label: 'click me',
+    onClick: function(button) {
+        alert('I was clicked!');
+    }
+});
+button1.addTo('buttonContainer');
+}}}
+
+The second method is to use the _addEvent_ method on an existing button object, passing the event name (_click_ in this case) and a function. 
+
+{{{
+var button2 = new Jx.Button({
+    label: 'click me too'
+});
+button2.addTo('buttonContainer');
+button2.addEvent('click', function(button){
+   alert ('I was clicked too!') 
+});
+}}}
+
+The function you provide is called with the button that was clicked as the first, and only, argument.  The context of the function (what _this_ refers to) is determined by you when you create the function.  See [JxGeneralConcepts Events] for details on how to bind a function to a particular context or scope. 
+
+Both methods produce identical results, namely a function gets called when the button is clicked.  Which one you use is really a matter of choice and, sometimes, necessity.  In most cases, you know what you want the button to do when you make it and it is easiest just to provide a handler in the constructor options.  However, there will be instances where you don’t know what the button will do when it is made, or you want several different things to happen (you can call addEvent multiple times with the same event and different functions).  You can also remove existing event handlers using the removeEvent method (see [JxGeneralConcepts Events]). 
+
+=== Toggle Buttons ===
+
+button-toggle.png
+
+A toggle button is one that has a particular state, up or down, and persists in that state.  The user changes the state by clicking the button to toggle it.  This is equivalent to an HTML checkbox. 
+
+You don’t need to do much to make a normal button become a toggle button.  Its the same Jx object with an extra option, _toggle_, passed to the constructor: 
+
+{{{
+var button = new Jx.Button({
+    toggle: true,
+    image: 'images/bug.png'
+    label: 'toggle button'
+});
+button.addTo('buttonContainer');
+}}}
+
+When you try this, you’ll notice it looks the same as a normal button.  But when you click it, it will stay ‘pressed in’ until you click it again. 
+
+When a button is a toggle button, it no longer fires a _click_ event (which wouldn’t really tell you anything useful about the state of the button) but adds two new events, _down_ and _up_.  The _down_ event is fired when the button becomes active (it is presed in) and the _up_ is fired when the button becomes inactive. 
+
+{{{
+var button = new Jx.Button({
+    toggle: true,
+    image: 'images/bug.png'
+    label: 'toggle button',
+    onDown: function(button) {
+        alert('the toggle button was toggled on');
+    },
+    onUp: function(button) {
+        alert('the toggle button was toggled off');
+    }
+});
+button.addTo('buttonContainer');
+}}}
+
+=== Jx.Button Constructor Options ===
+
+There are a few more options that you can pass to the Jx.Button constructor that we haven’t covered yet.  We’ll cover the full list now. 
+
+
+  * image - the url to an image to use as the icon on a button.  The default value is no image.
+  * imageClass - a CSS class to add to the icon element in the button.  This is typically used to implement a CSS sprite technique where multiple icons are in the same image and the imageClass is used to set the background position to get the right image to show up.
+  * label - the text to display in the button.  The default value is no label.
+  * tooltip - text to display when the user hovers their mouse over the button. The default value is no tooltip.
+  * active - a boolean value that indicates if the button should be initially active, useful only if toggle is true.  This is false by default.
+  * enabled - a boolean value that indicates if the button should be initially enabled or disabled.  This is true by default.
+  * halign - the horizontal alignment of the label in the button.  Currently only ‘center’ and ‘left’ are supported.  The default value is ‘center’.
+  * valign - the vertical alignment of the label in the button.  Currently, only ‘top’ and ‘middle’ are supported.  The default value is ‘middle’.
+  * onClick - a function to call when the button is clicked (if toggle is false)
+  * onUp - a function to call when the button is toggled off (if toggle is true)
+  * onDown - a function to call when the button is toggled on (if toggle is true)
+
+
+=== Jx.Button API ===
+
+The Jx button has a few other methods that allow you to work with button objects that you have already created.  We’ll cover the full API now. 
+
+
+  * setLabel(label) - allows you to change the label displayed in the button after it has been created.
+  * setImage(url) - allows you to change the image being displayed as the icon in a button.
+  * setTooltip(tip) - allows you to change the tooltip displayed for the button.
+  * setEnabled(isEnabled) - allows you to set the button as enabled or disabled.
+  * isEnabled() - returns whether the button is currently enabled (true) or disabled (false).
+  * setActive(isActive) - allows you to set the active state of the button (if it is a toggle button).  True means the button is active (pressed down).  Calling this method causes the appropriate event (up or down) to fire if the new state is different from the old state.
+  * isActive() - returns the active state of the button.
+
+
+== Jx.Button.Flyout ==
+
+Flyout buttons are a special type of button that display a content area when the button is clicked.  The content 'flys' out next to the button.  Clicking the button again, or clicking outside of the flyout or hitting the ESC key will close the flyout.  The content can be anything you wish, including static HTML, a reference to dynamically created HTML objects, or content loaded asychronously.  See [JxGeneralConcepts Content Loading] for details on how content is loaded by components. 
+
+A flyout button supports all the same options as a regular button, with two exceptions.  First, the toggle option is forced to true and cannot be changed.  Second, there is an additional content option as per the [JxGeneralConcepts Content Loading] documentation. 
+
+{{{
+var flyout = new Jx.Flyout({
+    image: 'images/bug.png',
+    label: 'Options',
+    tooltip: 'Debugging Options',
+    content: 'optionsPane'
+});
+}}}
+
+As the flyout button is a toggle button, it only generates the up and down events. 
+
+When a flyout is first created, its content is not initially part of the DOM tree and so you cannot directly reference elements in the content by id.  You must wait until the first 'down' event before trying to reference elements in the content. 
+
+== Jx.Button.Multi ==
+
+button-multi.png
+
+Multi buttons are a special type of button that contain other buttons, displaying only one of them at a time.  A multi button has two parts, a button and a flyout button.  The button represents the currently selected button, and clicking on it fires the events of that button.  The flyout button pops open a list of buttons that have been added to the multi button, allowing the user to click any of the buttons.  When the user does click a button in the flyout, that button becomes the current button in the main interface as well as firing the events of the button. 
+
+{{{
+var multi = new Jx.Button.Multi();
+multi.add(
+    new Jx.Button({label: 'button 1'}),
+    new Jx.Button({label: 'button 2'}),
+    new Jx.Button({label: 'button 3'}),
+    new Jx.Button({label: 'button 4'})
+);
+multi.addTo('buttonContainer');
+}}}
+
+=== Jx.Button.Multi API ===
+
+A multi button is not really a button and does not have any constructor options.  It also has different API. 
+
+
+  * add() - adds one or more buttons to the multi button.  Multiple buttons are passed in a comma separated list.
+  * remove(button) - removes a previously added button.
+  * addTo(element) - as with Jx.Button, this adds the multi button to an existing element by reference or id.
+
+
+=== Jx.Button.Color ===
+
+button-color.png
+
+Color buttons 
+
+{{{
+var color = new Jx.Button.Color();
+}}}
+
+=== Jx.Button.Color API ===
+
+== Jx.Button.Combo ==
+
+button-combo.png
+
+Combo buttons
+
+{{{
+var combo = new Jx.Button.Combo({
+    
+});
+}}}
