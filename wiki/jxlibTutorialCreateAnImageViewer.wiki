@@ -18,7 +18,7 @@ To start we need to include the JX.Lib in the head section of our document:
 
 = A Layout For The Application =
 
-PaulInsertImageHere
+http://jxlib.googlecode.com/svn/wiki/images/layout.png
 
 There are three elements that are needed to create this layout:
 
@@ -98,7 +98,7 @@ Now that we have setup our basic layout lets go ahead and add some style propert
 }}}
 We should now have something that looks like this:
 
-PaulInsertImage
+http://jxlib.googlecode.com/svn/wiki/images/layout.png
 
 == Creating the ToolBar (Jx.Toolbar) ==
 
@@ -170,3 +170,7 @@ You can either use function() and create an inline function object or call the f
         alert("another.. way to skin a cat");
     }
 }}}
+
+With this toolbar we should have something that resembles this:
+
+http://jxlib.googlecode.com/svn/wiki/images/layout1.png
