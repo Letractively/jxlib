@@ -12,10 +12,10 @@ The basic button object is Jx.Button.  Visually, a button may contain an image, 
 
 A button has several visual states: 
 
-|| State || Not In Toolbar || In Toolbar || Description
-|| normal || button-normal-toolbar.png || button-normal.png || the button is just sitting there, looking cool
-|| hover || button-hover-toolbar.png || button-hover.png ||  the button responds to the mouse hovering over it by glowing
-|| active || button-active-toolbar.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down'
+|| State || Not In Toolbar || In Toolbar || Description ||
+|| normal || button-normal-toolbar.png || button-normal.png || the button is just sitting there, looking cool ||
+|| hover || button-hover-toolbar.png || button-hover.png ||  the button responds to the mouse hovering over it by glowing ||
+|| active || button-active-toolbar.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down' ||
 
 Creating a new instance of Jx.Button is straightforward: 
 
