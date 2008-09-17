@@ -43,9 +43,10 @@ Here is how we initialize this layout:
 {{{
 <script  type="text/javascript">
 window.addEvent('load', function() {
-    var mainContainer = new Jx.Layout('thePage', {bottom: 35});
-    var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 0, bottom: 0, minWidth: 100});
-    var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 0, bottom: 0});
+
+    var mainContainer = new Jx.Layout('thePage', {bottom: 35}); 
+    var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 35, bottom: 0, minWidth: 100});
+    var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 35, bottom: 0});
     mainContainer.resize();
 </script>
 }}}
@@ -62,8 +63,8 @@ You could use  window.onLoad = function(){...} however no other script will be a
 == Building the Layout (Jx.Layout) ==
 Now what is needed is for us to specify how Jx.Layout is going to behave. Using  a main container and a left and right container  we can specify it's default dimensions
 {{{
-    var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 0, bottom: 0, minWidth: 100});
-    var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 0, bottom: 0});
+       var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 35, bottom: 0, minWidth: 100});
+    var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 35, bottom: 0});
 }}}
 In Jx.Layout a width or height of “null” tells jx.layout to fill it with all the available space. 
 
@@ -103,6 +104,7 @@ http://jxlib.googlecode.com/svn/wiki/images/layout.png
 == Creating the ToolBar (Jx.Toolbar) ==
 
 Our little application is going to need a menu in a toolbar so lets add that at the top of the application adding a div “theToolBar” inside “thePage”:
+{{{
 <body>
     <div id="thePage">
         <div id="theToolBar"></div>
@@ -110,6 +112,7 @@ Our little application is going to need a menu in a toolbar so lets add that at 
         <div id="rightLayout"></div>
     </div>
 </body>
+}}}
 We're going to have to adjust our JX.Layout to accommodate this toolbar
 {{{
     var mainContainer = new Jx.Layout('thePage', {bottom: 35});
@@ -124,20 +127,19 @@ As you can see I simply added a new JX.Layout item and set it's height to be 35 
 
 == Adding the Menu (JX.Menu) ==
 
-Now that we have a toolbar we can add a menu to it. JXMenus can get complicated based on the levels of nesting etc. but for this exercise lets create a file menu and a help menu. 
+Now that we have a toolbar we can add a menu to it. JXMenus can get complicated based on the levels of nesting etc. but for this exercise lets create a options menu and a help menu. 
 {{{
     // create the root menu item container
-    var fileMenu = new Jx.Menu({label: 'File', image: '../../images/tree_page.png'});
+    var optionMenu = new Jx.Menu({label: 'Options'});
 
     // create menu item
     var menuitem1 = new Jx.Menu.Item({
-      label: ' Open',
-      image: '../../images/tree_page.png',
+      label: ' Display Settings',
       onClick:function(){alert('One way to skin a cat')}
     });
 
     // add the menu item to the menu container
-    fileMenu.add(menuitem1);
+    optionMenu.add(menuitem1);
 
     // add the menu to the toolbar
     theToolBar.add(fileMenu);
@@ -145,8 +147,7 @@ Now that we have a toolbar we can add a menu to it. JXMenus can get complicated 
 and now the help menu:
 {{{
      // create the root menu item container
-    var helpMenu = new Jx.Menu({label: 'Help', image: '../../images/tree_page.png'});
-
+    var helpMenu = new Jx.Menu({label: 'Help'});
     // create menu item
     var menuItem1 = new Jx.Menu.Item({
         label: 'Info' ,
@@ -171,6 +172,169 @@ You can either use function() and create an inline function object or call the f
     }
 }}}
 
-With this toolbar we should have something that resembles this:
+Now that we added this JX.toolbar we should have something that resembles this:
 
 http://jxlib.googlecode.com/svn/wiki/images/layout1.png
+
+== Creating the tree ==
+
+We'll use JX.tree for the image navigation.
+
+=== Getting the tree data ===
+in our JavasScript now we need to add a couple functions 
+
+=== updateTree() ===
+With this function we trigger a ajax call to our getImages.php script which returns a json array of the images in our ./samples/ directory. It fetches that json array and fires updateTree_CB with the object.
+
+{{{
+
+function updateTree(){
+
+    // get the file listings in a JSON Array from "getImages.php"
+    new Request({url:"./getImages.php", onComplete: updateTree_CB}).send();
+}
+}}}
+
+=== updateTree_CB(oObject) ===
+Using the json from our last function call we can now set our global var gaImages to this data and begin the buildTree function. Notice there is not any trapping here for errors. 
+
+{{{
+function updateTree_CB(oObject){
+    // create / set the images global
+    eval("gaImages = "+oObject);
+
+    // call buildTree and start working with Jx.Tree
+    buildTree();
+}
+}}}
+
+=== buildTree() ===
+
+This function is the meat and potatoes of our tree. simply put it creates the main Jx.Tree Object and adds a Jx.TreeFolder to it and cycles through our gaImages array adding Jx.TreeItem's in the folder.
+
+We are going to add a eventListener for the click event on the Jx.TreeItem's that we create here, which then in turn call our next function "treeItemClicked" with the Jx.treeItem object so we can know which item has been clicked. 
+
+Here's the updated HTML:
+{{{
+<body>
+    <div id="thePage">
+        <div id="theToolBar"></div>
+        <div id="leftLayout">
+            <div id="treeArea"></div>
+        </div>
+        <div id="rightLayout">
+            <img id="largeImage" src="">
+        </div>
+    </div>
+</body>
+}}}
+and it's javascript:
+{{{
+function buildTree(){
+
+    // create the root Jx.Tree
+    var tree = new Jx.Tree('treeArea');
+
+    // create a folder to be added to Jx.Tree
+    var folder = new Jx.TreeFolder({
+        label: 'My Folder',
+        image: 'images/blue_folder.png',
+        imageClass: 'blueFolder'
+    });
+
+    // add the folder to the tree
+    tree.append(folder);
+
+    // cycle through the global gaImages and add Jx.TreeItem's 
+    for(var i=0;i<gaImages.length;i++){
+        var item = new Jx.TreeItem({
+            label: gaImages[i]
+        });
+        
+        // create a evenListener for click on the JX.TreeItem Dom Object. fire "treeItemClicked Func and bind the treeItem Object"
+        item.domObj.addEvent('click', treeItemClicked.bind(item));
+
+        // add the item to the folder
+        folder.append(item);
+    }
+}
+}}}
+
+=== treeItemClicked(){ ===
+
+We have couple new globals here, we will set gImageFileName so we can track the active filename we are viewing. also not yet discussed is the global "gFitToWindow" I going under the assumption that we would want the image to fit inside of the rightLayout window.  Later we will create a menu item to toggle this global. 
+
+This function works like this:
+
+  # set the global so we know what filename is active
+  # check to see if gFitToWindow is true/false
+  # if true is sets the image src to our viewImage.php script to resample the image
+  # if false it sets the image src to the image itself
+  # then trigger the "treeItemClicked_CB" function with the EXIF data from the selected image
+
+{{{
+function treeItemClicked(){
+    // store the active fileName in a global
+    gImageFileName = this.options.label;
+
+    // see what the width of the rightLayout is set to currently minus the scalebar width
+    var divWidth = $('rightLayout').offsetWidth-17;
+
+    // if the global gFitToWindow is set to true then we will resize the images on the fly to fit in the rightLayout
+    if(gFitToWindow == true){
+        $('largeImage').src = "./viewImage.php?f="+gImageFileName+"&w="+divWidth;
+    }
+    else
+    {
+        // just change the src of the image. 
+        $('largeImage').src = "./samples/"+gImageFileName
+    }
+    
+    // get the exif Data for the image
+    new Request({url:"./getImages.php?exif="+this.options.label, onComplete: treeItemClicked_CB}).send();
+}
+}}}
+
+=== Jx.Splitter ===
+We want to also show the loaded images exif data so we will add a splitter in the leftLayout for the tree and exif data to apear. 
+
+Lets define our splitter just below the Jx.Layout section:
+{{{
+    new Jx.Splitter('leftLayout', {
+      elements: ['treeArea','exifArea'],
+      containerOptions: [{height:300}],
+      layout: 'vertical',
+    });
+}}}
+Splitter as well as a lot of the components have a few different techniques you can use to implement the components so do checkout the API documentation. 
+
+= Adding some substance to this application =
+
+Now that we have a rough layout we can start implementing some core functionality to it. 
+
+I created a couple php scripts for this application: 
+
+  # getImages.php 
+  # viewImage.php
+
+== getImages.php == 
+
+This script returns a JSON list of JPG files in our ./samples/ directory. It also is used to fetch the files EXIF data so we can view some stats on the viewed JPG. 
+
+By defult this script returns a json array of the images in this directory. If you specify 
+exif=[filename] it will return a json object of the specified filename. 
+
+
+== viewImage.php ==
+
+viewImage.php uses gd to resize the viewed image to the leftLayout's width 
+
+  # Retuns a list of images located in ./samples/
+  # Retreive's the EXIF data from a file.
+
+
+== Review == 
+
+So at this point we should have a fluid application that resized in the browser window with a left and right layout. A toolbar with a menu and a tree of our images with a splitter. 
+
+
