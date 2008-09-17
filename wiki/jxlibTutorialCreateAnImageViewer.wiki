@@ -48,6 +48,7 @@ window.addEvent('load', function() {
     var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 35, bottom: 0, minWidth: 100});
     var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 35, bottom: 0});
     mainContainer.resize();
+});
 </script>
 }}}
 
@@ -335,5 +336,3 @@ Lets define our splitter just below the Jx.Layout section:
     });
 }}}
 Splitter as well as a lot of the components have a few different techniques you can use to implement the components so do checkout the API documentation. 
-
-
