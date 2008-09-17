@@ -294,6 +294,34 @@ function treeItemClicked(){
     new Request({url:"./getImages.php?exif="+this.options.label, onComplete: treeItemClicked_CB}).send();
 }
 }}}
+== Supporting PHP scripts ==
+
+Now that we have a rough layout we can start implementing some core functionality to it. 
+
+I created a couple php scripts for this application: 
+
+  # getImages.php 
+  # viewImage.php
+
+=== getImages.php === 
+
+This script returns a JSON list of JPG files in our ./samples/ directory. It also is used to fetch the files EXIF data so we can view some stats on the viewed JPG. 
+
+By defult this script returns a json array of the images in this directory. If you specify 
+exif=[filename] it will return a json object of the specified filename. 
+
+
+=== viewImage.php ===
+
+viewImage.php uses gd to resize the viewed image to the leftLayout's width 
+
+  # Retuns a list of images located in ./samples/
+  # Retreive's the EXIF data from a file.
+
+
+== Review == 
+
+So at this point we should have a fluid application that resized in the browser window with a left and right layout. A toolbar with a menu and a tree of our images with a splitter. 
 
 === Jx.Splitter ===
 We want to also show the loaded images exif data so we will add a splitter in the leftLayout for the tree and exif data to apear. 
@@ -307,34 +335,5 @@ Lets define our splitter just below the Jx.Layout section:
     });
 }}}
 Splitter as well as a lot of the components have a few different techniques you can use to implement the components so do checkout the API documentation. 
-
-= Adding some substance to this application =
-
-Now that we have a rough layout we can start implementing some core functionality to it. 
-
-I created a couple php scripts for this application: 
-
-  # getImages.php 
-  # viewImage.php
-
-== getImages.php == 
-
-This script returns a JSON list of JPG files in our ./samples/ directory. It also is used to fetch the files EXIF data so we can view some stats on the viewed JPG. 
-
-By defult this script returns a json array of the images in this directory. If you specify 
-exif=[filename] it will return a json object of the specified filename. 
-
-
-== viewImage.php ==
-
-viewImage.php uses gd to resize the viewed image to the leftLayout's width 
-
-  # Retuns a list of images located in ./samples/
-  # Retreive's the EXIF data from a file.
-
-
-== Review == 
-
-So at this point we should have a fluid application that resized in the browser window with a left and right layout. A toolbar with a menu and a tree of our images with a splitter. 
 
 
