@@ -406,6 +406,61 @@ We need to create a div in our body now called aboutDialog here's our body block
 </body>
 }}}
 
+=== Adding Jx.Tabset ===
+
+Now that we have created a dialog we can add out tabset to it. Tabset work with 3 basic elements's here is the html for ours:
+{{{
+
+   <div id="aboutDialog_ToolBar"></div>
+   <div id="aboutDialog_TabArea" ></div>
+   <div id="aboutDialog_TabContent_1">Content for Tab 1</div>
+   <div id="aboutDialog_TabContent_2">Content for Tab 2</div>
+   <div id="aboutDialog_TabContent_3">Content for Tab 3</div>
+
+}}}
+
+aboutDialog_ToolBar is toolbar we are going to put our tabset into. Next we have "aboutDialog_TabArea" this is the element where the tab buttons will appear. The remaining three divs are for the tab content. Lets look at the Javascrip for this:
+
+{{{
+    var tb = new Jx.Toolbar({parent:'aboutDialog_ToolBar');
+    var ts = new Jx.TabSet('aboutDialog_TabArea');
+    
+    var t1 = new Jx.Button.Tab({label: 'Tab 1', content: 'aboutDialog_TabContent_1'});
+    var t2 = new Jx.Button.Tab({label: 'Tab 2', content: 'aboutDialog_TabContent_2'});
+    var t3 = new Jx.Button.Tab({label: 'Tab 3', content: 'aboutDialog_TabContent_3'});
+    
+    ts.add(t1, t2, t3);
+    tb.add(t1, t2, t3);
+}}}
+
+ * Our Toolbar belongs to "aboutDialog_ToolBar". 
+ * Then we create the TabSet which is "aboutDialog_TabArea".
+ * add the tabs to the tabset.
+ * add the tabs to the toolbar.
+
+Here's our new body html:
+{{{
+<body>
+    <div id="thePage">
+        <div id="theToolBar"></div>
+        <div id="leftLayout">
+            <div id="treeArea"></div>
+            <div id="exifArea"></div>
+        </div>
+        <div id="rightLayout">
+            <img id="largeImage" src="../../../lib/images/a_pixel.png">
+        </div>
+    </div>
+    
+    <div id="aboutDialog">
+        <div id="aboutDialog_ToolBar"></div>
+        <div id="aboutDialog_TabArea" ></div>
+        <div id="aboutDialog_TabContent_1">Content for Tab 1</div>
+        <div id="aboutDialog_TabContent_2">Content for Tab 2</div>
+        <div id="aboutDialog_TabContent_3">Content for Tab 3</div>
+    </div>
+</body>
+}}}
 
 
 
