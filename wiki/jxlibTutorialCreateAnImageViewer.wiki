@@ -933,8 +933,8 @@ Here is the contents of "viewImage.php"
 {{{
 <?
 
-$szWidth =  isset($_GET["w"])?$szPercent =$_GET["w"]: $szPercent = "";
-$szFileName =  isset($_GET["f"])?$szPercent =$_GET["f"]: $szPercent = "";
+$szWidth =  isset($_GET["w"])?$szWidth = $_GET["w"]: $szWidth = "";
+$szFileName =  isset($_GET["f"])?$szFileName =$_GET["f"]: $szFileName = "";
 $szPercent = isset($_GET["p"])?$szPercent =$_GET["p"]: $szPercent = "";
 
 $szFilePath = dirname(__FILE__)."/samples/".$szFileName;
