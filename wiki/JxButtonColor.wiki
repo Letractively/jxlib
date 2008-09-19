@@ -1,0 +1,13 @@
+#summary Working with Jx Color Buttons
+
+=== Jx.Button.Color ===
+
+button-color.png
+
+Color buttons 
+
+{{{
+var color = new Jx.Button.Color();
+}}}
+
+=== Jx.Button.Color API ===

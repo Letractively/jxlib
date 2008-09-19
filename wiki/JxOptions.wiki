@@ -1,0 +1,3 @@
+#summary Syntax for creating an options object for Jx component constructors and methods
+
+= Options Syntax = 

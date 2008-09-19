@@ -1,0 +1,3 @@
+#summary An API for loading asynchronous content that is inherited by several components
+
+= Content Loading API =
