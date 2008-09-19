@@ -829,3 +829,180 @@ Here's our new body html:
     </div>
 </body>
 }}}
+
+Heres is the contents getImages.php
+
+{{{
+<?php
+
+if(isset($_GET["exif"])){
+    // get the images exif data
+    $aExtension = split("\.",$_GET["exif"]);
+    //print_r(exif_read_data(dirname(__FILE__)."/samples/".$_GET["exif"]));
+    if(strtolower($aExtension[count($aExtension)-1]) == "jpg"){
+        echo var2json(createExifObject(exif_read_data(dirname(__FILE__)."/samples/".$_GET["exif"])));
+    }
+    else
+    {
+        echo "null";
+    }
+
+}
+else
+{
+    // show the directory
+    getImagesDirectory();
+}
+
+function getImagesDirectory(){
+    $handle = opendir(dirname(__FILE__)."/samples") or die("Unable to open this directory");
+    $aFiles = array();
+    /* loop through files in directory */
+    while (false!==($file = readdir($handle))) {
+        $aExtension = split("\.",$file);
+        switch(strtolower($aExtension[count($aExtension)-1])){
+            case "png":
+            case "gif":
+            case "jpg":{
+                array_push($aFiles,$file);
+            break;
+            }
+        }
+    }
+
+    /* close the directory */
+    closedir($handle);
+    echo var2json($aFiles);
+}
+function var2json($var) {
+    $result = "";
+    if (is_object($var)) {
+        $result .= "{";
+        $sep = "";
+        foreach($var as $key => $val) {
+            $result .= $sep.'"'.$key.'":'.var2json($val);
+            $sep = ",";
+        }
+        $result .= "}";
+    } else if (is_array($var)) {
+        $result .= "[";
+        $sep = "";
+        for($i=0; $i<count($var); $i++) {
+            $result .= $sep.var2json($var[$i]);
+            $sep = ",";
+        }
+        $result .= "]";
+    } else if (is_string($var)) {
+        //$tmpStr = str_replace("'", "\'", $var);
+        $tmpStr = str_replace('"', '\"', $var);
+        $result = '"'.str_replace("\n", '\n', $tmpStr).'"';
+    } else if (is_bool($var)) {
+        $result = $var ? 'true' : 'false';
+    } else if (is_null($var)) {
+        $result = 'null';
+    }else {
+        $result = $var;
+    }
+    return $result;
+}
+
+
+function createExifObject($aArray){
+
+    $oTmp = NULL;
+    $oTmp->make = @$aArray["Make"];
+    $oTmp->model = @$aArray["Model"];
+    $oTmp->fsize = @$aArray["FileSize"];
+    $oTmp->width = @$aArray["COMPUTED"]["Width"];
+    $oTmp->height = @$aArray["COMPUTED"]["Height"];
+    $oTmp->datetime = @$aArray["DateTime"];
+    $oTmp->exposure = @$aArray["ExposureTime"];
+    $oTmp->apature = @$aArray["MaxApertureValue"];
+    $oTmp->bias = @$aArray["ExposureBiasValue"];
+    $oTmp->focalLength = @$aArray["FocalLength"];
+
+    return $oTmp;
+
+}
+
+?>
+}}}
+
+Here is the contents of "viewImage.php"
+
+{{{
+<?
+
+$szWidth =  isset($_GET["w"])?$szPercent =$_GET["w"]: $szPercent = "";
+$szFileName =  isset($_GET["f"])?$szPercent =$_GET["f"]: $szPercent = "";
+$szPercent = isset($_GET["p"])?$szPercent =$_GET["p"]: $szPercent = "";
+
+$szFilePath = dirname(__FILE__)."/samples/".$szFileName;
+
+
+if($szWidth >0){
+    // resize by with with aspect
+    
+    if($szFileName != ""){
+
+        $width = $szWidth;
+        /*** the image file to thumbnail ***/
+
+        if(!file_exists($szFilePath))
+        {
+            echo 'No file found';
+        }
+        else
+        {
+            /*** image info ***/
+            list($width_orig, $height_orig, $image_type) = getimagesize($szFilePath);
+            /*** check for a supported image type ***/
+            if($image_type !== 2){
+                echo 'invalid image';
+                }
+                else
+                {
+                /*** thumb image name ***/
+                $thumb = 'thumb.jpg';
+
+                /*** maintain aspect ratio ***/
+                $height = (int) (($width / $width_orig) * $height_orig);
+
+                /*** resample the image ***/
+                $image_p = imagecreatetruecolor($width, $height);
+                $image = imageCreateFromJpeg($szFilePath);
+                imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+                header('Content-type: image/jpeg');
+                imageJpeg($image_p, null, 100);
+            }
+        }
+    }
+}
+
+if($szPercent != ""){
+    //resize by percent
+
+    // Get new dimensions
+    list($width, $height, $image_type) = getimagesize($szFilePath);
+
+    if($image_type !== 2){
+        echo 'invalid image';
+        }
+        else
+        {    
+        $new_width = $width * $szPercent;
+        $new_height = $height * $szPercent;
+
+        // Resample
+        $image_p = imagecreatetruecolor($new_width, $new_height);
+        $image = imagecreatefromjpeg($szFilePath);
+        imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+        // Output
+        header('Content-type: image/jpeg');
+        imagejpeg($image_p, null, 100);
+    }
+}
+
+?>
+}}}
