@@ -830,7 +830,18 @@ Here's our new body html:
 </body>
 }}}
 
-Heres is the contents getImages.php
+= Closing = 
+
+I will continue on this tutorial until we are using all of the jxlib's toolkit. I have included the source here below for the two script this application uses
+
+Cheers
+
+Paul Deschamps
+Applications Specialist.
+DM Solutions Group. 
+
+
+Here's "getImages.php"
 
 {{{
 <?php
@@ -928,7 +939,7 @@ function createExifObject($aArray){
 ?>
 }}}
 
-Here is the contents of "viewImage.php"
+Here's "viewImage.php"
 
 {{{
 <?
