@@ -350,7 +350,31 @@ Let's also add overflow:auto to our rightLayout because we are going to want to 
 }
 }}}
 
-=== treeItemClicked(){ ===
+== Supporting PHP scripts ==
+
+Now that we have a rough layout we can start implementing some core functionality to it. 
+
+I created a couple php scripts for this application: 
+
+  # getImages.php 
+  # viewImage.php
+
+=== getImages.php === 
+
+This script returns a JSON list of JPG files in our ./samples/ directory. It also is used to fetch the files EXIF data so we can view some stats on the viewed JPG. 
+
+By defult this script returns a json array of the images in this directory. If you specify 
+exif=[filename] it will return a json object of the specified filename. 
+
+
+=== viewImage.php ===
+
+viewImage.php uses gd to resize the viewed image to the leftLayout's width 
+
+  # Retuns a list of images located in ./samples/
+  # Retreive's the EXIF data from a file.
+
+=== treeItemClicked() ===
 
 We have couple new globals here, we will set gImageFileName so we can track the active filename we are viewing. also not yet discussed is the global "gFitToWindow" I going under the assumption that we would want the image to fit inside of the rightLayout window.  Later we will create a menu item to toggle this global. 
 
@@ -385,29 +409,7 @@ function treeItemClicked(){
 
 }
 }}}
-== Supporting PHP scripts ==
 
-Now that we have a rough layout we can start implementing some core functionality to it. 
-
-I created a couple php scripts for this application: 
-
-  # getImages.php 
-  # viewImage.php
-
-=== getImages.php === 
-
-This script returns a JSON list of JPG files in our ./samples/ directory. It also is used to fetch the files EXIF data so we can view some stats on the viewed JPG. 
-
-By defult this script returns a json array of the images in this directory. If you specify 
-exif=[filename] it will return a json object of the specified filename. 
-
-
-=== viewImage.php ===
-
-viewImage.php uses gd to resize the viewed image to the leftLayout's width 
-
-  # Retuns a list of images located in ./samples/
-  # Retreive's the EXIF data from a file.
 
 === Jx.Splitter ===
 We want to also show the loaded images exif data so we will add a splitter in the leftLayout for the tree and exif data to apear. 
