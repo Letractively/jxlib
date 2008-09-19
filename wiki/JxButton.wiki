@@ -11,10 +11,10 @@ The basic button object is Jx.Button.  Visually, a button may contain an image, 
 A button has several visual states.  How each state looks depends on the [JxSkins skin] in use, these are taken from the Delicious skin: 
 
 || State || Not In Toolbar || In Toolbar || Description ||
-|| normal || http://jxlib.googlecode.com/svn/wiki/button-icon-label.png || button-normal.png || the button is just sitting there ||
-|| hover || http://jxlib.googlecode.com/svn/wiki/button-hover.png || button-hover.png ||  the button glows when the mouse hovers over it ||
-|| active || http://jxlib.googlecode.com/svn/wiki/button-active.png || button-active.png || the button is being clicked ||
-|| on || http://jxlib.googlecode.com/svn/wiki/button-on.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down' ||
+|| normal || http://jxlib.googlecode.com/svn/wiki/images/button-icon-label.png || button-normal.png || the button is just sitting there ||
+|| hover || http://jxlib.googlecode.com/svn/wiki/images/button-hover.png || button-hover.png ||  the button glows when the mouse hovers over it ||
+|| active || http://jxlib.googlecode.com/svn/wiki/images/button-active.png || button-active.png || the button is being clicked ||
+|| on || http://jxlib.googlecode.com/svn/wiki/images/button-on.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down' ||
 
 Creating a new instance of Jx.Button is straightforward: 
 
@@ -72,7 +72,7 @@ button.addTo(el);
 
 You should see something like this: 
 
-http://jxlib.googlecode.com/svn/wiki/button-empty.png
+http://jxlib.googlecode.com/svn/wiki/images/button-empty.png
 
 This creates an empty button that isn’t very useful for the user because it has no indication of what it is for!  But it has all the behaviour of a button, including all the various states - try it out! 
 
@@ -86,7 +86,7 @@ var button = new Jx.Button({
 button.addTo('buttonContainer');
 }}}
 
-http://jxlib.googlecode.com/svn/wiki/button-icon-label.png
+http://jxlib.googlecode.com/svn/wiki/images/button-icon-label.png
 
 So now we have a good looking button that provides the user with an indication of what the button will do when they click on it, but it doesn’t actually do anything when they click on it!  This is where [JxEvents Events] come in. 
 
@@ -122,7 +122,7 @@ Both methods produce identical results, namely a function gets called when the b
 
 === Toggle Buttons ===
 
-http://jxlib.googlecode.com/svn/wiki/button-on.png
+http://jxlib.googlecode.com/svn/wiki/images/button-on.png
 
 A toggle button is one that has a particular state, up or down, and persists in that state.  The user changes the state by clicking the button to toggle it.  This is equivalent to an HTML checkbox. 
 
