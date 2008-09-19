@@ -754,7 +754,7 @@ Now that we have created a dialog we can add out tabset to it. Tabset work with 
 aboutDialog_ToolBar is toolbar we are going to put our tabset into. Next we have "aboutDialog_TabArea" this is the element where the tab buttons will appear. The remaining three divs are for the tab content. Lets look at the Javascrip for this:
 
 {{{
-    var tb = new Jx.Toolbar({parent:'aboutDialog_ToolBar');
+    var tb = new Jx.Toolbar({parent:'aboutDialog_ToolBar'});
     var ts = new Jx.TabSet('aboutDialog_TabArea');
     
     var t1 = new Jx.Button.Tab({label: 'Tab 1', content: 'aboutDialog_TabContent_1'});
@@ -793,4 +793,3 @@ Here's our new body html:
     </div>
 </body>
 }}}
-
