@@ -2,9 +2,9 @@
 
 = Getting Started =
 
-JX.Layout uses the DOM elements in your document as reference points for your application, In this exercise we are going to create a Layout which houses two columns inside the browser window. 
+In this tutorial we are going to create a "Image Viewer Application" using jxlib and some php. 
 
-To start we need to include the JX.Lib in the head section of our document as well as the crispin theme:
+To start we need to include the jxlib in the head section of our html document and as well add the include for the crispin css:
 {{{
 <html>
     <head>
