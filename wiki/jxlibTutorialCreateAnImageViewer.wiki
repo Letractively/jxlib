@@ -29,7 +29,7 @@ There are three elements that are needed to create this layout:
 
 == The Page Container ==
 
-This main page container houses the two child containers these children are the basis for the column's (left and right). 
+This main page container houses the two child containers, these children break up this parent "thePage" into two  column's (left and right).
 {{{
 <body>
     <div id="thePage">
@@ -38,7 +38,8 @@ This main page container houses the two child containers these children are the 
     </div>
 </body>
 }}}
-We want to have a left column which is more narrow then the right column see the above illustration of our intended layout. 
+
+Our left column is goint to be the image navigation section and the right is where the displayed image is going to go. So we will make the left column more narrow then the right column as it is shown above.
 
 Here is how we initialize this layout:
 {{{
@@ -53,24 +54,32 @@ window.addEvent('load', function() {
 </script>
 }}}
 
+== mainContainer.resize(); ==
+
+This is a pretty important function call resize() on layout objects recalculate their parents position and size. I will keep this "mainContainer.resize();" call at the bottom of my "load" function object. as I build up this application.
 
 == The onLoad Event ==
 
-What we need to do here is add a event handler to the “onLoad” event see http://www.w3.org/TR/REC-html40/interact/scripts.html#h-18.2.3 for more information the DOM and event handler's
+Add a event handler to the "onLoad" event see http://www.w3.org/TR/REC-html40/interact/scripts.html#h-18.2.3 for more information the DOM and event handler's
 
-Using this window.addEvent method instead of window.onLoad = function(){} allows script independence for other onLoad items you might want to happen within the onLoad event.
+Using this window.addEvent method instead of window.onLoad = function(){} allows us script independence for other onLoad items you might want to attach to the window.onLoad event.
 
-You could use  window.onLoad = function(){...} however no other script will be attached to the window.onLoad event.  other then what is defined in that function.
+You could use  window.onLoad = function(){...} directly however no other script will be able to be attached to this window.onLoad event.  
 
 == Building the Layout (Jx.Layout) ==
-Now what is needed is for us to specify how Jx.Layout is going to behave. Using  a main container and a left and right container  we can specify it's default dimensions
+Lets setup how Jx.Layout is going to behave.
+
+Using  a main container and a left and right container  we can specify the default dimensions.
+
 {{{
     var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 35, bottom: 0, minWidth: 100});
     var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 35, bottom: 0});
 }}}
-In Jx.Layout a width or height of “null” tells jx.layout to fill it with all the available space. 
 
-Now that we have setup our basic layout lets go ahead and add some style properties so we can see what it is doing
+In Jx.Layout a width or height of "null" tells it to fill the div within all the available space.
+
+Now that we have setup our basic layout lets go ahead and add some style properties so we can see how these div's are positioned in the browser. 
+
 {{{
 <style type="text/css">
 /*
@@ -99,13 +108,16 @@ Now that we have setup our basic layout lets go ahead and add some style propert
 }
 </style>
 }}}
-We should now have something that looks like this:
+
+Here's a screen shot of what our application should now look like:
 
 http://jxlib.googlecode.com/svn/wiki/images/layout.png
 
 == Creating the ToolBar (Jx.Toolbar) ==
 
-Our little application is going to need a menu in a toolbar so lets add that at the top of the application adding a div “theToolBar” inside “thePage”:
+Our application is going to need a Jx.menu in a Jx.toolbar so lets add this toolbar at the top of the application  inside “thePage”
+
+Here's our Body Section:
 {{{
 <body>
     <div id="thePage">
@@ -114,8 +126,11 @@ Our little application is going to need a menu in a toolbar so lets add that at 
         <div id="rightLayout"></div>
     </div>
 </body>
+
 }}}
-We're going to have to adjust our JX.Layout to accommodate this toolbar
+
+We'll use Jx.Layout to handle the sizing of this Jx.toolbar:
+
 {{{
 
     var mainContainer = new Jx.Layout('thePage', {bottom: 35});
@@ -124,12 +139,17 @@ We're going to have to adjust our JX.Layout to accommodate this toolbar
     var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 35, bottom: 0});
 
 }}}
-As you can see I simply added a new JX.Layout item and set it's height to be 35 and then adjusted leftLayout and rightLayout to have a top of 35. Now lets add the JX.Toolbar :
+
+As you can see I simply added a new JX.Layout item and set it's height to be 35 and then adjusted leftLayout and rightLayout to have a top of 35.
+
+Now lets go ahead add the JX.Toolbar :
+
 {{{
     var theToolBar = new Jx.Toolbar({parent: 'theToolBar'});
 }}}
 
-and lets add some css to it so we can see what it looks like:
+and wel'll add some css the toolbar so we can see what the structure looks like now:
+
 {{{
 
 /*
@@ -141,15 +161,17 @@ and lets add some css to it so we can see what it looks like:
 
 }}}
 
-We should have our basic layout finished now
+Here's our layout: we are done with the layout aspects now and you will notice that when you resize your browser this layout also resizes. 
 
 http://jxlib.googlecode.com/svn/wiki/images/layout2.png
 
-We're going to keep these "ugly" div outlines on as we go through this tutorial.
+Let's keep the  "ugly" div outlines on as we go through this tutorial.
 
 == Adding the Menu (JX.Menu) ==
 
-Now that we have a toolbar we can add a menu to it. JXMenus can get complicated based on the levels of nesting etc. but for this exercise lets create a options menu and a help menu. 
+Now that we have a Jx.toolbar we can add a Jx.menu to it. Jx.menus can get complicated depending on the nesting so for this exercise lets create a options menu and a help menu:
+
+Here's the JavaScript:
 {{{
   // create the root menu item container
     var optionMenu = new Jx.Menu({label: 'Options'});
@@ -185,16 +207,18 @@ and now the help menu:
     theToolBar.add(helpMenu);
 }}}
 
-Notice in both these menus we have a different onClick value, The beauty in JS in general is that there are usually numerous ways you can implement the same thing and this is also the case in JX. 
+Notice in both of these menus we have a different onClick value, The beauty of JavaScript in general is that their is usually numerous ways you can implement the same thing and this is also the case in Jx.
 
-You can either use function() and create an inline function object or call the function using a prototypic style with bind() though what is missing here is the bound function:
+You can create a function object inline or call the function using a prototypic style with bind(), though if we do that we need to create the referenced function outside of this load object
+
+Here it is:
 {{{
     function myInfoFunction(){
         alert("another.. way to skin a cat");
     }
 }}}
 
-Now that we added this JX.toolbar we should have something that resembles this:
+Now our application is really shaping up with some functionality:
 
 http://jxlib.googlecode.com/svn/wiki/images/layout1.png
 
@@ -203,10 +227,10 @@ http://jxlib.googlecode.com/svn/wiki/images/layout1.png
 We'll use JX.tree for the image navigation.
 
 === Getting the tree data ===
-in our JavasScript now we need to add a couple functions 
+in our JavasScript we need to add a bunch of functions
 
 === updateTree() ===
-With this function we trigger a ajax call to our getImages.php script which returns a json array of the images in our ./samples/ directory. It fetches that json array and fires updateTree_CB with the object.
+With this function we will trigger a ajax call to our getImages.php script which in turn returns a json array of the images in our ./samples/ directory. we will pass that along to the updateTree_CB function.
 
 
 {{{
@@ -221,7 +245,7 @@ function updateTree(){
 
 
 === updateTree_CB(oObject) ===
-Using the json from our last function call we can now set our global var gaImages to this data and begin the buildTree function. Notice there is not any trapping here for errors. 
+Using the json from updateTree() we will populate  our global variable gaImages to this object and begin building the tree with the buildTree function. WARNING: Notice we are not trapping for any errors here. to keep this tutorial focused on Jx I won't get into Json and error trapping. 
 
 {{{
 function updateTree_CB(oObject){
@@ -233,7 +257,8 @@ function updateTree_CB(oObject){
 }
 }}}
 
-now lets add the function call to "updateTree();" in our onLoad object and add a couple globals gaImages and gFitToWindow
+Now we need to add a call to "updateTree();" in our "load" object and add also add couple globals in our application "gaImages and gFitToWindow" we'll get to that later. 
+
 {{{
 var gaImages = [];
 var gFitToWindow = true;
@@ -288,9 +313,9 @@ window.addEvent('load', function() {
 
 === buildTree() ===
 
-This function is the meat and potatoes of our tree. simply put it creates the main Jx.Tree Object and adds a Jx.TreeFolder to it and cycles through our gaImages array adding Jx.TreeItem's in the folder.
+This is the meat and potatoes of our tree. Simply put we will create the main Jx.Tree Object then add a Jx.TreeFolder to it and then cycle through our gaImages array adding Jx.TreeItem's to this Jx.folder.
 
-We are going to add a eventListener for the click event on the Jx.TreeItem's that we create here, which then in turn call our next function "treeItemClicked" with the Jx.treeItem object so we can know which item has been clicked. 
+Then we need to add an eventListener for the click event to the Jx.TreeItem's that we create here, which will then in turn call the next function  "treeItemClicked" with the Jx.treeItem object so will know which item has been clicked.
 
 Here's the updated body HTML:
 {{{
@@ -307,7 +332,9 @@ Here's the updated body HTML:
     </div>
 </body>
 }}}
-and it's javascript:
+
+and the javaScript:
+
 {{{
 
 function buildTree(){
@@ -340,7 +367,7 @@ function buildTree(){
 }
 }}}
 
-Let's also add overflow:auto to our rightLayout because we are going to want to have the image scroll inside that area
+We are going to want to have the image scroll inside that area, so let's add overflow:auto to our rightLayout.
 
 {{{
 #rightLayout {
@@ -352,33 +379,33 @@ Let's also add overflow:auto to our rightLayout because we are going to want to 
 
 == Supporting PHP scripts ==
 
-Now that we have a rough layout we can start implementing some core functionality to it. 
+We can start implementing some core functionality to this application now. 
 
-I created a couple php scripts for this application: 
+Here's a couple scripts were going to use for our ImageViewer
 
   # getImages.php 
   # viewImage.php
 
 === getImages.php === 
 
-This script returns a JSON list of JPG files in our ./samples/ directory. It also is used to fetch the files EXIF data so we can view some stats on the viewed JPG. 
+This script returns a JSON object of JPG files that reside in the ./samples/ directory. It also is used to fetch a files EXIF data so we can view some stats on the viewed JPG.
 
-By defult this script returns a json array of the images in this directory. If you specify 
-exif=[filename] it will return a json object of the specified filename. 
+With no parameters this script will return the json array.
 
+If you specify:
+exif=[filename]
+
+it will then return a json object of the images Exif metadata using the specified filename.
 
 === viewImage.php ===
 
-viewImage.php uses gd to resize the viewed image to the leftLayout's width 
-
-  # Retuns a list of images located in ./samples/
-  # Retreive's the EXIF data from a file.
+viewImage.php uses gd to resize the  image to the leftLayout's width.
 
 === treeItemClicked() ===
 
-We have couple new globals here, we will set gImageFileName so we can track the active filename we are viewing. also not yet discussed is the global "gFitToWindow" I going under the assumption that we would want the image to fit inside of the rightLayout window.  Later we will create a menu item to toggle this global. 
+We have couple new globals here, we will set gImageFileName so we can track the active filename. And also not yet discussed is the global "gFitToWindow" I going to assume that we would want the image to fit inside of the rightLayout window and not scroll horizontally.  Later we will create a Combo menu item to toggle this global.
 
-This function works like this:
+This function behaves like this:
 
   # set the global so we know what filename is active
   # check to see if gFitToWindow is true/false
@@ -412,9 +439,9 @@ function treeItemClicked(){
 
 
 === Jx.Splitter ===
-We want to also show the loaded images exif data so we will add a splitter in the leftLayout for the tree and exif data to apear. 
+Now we will add a splitter in the leftLayout inbetween the Jx.Tree and the exifArea.
 
-Lets define our splitter just below the Jx.Layout section but above the mainContainer.resize() statement.
+Lets define our Jx.splitter object just below the Jx.Layout section but above the mainContainer.resize() function call.
 {{{
     new Jx.Splitter('leftLayout', {
       elements: ['treeArea','exifArea'],
@@ -425,7 +452,8 @@ Lets define our splitter just below the Jx.Layout section but above the mainCont
 
 === Populating the Exif Div ===
 
-We now have a call back function when a tree item is clicked that fetches the Image Exif Data. now lets create a function that uses that exif data and populates the div
+We now have a call back function when the tree item is clicked that fetches the Image Exif Data. Now lets create a function that uses that exif data and populates the exifArea div
+
 {{{
 function treeItemClicked_CB(oObject){
     eval("var ExifData = "+oObject);
@@ -692,11 +720,11 @@ function treeItemClicked_CB(oObject){
 === Adding A Dialog ===
 We are going to now add a Jx.Dialog with Jx.Tabset
 
-Our dialog is going to be a fixed size 400px x 400px we will alow it to be moved around and resizeable 
+Our dialog is going to be a fixed size 400px x 400px we will alow it to be moved around and also be resizeable 
 
-Here's the javascript for our "about" dialog lets put it directly under our jx.Layout definitions:
+Here's the javascript for our "about" dialog, lets put it directly under our jx.Layout definitions:
 
-It is a good idea to have all your container objects like layout dialog splitter panel to appear in that order. for example if you are trying to have a menu item call a dialog. you should have that dialog defined already. So containers get defined first. 
+It is a good idea to have all your container objects like layout dialog splitter panel to appear in the top of your document. For example if you are trying to have a menu item's onClick call a dialog, you should have that dialog defined already. So in some cases you need to pay attention to the order of which the objects are defined.
 
 {{{
     var aboutDialog = new Jx.Dialog(
@@ -713,8 +741,10 @@ It is a good idea to have all your container objects like layout dialog splitter
     );
 }}}
 
-We need to create a div in our body now called aboutDialog here's our body block now:
+Create a div in our body called aboutDialog.
 
+
+Here's the body block:
 {{{
 <body>
     <div id="thePage">
@@ -731,8 +761,9 @@ We need to create a div in our body now called aboutDialog here's our body block
 </body>
 }}}
 
-We want this dialog to open when we use the Help / About menu item so lets change that do call the dialog's open function
+This dialog is to open up when we use the Help / About menu item, so change the menu item to call the dialog's open function
 
+JavaScript:
 {{{
     var menuItem2 = new Jx.Menu.Item({
         label: 'About',
@@ -742,19 +773,22 @@ We want this dialog to open when we use the Help / About menu item so lets chang
 
 === Adding Jx.Tabset ===
 
-Now that we have created a dialog we can add out tabset to it. Tabset work with 3 basic elements's here is the html for ours:
-{{{
+Now on to adding our tabset. Tabset's work with three basic elements's.
 
+Here is the structure:
+{{{
    <div id="aboutDialog_ToolBar"></div>
    <div id="aboutDialog_TabArea" ></div>
    <div id="aboutDialog_TabContent_1">Content for Tab 1</div>
    <div id="aboutDialog_TabContent_2">Content for Tab 2</div>
    <div id="aboutDialog_TabContent_3">Content for Tab 3</div>
-
 }}}
 
-aboutDialog_ToolBar is toolbar we are going to put our tabset into. Next we have "aboutDialog_TabArea" this is the element where the tab buttons will appear. The remaining three divs are for the tab content. Lets look at the Javascrip for this:
+ * aboutDialog_ToolBar is the  Jx.Toolbar that we are going to put our tabset into.
+ * aboutDialog_TabArea  is the Jx.TabSet where the tabs and tab content get appended to.
+ * The remaining three divs are for the tab content.
 
+Lets look at the Javascrip for this:
 {{{
     var tb = new Jx.Toolbar({parent:'aboutDialog_ToolBar'});
     var ts = new Jx.TabSet('aboutDialog_TabArea');
