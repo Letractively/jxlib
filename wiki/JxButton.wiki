@@ -11,10 +11,10 @@ The basic button object is Jx.Button.  Visually, a button may contain an image, 
 A button has several visual states.  How each state looks depends on the [JxSkins skin] in use, these are taken from the Delicious skin: 
 
 || State || Not In Toolbar || In Toolbar || Description ||
-|| normal || http://jxlib.googlecode.com/svn/wiki/images/button-icon-label.png || button-normal.png || the button is just sitting there ||
-|| hover || http://jxlib.googlecode.com/svn/wiki/images/button-hover.png || button-hover.png ||  the button glows when the mouse hovers over it ||
-|| active || http://jxlib.googlecode.com/svn/wiki/images/button-active.png || button-active.png || the button is being clicked ||
-|| on || http://jxlib.googlecode.com/svn/wiki/images/button-on.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down' ||
+|| normal || http://jxlib.googlecode.com/svn/wiki/images/button-normal.png || http://jxlib.googlecode.com/svn/wiki/images/button-normal-toolbar.png || the button is just sitting there ||
+|| hover || http://jxlib.googlecode.com/svn/wiki/images/button-hover.png || http://jxlib.googlecode.com/svn/wiki/images/button-hover-toolbar.png ||  the button glows when the mouse hovers over it ||
+|| active || http://jxlib.googlecode.com/svn/wiki/images/button-active.png || http://jxlib.googlecode.com/svn/wiki/images/button-active-toolbar.png || the button is being clicked ||
+|| on || http://jxlib.googlecode.com/svn/wiki/images/button-on.png || http://jxlib.googlecode.com/svn/wiki/images/button-on-toolbar.png || the button looks depressed when the button is pressed or a toggle button is considered 'down' ||
 
 Creating a new instance of Jx.Button is straightforward: 
 
