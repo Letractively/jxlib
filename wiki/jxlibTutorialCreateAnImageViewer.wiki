@@ -4,12 +4,13 @@
 
 JX.Layout uses the DOM elements in your document as reference points for your application, In this exercise we are going to create a Layout which houses two columns inside the browser window. 
 
-To start we need to include the JX.Lib in the head section of our document:
+To start we need to include the JX.Lib in the head section of our document as well as the crispin theme:
 {{{
 <html>
     <head>
     <title>Creating a Image Viewer Application Using JX.Layout</title>
     <script src="jxlib.uncompressed.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="../../../lib/jxskin_crispin.css" type="text/css" media="screen" charset="utf-8">
     </head>
     <body>
     </body>
@@ -128,6 +129,24 @@ As you can see I simply added a new JX.Layout item and set it's height to be 35 
     var theToolBar = new Jx.Toolbar({parent: 'theToolBar'});
 }}}
 
+and lets add some css to it so we can see what it looks like:
+{{{
+
+/*
+    The Toolbar:
+*/
+#theToolBar{
+  border: 1px solid orange;
+}
+
+}}}
+
+We should have our basic layout finished now
+
+http://jxlib.googlecode.com/svn/wiki/images/layout2.png
+
+We're going to keep these "ugly" div outlines on as we go through this tutorial.
+
 == Adding the Menu (JX.Menu) ==
 
 Now that we have a toolbar we can add a menu to it. JXMenus can get complicated based on the levels of nesting etc. but for this exercise lets create a options menu and a help menu. 
@@ -189,6 +208,7 @@ in our JavasScript now we need to add a couple functions
 === updateTree() ===
 With this function we trigger a ajax call to our getImages.php script which returns a json array of the images in our ./samples/ directory. It fetches that json array and fires updateTree_CB with the object.
 
+
 {{{
 
 function updateTree(){
@@ -197,6 +217,8 @@ function updateTree(){
     new Request({url:"./getImages.php", onComplete: updateTree_CB}).send();
 }
 }}}
+
+
 
 === updateTree_CB(oObject) ===
 Using the json from our last function call we can now set our global var gaImages to this data and begin the buildTree function. Notice there is not any trapping here for errors. 
@@ -209,6 +231,59 @@ function updateTree_CB(oObject){
     // call buildTree and start working with Jx.Tree
     buildTree();
 }
+}}}
+
+now lets add the function call to "updateTree();" in our onLoad object and add a couple globals gaImages and gFitToWindow
+{{{
+var gaImages = [];
+var gFitToWindow = true;
+window.addEvent('load', function() {
+
+    var mainContainer = new Jx.Layout('thePage', {bottom: 35});
+    var theToolBar = new Jx.Layout('theToolBar', {width: null, height:35, left: 0, right: null, top: 0, bottom: 0, minWidth: 100});
+    var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 35, bottom: 0, minWidth: 100});
+    var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 35, bottom: 0});
+
+    var theToolBar = new Jx.Toolbar({parent: 'theToolBar'});
+
+  // create the root menu item container
+    var optionMenu = new Jx.Menu({label: 'Options'});
+
+    // create menu item
+    var menuitem1 = new Jx.Menu.Item({
+      label: ' Display Settings',
+      onClick:function(){alert('One way to skin a cat')}
+    });
+
+    // add the menu item to the menu container
+    optionMenu.add(menuitem1);
+
+    // add the menu to the toolbar
+    theToolBar.add(optionMenu);
+
+    // create the root menu item container
+    var helpMenu = new Jx.Menu({label: 'Help'});
+    // create menu item
+    var menuItem1 = new Jx.Menu.Item({
+        label: 'Info' ,
+        onClick:myInfoFunction.bind()
+    });
+    // create menu item
+    var menuItem2 = new Jx.Menu.Item({label: 'About'});
+
+    // add the menu item to the menu container
+    helpMenu.add(menuItem1,menuItem2);
+    
+    // add the menu to the toolbar
+    theToolBar.add(helpMenu);
+
+    //build the jx.tree
+    updateTree();
+
+    // resize the layout
+    mainContainer.resize();
+});
+
 }}}
 
 === buildTree() ===
@@ -262,6 +337,16 @@ function buildTree(){
         // add the item to the folder
         folder.append(item);
     }
+}
+}}}
+
+Let's also add overflow:auto to our rightLayout because we are going to want to have the image scroll inside that area
+
+{{{
+#rightLayout {
+  border: 1px solid blue;
+  overflow:auto;
+  /*margin: 10px;*/
 }
 }}}
 
@@ -362,15 +447,250 @@ function treeItemClicked_CB(oObject){
 }
 }}}
 
+Now some final touches on the Exif Css
+
+{{{
+#exifArea {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  overflow:auto;
+  padding:3px;
+}
+
+#exifArea .exifTitle{
+  font-weight:bold;
+}
+}}}
+
 == Review ==
 
 So at this point we should have a fluid application that resized in the browser window with a left and right layout. A toolbar with a menu and a tree of our images with a splitter.
 
+http://jxlib.googlecode.com/svn/wiki/images/layout3.png
+
+Here's a snapshot on where we should be now in the html document:
+
+{{{
+<html>
+    <head>
+    <title>Creating a Image Viewer Application Using JX.Layout</title>
+    <script src="../../../lib/jxlib.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="../../../lib/jxskin_crispin.css" type="text/css" media="screen" charset="utf-8">
+    
+<script  type="text/javascript">
+var gaImages = [];
+var gFitToWindow = true;
+window.addEvent('load', function() {
+
+    var mainContainer = new Jx.Layout('thePage', {bottom: 35});
+    var theToolBar = new Jx.Layout('theToolBar', {width: null, height:35, left: 0, right: null, top: 0, bottom: 0, minWidth: 100});
+    var leftLayout = new Jx.Layout('leftLayout', {width: 200, left: 0, right: null, top: 35, bottom: 0, minWidth: 100});
+    var rightLayout = new Jx.Layout('rightLayout',  {width: null, left: 200, right: 0, top: 35, bottom: 0});
+
+    var theToolBar = new Jx.Toolbar({parent: 'theToolBar'});
+
+  // create the root menu item container
+    var optionMenu = new Jx.Menu({label: 'Options'});
+
+    // create menu item
+    var menuitem1 = new Jx.Menu.Item({
+      label: ' Display Settings',
+      onClick:function(){alert('One way to skin a cat')}
+    });
+
+    // add the menu item to the menu container
+    optionMenu.add(menuitem1);
+
+    // add the menu to the toolbar
+    theToolBar.add(optionMenu);
+
+    // create the root menu item container
+    var helpMenu = new Jx.Menu({label: 'Help'});
+    // create menu item
+    var menuItem1 = new Jx.Menu.Item({
+        label: 'Info' ,
+        onClick:myInfoFunction.bind()
+    });
+    // create menu item
+    var menuItem2 = new Jx.Menu.Item({label: 'About'});
+
+    // add the menu item to the menu container
+    helpMenu.add(menuItem1,menuItem2);
+    
+    // add the menu to the toolbar
+    theToolBar.add(helpMenu);
+
+    //build the jx.tree
+    updateTree();
+
+    new Jx.Splitter('leftLayout', {
+      elements: ['treeArea','exifArea'],
+      containerOptions: [{height:200}],
+      layout: 'vertical',
+    });
+
+    // resize the layout
+    mainContainer.resize();
+});
+
+function myInfoFunction(){
+    alert("another.. way to skin a cat");
+}
+
+function updateTree(){
+    // get the file listings in a JSON Array from "getImages.php"
+    new Request({url:"./getImages.php", onComplete: updateTree_CB}).send();
+}
+
+function updateTree_CB(oObject){
+// create / set the images global
+eval("gaImages = "+oObject);
+
+// call buildTree and start working with Jx.Tree
+buildTree();
+}
+
+function buildTree(){
+
+    // create the root Jx.Tree
+    var tree = new Jx.Tree('treeArea');
+
+    // create a folder to be added to Jx.Tree
+    var folder = new Jx.TreeFolder({
+        label: 'My Folder',
+        image: 'images/blue_folder.png',
+        imageClass: 'blueFolder'
+    });
+
+    // add the folder to the tree
+    tree.append(folder);
+
+    // cycle through the global gaImages and add Jx.TreeItem's
+    for(var i=0;i<gaImages.length;i++){
+        var item = new Jx.TreeItem({
+            label: gaImages[i]
+        });
+
+        // create a evenListener for click on the JX.TreeItem Dom Object. fire "treeItemClicked Func and bind the treeItem Object"
+        item.domObj.addEvent('click', treeItemClicked.bind(item));
+
+        // add the item to the folder
+        folder.append(item);
+    }
+}
+function treeItemClicked(){
+    // store the active fileName in a global
+    gImageFileName = this.options.label;
+
+    // see what the width of the rightLayout is set to currently
+    var divWidth = $('rightLayout').offsetWidth-17;
+
+    // if the global gFitToWindow is set to true then we will resize the images on the fly to fit in the rightLayout
+    if(gFitToWindow == true){
+        $('largeImage').src = "./viewImage.php?f="+gImageFileName+"&w="+divWidth;
+    }
+    else
+    {
+        // just change the src of the image.
+        $('largeImage').src = "./samples/"+gImageFileName
+    }
+
+    // get the exif Data for the image
+    new Request({url:"./getImages.php?exif="+this.options.label, onComplete: treeItemClicked_CB}).send();
+}
+
+function treeItemClicked_CB(oObject){
+    eval("var ExifData = "+oObject);
+    var oDiv = $('exifArea');
+    oDiv.innerHTML = "";
+    var szInnerHtml = "";
+    var szTheValue = "";
+    
+    for(item in ExifData){
+        
+        if(ExifData[item] == null){
+            szTheValue = "";
+        }
+        else
+        {
+            szTheValue = ExifData[item];
+        }
+        szInnerHtml = szInnerHtml +"<span class='exifTitle'>"+ item+ "</span>:<span class='exifValue'>"+szTheValue +"<br>";
+    }
+    oDiv.innerHTML = szInnerHtml;
+}
+</script>
+
+<style type="text/css">
+/*
+    The Main Page Container
+*/
+#thePage {
+  border: 1px solid red;
+  margin: 10px;
+  padding: 10px;
+}
+
+/*
+    The Left Side:
+*/
+
+#leftLayout {
+  border: 1px solid green;
+}
+
+/*
+    The Right Side:
+*/
+
+#rightLayout {
+  border: 1px solid blue;
+  overflow:auto;
+  /*margin: 10px;*/
+}
+
+/*
+    The Toolbar:
+*/
+#theToolBar{
+  border: 1px solid orange;
+}
+
+#exifArea {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  overflow:auto;
+  padding:3px;
+}
+
+#exifArea .exifTitle{
+  font-weight:bold;
+}
+</style>
+
+</head>
+<body>
+    <div id="thePage">
+        <div id="theToolBar"></div>
+        <div id="leftLayout">
+            <div id="treeArea"></div>
+            <div id="exifArea"></div>
+        </div>
+        <div id="rightLayout">
+            <img id="largeImage" src="../../../lib/images/a_pixel.png">
+        </div>
+    </div>
+</body>
+</html>
+}}}
+
+
+=== Adding A Dialog ===
 We are going to now add a Jx.Dialog with Jx.Tabset
 
 Our dialog is going to be a fixed size 400px x 400px we will alow it to be moved around and resizeable 
-
-=== Adding A Dialog ===
 
 Here's the javascript for our "about" dialog:
 {{{
@@ -461,8 +781,6 @@ Here's our new body html:
     </div>
 </body>
 }}}
-
-
 
 
 
