@@ -80,8 +80,8 @@ To create a more useful button, you can pass in one or more options. 
 
 {{{
 var button = new Jx.Button({
-    image: 'images/bug.png'
-    label: 'button'
+    image: 'images/star.png'
+    label: 'Label and Icon'
 });
 button.addTo('buttonContainer');
 }}}
