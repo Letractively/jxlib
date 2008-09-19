@@ -6,16 +6,15 @@ Buttons are basic building blocks for most web applications.  They provide the u
 
 == Jx.Button ==
 
-http://jxlib.googlecode.com/svn/wiki/images/button-icon-label.png
-
 The basic button object is Jx.Button.  Visually, a button may contain an image, some text or both.  When the button is clicked, it fires an event that the application developer can listen for and take some action on. 
 
-A button has several visual states: 
+A button has several visual states.  How each state looks depends on the [JxSkins skin] in use, these are taken from the Delicious skin: 
 
 || State || Not In Toolbar || In Toolbar || Description ||
-|| normal || button-normal-toolbar.png || button-normal.png || the button is just sitting there, looking cool ||
-|| hover || button-hover-toolbar.png || button-hover.png ||  the button responds to the mouse hovering over it by glowing ||
-|| active || button-active-toolbar.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down' ||
+|| normal || http://jxlib.googlecode.com/svn/wiki/button-icon-label.png || button-normal.png || the button is just sitting there ||
+|| hover || http://jxlib.googlecode.com/svn/wiki/button-hover.png || button-hover.png ||  the button glows when the mouse hovers over it ||
+|| active || http://jxlib.googlecode.com/svn/wiki/button-active.png || button-active.png || the button is being clicked ||
+|| on || http://jxlib.googlecode.com/svn/wiki/button-on.png || button-active.png || the button looks depressed when the button is pressed or a toggle button is considered 'down' ||
 
 Creating a new instance of Jx.Button is straightforward: 
 
@@ -73,7 +72,7 @@ button.addTo(el);
 
 You should see something like this: 
 
-button-empty.png
+http://jxlib.googlecode.com/svn/wiki/button-empty.png
 
 This creates an empty button that isn’t very useful for the user because it has no indication of what it is for!  But it has all the behaviour of a button, including all the various states - try it out! 
 
@@ -87,9 +86,9 @@ var button = new Jx.Button({
 button.addTo('buttonContainer');
 }}}
 
-button-icon-label.png
+http://jxlib.googlecode.com/svn/wiki/button-icon-label.png
 
-So now we have a good looking button that provides the user with an indication of what the button will do when they click on it, but it doesn’t actually do anything when they click on it!  This is where [JxGeneralConcepts Events] come in. 
+So now we have a good looking button that provides the user with an indication of what the button will do when they click on it, but it doesn’t actually do anything when they click on it!  This is where [JxEvents Events] come in. 
 
 A normal button fires a _click_ event when the user presses and releases a mouse button with the cursor over the button.  You can add an event handler for the _click_ event in one of two ways. 
 
@@ -117,17 +116,17 @@ button2.addEvent('click', function(button){
 });
 }}}
 
-The function you provide is called with the button that was clicked as the first, and only, argument.  The context of the function (what _this_ refers to) is determined by you when you create the function.  See [JxGeneralConcepts Events] for details on how to bind a function to a particular context or scope. 
+The function you provide is called with the button that was clicked as the first, and only, argument.  The context of the function (what _this_ refers to) is determined by you when you create the function.  See [JxEvents Events] for details on how to bind a function to a particular context or scope. 
 
-Both methods produce identical results, namely a function gets called when the button is clicked.  Which one you use is really a matter of choice and, sometimes, necessity.  In most cases, you know what you want the button to do when you make it and it is easiest just to provide a handler in the constructor options.  However, there will be instances where you don’t know what the button will do when it is made, or you want several different things to happen (you can call addEvent multiple times with the same event and different functions).  You can also remove existing event handlers using the removeEvent method (see [JxGeneralConcepts Events]). 
+Both methods produce identical results, namely a function gets called when the button is clicked.  Which one you use is really a matter of choice and, sometimes, necessity.  In most cases, you know what you want the button to do when you make it and it is easiest just to provide a handler in the constructor options.  However, there will be instances where you don’t know what the button will do when it is made, or you want several different things to happen (you can call addEvent multiple times with the same event and different functions).  You can also remove existing event handlers using the removeEvent method (see [JxEvent Events]). 
 
 === Toggle Buttons ===
 
-button-toggle.png
+http://jxlib.googlecode.com/svn/wiki/button-on.png
 
 A toggle button is one that has a particular state, up or down, and persists in that state.  The user changes the state by clicking the button to toggle it.  This is equivalent to an HTML checkbox. 
 
-You don’t need to do much to make a normal button become a toggle button.  Its the same Jx object with an extra option, _toggle_, passed to the constructor: 
+You don't need to do much to make a normal button become a toggle button.  Its the same Jx object with an extra option, _toggle_, passed to the constructor: 
 
 {{{
 var button = new Jx.Button({
@@ -188,73 +187,9 @@ The Jx button has a few other methods that allow you to work with button objects
   * setActive(isActive) - allows you to set the active state of the button (if it is a toggle button).  True means the button is active (pressed down).  Calling this method causes the appropriate event (up or down) to fire if the new state is different from the old state.
   * isActive() - returns the active state of the button.
 
+== Button Sub Classes ==
 
-== Jx.Button.Flyout ==
-
-Flyout buttons are a special type of button that display a content area when the button is clicked.  The content 'flys' out next to the button.  Clicking the button again, or clicking outside of the flyout or hitting the ESC key will close the flyout.  The content can be anything you wish, including static HTML, a reference to dynamically created HTML objects, or content loaded asychronously.  See [JxGeneralConcepts Content Loading] for details on how content is loaded by components. 
-
-A flyout button supports all the same options as a regular button, with two exceptions.  First, the toggle option is forced to true and cannot be changed.  Second, there is an additional content option as per the [JxGeneralConcepts Content Loading] documentation. 
-
-{{{
-var flyout = new Jx.Flyout({
-    image: 'images/bug.png',
-    label: 'Options',
-    tooltip: 'Debugging Options',
-    content: 'optionsPane'
-});
-}}}
-
-As the flyout button is a toggle button, it only generates the up and down events. 
-
-When a flyout is first created, its content is not initially part of the DOM tree and so you cannot directly reference elements in the content by id.  You must wait until the first 'down' event before trying to reference elements in the content. 
-
-== Jx.Button.Multi ==
-
-button-multi.png
-
-Multi buttons are a special type of button that contain other buttons, displaying only one of them at a time.  A multi button has two parts, a button and a flyout button.  The button represents the currently selected button, and clicking on it fires the events of that button.  The flyout button pops open a list of buttons that have been added to the multi button, allowing the user to click any of the buttons.  When the user does click a button in the flyout, that button becomes the current button in the main interface as well as firing the events of the button. 
-
-{{{
-var multi = new Jx.Button.Multi();
-multi.add(
-    new Jx.Button({label: 'button 1'}),
-    new Jx.Button({label: 'button 2'}),
-    new Jx.Button({label: 'button 3'}),
-    new Jx.Button({label: 'button 4'})
-);
-multi.addTo('buttonContainer');
-}}}
-
-=== Jx.Button.Multi API ===
-
-A multi button is not really a button and does not have any constructor options.  It also has different API. 
-
-
-  * add() - adds one or more buttons to the multi button.  Multiple buttons are passed in a comma separated list.
-  * remove(button) - removes a previously added button.
-  * addTo(element) - as with Jx.Button, this adds the multi button to an existing element by reference or id.
-
-
-=== Jx.Button.Color ===
-
-button-color.png
-
-Color buttons 
-
-{{{
-var color = new Jx.Button.Color();
-}}}
-
-=== Jx.Button.Color API ===
-
-== Jx.Button.Combo ==
-
-button-combo.png
-
-Combo buttons
-
-{{{
-var combo = new Jx.Button.Combo({
-    
-});
-}}}
+  * [JxButtonFlyout Flyout buttons]
+  * [JxButtonMulti Multi buttons]
+  * [JxButtonCombo Combo buttons]
+  * [JxButtonColor Color buttons]
