@@ -490,6 +490,12 @@ window.addEvent('load', function() {
 
     var theToolBar = new Jx.Toolbar({parent: 'theToolBar'});
 
+    new Jx.Splitter('leftLayout', {
+      elements: ['treeArea','exifArea'],
+      containerOptions: [{height:200}],
+      layout: 'vertical',
+    });
+
   // create the root menu item container
     var optionMenu = new Jx.Menu({label: 'Options'});
 
@@ -523,12 +529,6 @@ window.addEvent('load', function() {
 
     //build the jx.tree
     updateTree();
-
-    new Jx.Splitter('leftLayout', {
-      elements: ['treeArea','exifArea'],
-      containerOptions: [{height:200}],
-      layout: 'vertical',
-    });
 
     // resize the layout
     mainContainer.resize();
@@ -692,7 +692,10 @@ We are going to now add a Jx.Dialog with Jx.Tabset
 
 Our dialog is going to be a fixed size 400px x 400px we will alow it to be moved around and resizeable 
 
-Here's the javascript for our "about" dialog:
+Here's the javascript for our "about" dialog lets put it directly under our jx.Layout definitions:
+
+It is a good idea to have all your container objects like layout dialog splitter panel to appear in that order. for example if you are trying to have a menu item call a dialog. you should have that dialog defined already. So containers get defined first. 
+
 {{{
     var aboutDialog = new Jx.Dialog(
         {
@@ -703,7 +706,7 @@ Here's the javascript for our "about" dialog:
             width: 400,
             height: 400,
             parent: 'thePage',
-            contentID: 'aboutDialog'
+            content: 'aboutDialog'
         }
     );
 }}}
@@ -724,6 +727,15 @@ We need to create a div in our body now called aboutDialog here's our body block
         <div id="aboutDialog"></div>
     </div>
 </body>
+}}}
+
+We want this dialog to open when we use the Help / About menu item so lets change that do call the dialog's open function
+
+{{{
+    var menuItem2 = new Jx.Menu.Item({
+        label: 'About',
+        onClick: aboutDialog.open.bind(aboutDialog)
+    });
 }}}
 
 === Adding Jx.Tabset ===
@@ -781,6 +793,4 @@ Here's our new body html:
     </div>
 </body>
 }}}
-
-
 
