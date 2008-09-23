@@ -14,7 +14,7 @@ This is a quick start guide to get you up and running with Jx.  Here are the ste
 
 There aren't many, but you will need:
 
-  * a web server and sufficient permissions and knowledge to configure it.  We can't help you with web development 101, sorry.
+  * a web server and sufficient permissions and knowledge to configure it.  We can't help you with system administration 101, sorry.
   * some way of editing HTML pages
   * a web browser (but then, how are you reading this page?)
 
@@ -25,7 +25,7 @@ Head on over to the [http://code.google.com/p/jxlib/downloads/list download page
 {{{
 /www               <- this is a web accessible directory
 /www/jxtest/       <- this is the new directory you just created
-/www/jxtest/jx/ <- this has the extracted files in it
+/www/jxtest/jx/    <- this has the extracted files in it
 }}}
 
 == A Simple HTML Page ==
@@ -105,7 +105,7 @@ To create a new layout object that makes our {{{theApp}}} div fill the browser, 
 
 {{{
 new Jx.Layout('theApp');
-$('thePage').resize();
+$('theApp').resize();
 }}}
 
 You can try this out.  Although nothing very exciting is happening visually, our {{{theApp}}} is now filling the entire browser viewport and resizes when the browser is resized.  Try changing the background color of {{{theApp}}} in the HTML to see what is happening by adding a style attribute to it:
