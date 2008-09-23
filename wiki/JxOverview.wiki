@@ -10,9 +10,9 @@ Jx is built on the excellent [http://mootools.net MooTools] library.
 
 This section covers general concepts that are applicable to all or many of the Jx components.  These topics stand alone, but are often refered to by specific components that employ the technique or concept described.
 
-  * [JxGeneralConcepts Options] - many Jx components have specific options that can be set when the component is created, this covers the general concept.
-  * [JxGeneralConcepts Events] - Jx uses an event mechanism to notify application code of various changes in state, this describes the general mechanisms associated with adding and removing event handlers.
-  * [JxGeneralConcepts Content Loading] - Jx components that embed your content use a standardized API for doing so.
+  * [JxOptions Options] - many Jx components have specific options that can be set when the component is created, this covers the general concept.
+  * [JxEvents Events] - Jx uses an event mechanism to notify application code of various changes in state, this describes the general mechanisms associated with adding and removing event handlers.
+  * [JxContentLoading Content Loading] - Jx components that embed your content use a standardized API for doing so.
 
 == Layout Components ==
 
@@ -20,18 +20,18 @@ This section covers Jx components that specifically manage content and content c
 
   * [JxLayout Layout] - a control that manages the size of elements based on a set of rules
   * [JxSplitter Splitter] - a control that splits an HTML element horizontally or vertically and allows the user to resize the split areas.
-  * [JxPanel Panel Set] - manages a set of Panels in a vertical area such that the panels can be resized and consume the vertical space of the container (similar to the Outlook bar or an accordion).
+  * [JxPanelSet Panel Set] - manages a set of Panels in a vertical area such that the panels can be resized and consume the vertical space of the container (similar to the Outlook bar or an accordion).
 
 == Buttons ==
 
 This section covers various types of buttons, one of the most basic building blocks for applications.  Jx has a fairly sophisticated Button class and several useful sub-classes that implement common variations.
 
   * [JxButton Button] - a simple clickable button.
-  * [JxButton Flyout Button] - exposes a panel when the button is clicked.
-  * [JxButton Color Button] - exposes a color picker when the button is clicked.
-  * [JxButton Multi Button] - a palette of buttons, one of which is in the toolbar - it can be changed by choosing a new button from a flyout, similar to a photoshop concept.
-  * [JxButton Combo Button] - an editable selection list.
-  * [JxButton Button Set] - not a visual widget, but groups toggle buttons together so that only one can be active at a time.
+  * [JxButtonFlyout Flyout Button] - exposes a panel when the button is clicked.
+  * [JxButtonColor Color Button] - exposes a color picker when the button is clicked.
+  * [JxButtonMulti Multi Button] - a palette of buttons, one of which is in the toolbar - it can be changed by choosing a new button from a flyout, similar to a photoshop concept.
+  * [JxButtonCombo Combo Button] - an editable selection list.
+  * [JxButtonSet Button Set] - not a visual widget, but groups toggle buttons together so that only one can be active at a time.
 
 == Toolbars ==
 
