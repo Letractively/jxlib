@@ -78,6 +78,7 @@ Lets create a resizable layout that fills the browser window and has a toolbar. 
 
 First, the layout.  Let's add a {{{script}}} tag to contain our javascript code and a {{{div}}} tag to hold our application.
 
+{{{
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
