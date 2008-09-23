@@ -1,4 +1,5 @@
 #summary A Quick Start Guide to Jx.
+#labels Featured
 
 = Introduction =
 
