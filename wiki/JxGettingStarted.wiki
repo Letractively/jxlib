@@ -88,6 +88,13 @@ First, the layout.  Let's add a {{{script}}} tag to contain our javascript code 
   <script src="jx/jxlib.js" type="text/javascript" charset="utf-8"></script>
   <link rel="stylesheet" href="jx/jxskin_delicious.css" type="text/css" media="screen" charset="utf-8">
 
+  <!-- this prevents scrollbars from appearing on the page -->
+  <style type="text/css">
+  body {
+    overflow: hidden;
+  }
+  </style>
+
   <!-- our application code -->
   <script type='text/javascript'>
     // our custom javascript goes in here.
@@ -104,8 +111,10 @@ From here on, the code snippets will just include the code that goes in the new 
 To create a new layout object that makes our {{{theApp}}} div fill the browser, add the following:
 
 {{{
-new Jx.Layout('theApp');
-$('theApp').resize();
+    window.addEvent('load', function() {
+        new Jx.Layout('theApp');
+        $('theApp').resize();
+    });
 }}}
 
 You can try this out.  Although nothing very exciting is happening visually, our {{{theApp}}} is now filling the entire browser viewport and resizes when the browser is resized.  Try changing the background color of {{{theApp}}} in the HTML to see what is happening by adding a style attribute to it:
