@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Jx.Splitter Examples</title>
+<meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+<script type="text/javascript" src="../../lib/jxlib.js"></script>
+<script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
+<script  type="text/javascript">
+window.addEvent('load', function() {
+    drawAdvancedSplit();
+});
+</script>
+<script id="advancedSplitScript" type="text/javascript" charset="utf-8">
+function drawAdvancedSplit() {
+    
+    var splitH = new Jx.Splitter('splitAdvanced', {
+        
+    });
+    var splitV1 = new Jx.Splitter(splitH.elements[0], {
+        layout: 'vertical'
+    });
+    var splitV2 = new Jx.Splitter(splitH.elements[1], {
+        layout: 'vertical'
+    });
+    
+    /* top left */
+    new Jx.Tree({
+        parent: splitV1.elements[0]
+    }).append(
+        new Jx.TreeFolder({
+            label: 'Tree Root'
+        }).append(
+            new Jx.TreeItem({label: 'Item 1'})
+        ).append(
+            new Jx.TreeItem({label: 'Item 2'})
+        ).append(
+            new Jx.TreeItem({label: 'Item 3'})
+        ).append(
+            new Jx.TreeItem({label: 'Item 4'})
+        )
+    );
+    
+    /* bottom left */
+    new Jx.Panel({
+        label: 'A Panel',
+        parent: splitV1.elements[1],
+        toolbars: [new Jx.Toolbar().add(
+            new Jx.Button({ label:'b1' }),
+            new Jx.Button({ label:'b2' })
+        )]
+    })
+    /* top right */
+    new Jx.TabBox({
+        parent: splitV2.elements[0]
+    }).add(
+        new Jx.Button.Tab({
+            label: 'Tab 1', 
+            contentURL: 'tab_content.html'
+        }),
+        new Jx.Button.Tab({
+            label: 'Tab 2', 
+            contentURL: 'tab_content.html'
+        })
+    );
+    /* bottom right */
+    new Jx.Grid({
+        parent: splitV2.elements[1],
+        rowHeaders: true,
+        columnHeaders: true,
+        cellSelection: true
+    }).setModel( {
+        addGridListener: function() {},
+        removeGridListener: function() {},
+        getColumnCount: function() {return 10;},
+        getColumnHeaderHTML: function(col) {return 'Col ' + col; },
+        getColumnHeaderHeight: function() { return 28 },
+        getColumnWidth: function(col) { return 75; },
+        getRowHeaderHTML: function(row) { return row },
+        getRowHeaderWidth: function() { return 24 },
+        getRowHeight: function(row) { return 20 },
+        getRowCount: function() { return 10},
+        getValueAt: function(row, col) { return row + ' : ' + col },
+        isCellEditable: function() { return false },
+        setValueAt: function(row, col, value) {},
+        cellSelected: function(grid, row,col) { 
+            grid.selectCell(row, col);
+        }
+    });
+}
+</script>
+<style>
+.jxSplitArea {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.layoutBox {
+    width: 600px;
+    height: 400px;
+}
+</style>
+</head>
+<body>
+<div id="thePage">
+    <h1>Jx.Splitter Integrated Examples</h1>
+    <h2 id="advancedSplit">Jx Components in a Splitter</h2>
+    <p>This is a horizontal splitter containing a vertical splitter on each side, with a  panel, tab set, tree and a grid.</p>
+    <div id="splitAdvanced" class="layoutBox"></div>
+</body>
+</html>

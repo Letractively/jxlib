@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Jx.Toolbar Examples</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<script type="text/javascript" src="../../lib/jxlib.js"></script>
+<script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+window.addEvent('load', function() {
+    hToolbar();
+    vToolbar();
+});
+</script>
+
+<script id="hToolbarScript" type="text/javascript">
+function hToolbar() {
+    /* a toolbar is a container for a variety of Jx components.
+     * You can specify the parent when it is created or create
+     * it without a parent if you are going to use it with a panel
+     * or dialog.
+     */
+    new Jx.Toolbar().add(
+        new Jx.Button({
+          id: 'basic1',
+          label: 'Basic Button',
+          image: 'images/asterisk_orange.png',
+          tooltip: 'a tooltip',
+          onClick: function() { log('click button with just a label'); }
+        }),
+        /* a visual separator in the toolbar */
+        new Jx.Toolbar.Separator(),
+        new Jx.Button.Flyout({
+            label: 'flyout inline', 
+            content: 'inlineContent'
+        }),
+        new Jx.Button.Combo({
+            label: 'Basic Combo',
+            items: [
+                {label: 'apples'},
+                {label: 'bananas'},
+                {label: 'grapes'},
+                {label: 'oranges'}
+            ]
+        }),
+        new Jx.Button.Combo({
+            label: 'Editable Combo',
+            editable: true,
+            items: [
+                {label: 'Pecans'},
+                {label: 'Almonds'},
+                {label: 'Filberts'},
+                {label: 'Cashews'}
+            ]
+        })
+    ).addTo('toolbar1');
+
+    new Jx.Toolbar().add(
+        new Jx.Button.Multi({
+            items: [
+                new Jx.Button({
+                  label: 'Create Bar Chart',
+                  image: 'images/charts.png',
+                  imageClass: 'chart_bar',
+                  onClick: function(){log('bar chart tool activated');}
+                }),
+                new Jx.Button({
+                  label: 'Create Pie Chart',
+                  image: 'images/charts.png',
+                  imageClass: 'chart_pie',
+                  onClick: function(){log('pie chart tool activated');}
+                }),
+                new Jx.Button({
+                  label: 'Create Line Chart',
+                  image: 'images/charts.png',
+                  imageClass: 'chart_line',
+                  onClick: function(){log('line chart tool activated');}
+                }),
+                new Jx.Button({
+                  label: 'Create Curve Chart',
+                  image: 'images/charts.png',
+                  imageClass: 'chart_curve',
+                  onClick: function(){log('curve chart tool activated');}
+                })
+            ]
+        })
+    ).addTo('toolbar1');
+};
+</script>
+
+<script id="vToolbarScript" type="text/javascript">
+function vToolbar() {
+    /* toolbars can be oriented vertically by specifying a position of
+     * left or right.
+     */
+    var b1 = new Jx.Button({label:'toggle 1', toggle:true});
+    var b2 = new Jx.Button({label:'toggle 2', toggle:true});
+    var b3 = new Jx.Button({label:'toggle 3', toggle:true});
+    var b4 = new Jx.Button({label:'toggle 4', toggle:true});
+    
+    new Jx.ButtonSet().add(b1,b2,b3,b4);
+    
+    new Jx.Toolbar({
+        parent: 'toolbar2', 
+        position: 'right'
+    }).add(b1,b2,b3,b4)
+
+};
+</script>
+</head>
+<body>
+<h1>Jx.Toolbar Examples</h1>
+<p>API Reference: <a id="toolbar-js" href="javascript:void(0)" title="link to API Reference">Jx.Toolbar</a>, <a id="toolbar-item-js" href="javascript:void(0)" title="link to API Reference">Jx.Toolbar.Item</a>, <a id="toolbar-separator-js" href="javascript:void(0)" title="link to API Reference">Jx.Toolbar.Separator</a> See also: <a id="button-js" href="javascript:void();" title="link to API Reference">Jx.Button</a></p>
+
+<h2 id="hToolbar">Horizontal Toolbar</h2>
+<p>Toolbars are horizontal by default.  They are best used in this orientation as toolbars above and below content areas.</p>
+<div id="toolbar1" class="toolbarBox"></div>
+
+<h2 id="vToolbar">Vertical Toolbar</h2>
+<p>Toolbars can also be oriented vertically.  They can be used to the right or left of a panel's content in this orientation, or positioned absolutely, anywhere on the page.</p>
+<div id="toolbar2" style="z-index:1; position:absolute; top:300px; left:20px; height: auto;"></div>
+
+</body>
+</html>

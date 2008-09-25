@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Jx.Grid Test Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<script type="text/javascript" src="../../lib/jxlib.js"></script>
+<script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+var grid;
+var panel;
+window.addEvent('load', function() {
+    drawToolbar();
+    setupModel();
+    drawGrid();
+});
+</script>
+<script id="toolbarScript" type="text/javascript">
+function drawToolbar() {
+    /* this sets up some options for controlling the grid via
+     * a menu and then creates a panel to host the grid in
+     * The actual grid code is in another sample
+     */
+    new Jx.Menu({label: 'Row Options'}).addTo('buttons').add(
+        new Jx.Menu.Item({
+            label: 'Row Prelight',
+            toggle: true,
+            onDown: function() { grid.options.rowPrelight = true; },
+            onUp: function() { grid.options.rowPrelight = false; }
+        }),
+        new Jx.Menu.Item({
+            label: 'Row Header Prelight',
+            toggle: true,
+            onDown: function() { grid.options.rowHeaderPrelight = true; },
+            onUp: function() { grid.options.rowHeaderPrelight = false; }
+        }),
+        new Jx.Menu.Item({
+            label: 'Row Selection',
+            toggle: true,
+            onDown: function() { grid.options.rowSelection = true; },
+            onUp: function() { grid.options.rowSelection = false; }
+        })
+    );
+    new Jx.Menu({label: 'Column Options'}).addTo('buttons').add(
+        new Jx.Menu.Item({
+            label: 'Column Prelight',
+            toggle: true,
+            onDown: function() { grid.options.columnPrelight = true; },
+            onUp: function() { grid.options.columnPrelight = false; }
+        }),
+        new Jx.Menu.Item({
+            label: 'Column Header Prelight',
+            toggle: true,
+            onDown: function() { grid.options.columnHeaderPrelight = true; },
+            onUp: function() { grid.options.columnHeaderPrelight = false; }
+        }),
+        new Jx.Menu.Item({
+            label: 'Column Selection',
+            toggle: true,
+            onDown: function() { grid.options.columnSelection = true; },
+            onUp: function() { grid.options.columnSelection = false; }
+        })
+    );
+    new Jx.Menu({label: 'Cell Options'}).addTo('buttons').add(
+        new Jx.Menu.Item({
+            label: 'Cell Prelight',
+            toggle: true,
+            onDown: function() { grid.options.cellPrelight = true; },
+            onUp: function() { grid.options.cellPrelight = false; }
+        }),
+        new Jx.Menu.Item({
+            label: 'Cell Selection',
+            toggle: true,
+            onDown: function() { grid.options.cellSelection = true; },
+            onUp: function() { grid.options.cellSelection = false; }
+        })
+    );
+    var aboutDialog = null;
+    new Jx.Button({
+        label: 'About',
+        onClick: function() {
+            if (!aboutDialog) {
+                var pageDims = Element.getPageDimensions();
+                aboutDialog = new Jx.Dialog({
+                    label: 'About',
+                    contentURL: 'grid_about.html',
+                    width: 400,
+                    height: 400,
+                    modal: true
+                });
+            }
+            aboutDialog.show();
+        }
+    }).addTo('buttons');
+
+}
+</script>
+<script id="gridScript" type="text/javascript">
+function drawGrid() {
+    grid = new Jx.Grid({
+      alternateRowColors: false,
+      rowHeaders: true,
+      columnHeaders: true,
+      rowPrelight: false,
+      columnPrelight: false,
+      rowHeaderPrelight: false,
+      columnHeaderPrelight: false,
+      cellPrelight: false,
+      rowSelection: false,
+      columnSelection: false,
+      cellSelection: false
+    }).addTo('gridArea');
+    
+    var feed = new CsvGridModel({
+        url:'http://earthquake.usgs.gov/eqcenter/catalogs/eqs1day-M1.txt',
+        onSuccess: function(feed) {
+            grid.setModel(feed);
+        }
+    });
+}
+</script>
+<script id="modelScript" type="text/javascript">
+function setupModel() {
+    CsvGridModel = new Class({
+        Implements: [Events, Options],
+        columnWidths: [100,100,100,100,100,100,100,100,100,100],
+        initialize: function(options) {
+            this.setOptions(options);
+            new Request({
+                url:'php/getCSV.php', 
+                data:{url: this.options.url, headers: true}, 
+                onSuccess: (function(json){
+                    var csv;
+                    eval('csv='+json);
+                    this.columnHeaders = csv.headers;
+                    this.data = csv.data
+                    this.fireEvent('success', this);
+                }).bind(this), 
+                onFailure: (function(){
+                    this.fireEvent('failure', this);
+                }).bind(this)
+            }).send();
+        },
+        addGridListener: function() {},
+        removeGridListener: function() {},
+        getColumnCount: function() {return this.columnHeaders.length;},
+        getColumnHeaderHTML: function(col) {return this.columnHeaders[col]; },
+        getColumnHeaderHeight: function() { return 28 },
+        getColumnWidth: function(col) { return this.columnWidths[col]; },
+        getRowHeaderHTML: function(row) { return row },
+        getRowHeaderWidth: function() { return 24 },
+        getRowHeight: function(row) { return 20 },
+        getRowCount: function() {
+            if (this.data) {
+                return this.data.length;
+            } else {
+                return 0;
+            }
+        },
+        getValueAt: function(row, col) {
+            if (this.data && row < this.data.length) {
+                return this.data[row][col];
+            }
+        },
+        isCellEditable: function() { return false },
+        setValueAt: function(row, col, value) {},
+        rowSelected: function(grid, row) {
+            if (this.selectedRow != null) {
+                grid.selectRow(this.selectedRow, false);
+            }
+            this.selectedRow = row;
+            grid.selectRow(row, true);
+            this.fireEvent('select-row', row);
+        },
+        columnSelected: function(grid, col) {
+            if (this.selectedCol != null) {
+                grid.selectColumn(this.selectedCol, false);
+            }
+            this.selectedCol = col;
+            grid.selectCol(col, true);
+            this.fireEvent('select-column', col);
+        },
+        cellSelected: function(grid, row,col) { 
+            grid.selectCell(row, col);
+            this.fireEvent('select-cell', [row, col]);
+        
+        }
+    });
+}
+</script>
+
+</head>
+<body>
+<div id="thePage">
+
+  <h1>Jx.Grid Examples</h1>
+  <p>API Reference: <a id="grid-js" href="javascript:void();" title="link to API Reference">Jx.Grid</a></p>
+  <p>This example demonstrates some basic and advanced ways of using Jx.Grid.  The actual data comes live from the USGS earthquake site and may take a little while to load - please be patient, its worth the wait!</p>
+  <h2 id="toolbar">Grid Options</h2>
+  <p>There are a number of options for configuring a grid, try them out by using the menus to turn various options on and off.</p>
+  <h2 id="grid">The Grid</h2>
+  <p>The grid itself has a lot of options when you first construct it, for this example most of the options are turned off so we can use the menus to demonstrate the effect of turning them on and off.</p>
+  <h2 id="model">The CSV Grid Model</h2>
+  <p>The grid component uses an architecture that requires a separate object to provide the data to the grid through a specific api.  This object is called the model for the grid.  The grid allows the model to be changed at any time and the grid will redraw itself with the new model's data.</p>
+  <div id="buttons" class="buttonBox"></div>
+  <div id="gridArea" class="gridBox"></div>
+
+</div>
+</body>
+</html>
