@@ -21,7 +21,7 @@ window.addEvent('load', function() {
         label: 'Examples', 
         content: 'exampleList',
         onDown: function() {
-            window.top.main.location.href = '../reference/examples';
+            window.top.main.location.href = 'reference/examples';
             Cookie.write('JxHomePage.CurrentTab', 'examplesTab');
         }
     });
@@ -29,7 +29,7 @@ window.addEvent('load', function() {
         label: 'API Reference', 
         content: 'refList',
         onDown: function() {
-            window.top.main.location.href = '../reference/api';
+            window.top.main.location.href = 'reference/api';
             Cookie.write('JxHomePage.CurrentTab', 'refTab');
         }
     });
