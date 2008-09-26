@@ -6,13 +6,13 @@
 This is a compatibility matrix for tracking the status of testing the examples in each of the major browsers.  This doesn't mean that we are targeting full functionality in all browsers.
 
 || Example || IE 6 || IE 7 || IE 8 || Firefox 2 || Firefox 3 || Safari 2 || Safari 3 || Chrome || Opera ||
-|| Layout || ? || ? || ? || ? || ? || ? || ? || ? || ? ||
-|| Splitter|| ? || ? || ? || ? || ? || ? || ? || ? || ? ||
-|| Splitter Integrated || ? || ? || ? || ? || ? || ? || ? || ? || ? ||
-|| Panel || ? || ? || ? || ? || ? || ? || ? || ? || ? ||
+|| Layout || ? || ? || ? || ? || ? || ? || ? || ok || ? ||
+|| Splitter|| ? || ? || ? || ? || ? || ? || ? || ok || ? ||
+|| Splitter Integrated || ? || ? || ? || ? || ? || ? || ? || ok (note 1) || ? ||
+|| Panel || ? || ? || ? || ? || ? || ? || ? || ok || ? ||
 || Panel Set || ? || ? || ? || ? || ? || ? || ? || ? || ? ||
-|| Panels Integrated || ? || ? || ? || ? || ? || ? || ? || ? || ? ||
-|| Dialog|| ? || ? || ? || ? || ? || ? || ? || ? || ? ||
+|| Panels Integrated || ? || ? || ? || ? || ? || ? || ? || ok (note 1) || ? ||
+|| Dialog|| ? || ? || ? || ? || ? || ? || ? || ok || ? ||
 || Dialogs Integrated || ? || ? || ? || ? || ? || ? || ? || ? || ? ||
 || Grid|| ? || ? || ? || ? || ? || ? || ? || ? || ? ||
 || Tree|| ? || ? || ? || ? || ? || ? || ? || ? || ? ||
@@ -29,3 +29,7 @@ This is a compatibility matrix for tracking the status of testing the examples i
 || Menu|| ? || ? || ? || ? || ? || ? || ? || ? || ? ||
 || Menu Bar|| ? || ? || ? || ? || ? || ? || ? || ? || ? ||
 || Context Menu|| ? || ? || ? || ? || ? || ? || ? || ? || ? ||
+
+== Notes ==
+
+1. Chrome has a problem with TabBox 
