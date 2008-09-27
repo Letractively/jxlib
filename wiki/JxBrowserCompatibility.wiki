@@ -5,6 +5,13 @@
 
 This is a compatibility matrix for tracking the status of testing the examples in each of the major browsers.  This doesn't mean that we are targeting full functionality in all browsers.
 
+== Legend ==
+
+  * ? - untested
+  * Pass - Jx works in this browser
+  * Fail - Jx doesn't work in this browser
+  * Partial - Jx works but something is wrong, either visual or functional
+
 = Overall Status =
 
 || IE 6 || IE 7 || IE 8 || Firefox 2 || Firefox 3 || Safari 2 || Safari 3 || Chrome || Opera ||
@@ -72,9 +79,4 @@ This is a compatibility matrix for tracking the status of testing the examples i
 || Chrome Beta || ?    || ?       || ?               || ?    || ?        || ?            ||
 || Opera  9.27 || ?    || ?       || ?               || ?    || ?        || ?            ||
 
-== Legend ==
-
-  * ? - untested
-  * Pass - Jx works in this browser
-  * Fail - Jx doesn't work in this browser
-  * Partial - Jx works but something is wrong, either visual or functional
+== Notes ==
