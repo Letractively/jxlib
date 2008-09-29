@@ -29,7 +29,7 @@ This is a compatibility matrix for tracking the status of testing the examples i
 || Safari 2    || ?      || ?        || ?                   ||
 || Safari 3    || ?      || ?        || ?                   ||
 || Chrome Beta || ?      || ?        || ?                   ||
-|| Opera  9.27 || ?      || ?        || ?                   ||
+|| Opera  9.27 || pass   || pass     || pass                ||
 
 == Panels and Dialogs ==
 || Browser     || Panel || Panel Set || Panels Integrated || Dialog || Dialogs Integrated ||
@@ -41,7 +41,7 @@ This is a compatibility matrix for tracking the status of testing the examples i
 || Safari 2    || ?     || ?         || ?                 || ?      || ?                  ||
 || Safari 3    || ?     || ?         || ?                 || ?      || ?                  ||
 || Chrome Beta || ?     || ?         || ?                 || ?      || ?                  ||
-|| Opera  9.27 || ?     || ?         || ?                 || ?      || ?                  ||
+|| Opera  9.27 || fail (1) || pass   || pass              || fail (2,3) || ?                  ||
 
 == Content Areas ==
 || Browser     || Grid || Tree || 
@@ -80,3 +80,9 @@ This is a compatibility matrix for tracking the status of testing the examples i
 || Opera  9.27 || ?    || ?       || ?               || ?    || ?        || ?            ||
 
 == Notes ==
+
+(1) The toolbars in panels examle fails to layout the toolbars and content properly in Opera 9.27 on Mac OS X (Issue 1).
+
+(2) The button for the 'Positioned' dialog example fails to launch the dialog.  This is the only modal dialog on the page.
+
+(3) None of the basic dialogs are resizable.
