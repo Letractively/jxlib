@@ -35,7 +35,7 @@ var logDialog;
 
 // when the page is ready, create a toolbar for holding our
 // buttons that are available in all tests
-window.addEvent('domready', function() {
+window.addEvent('load', function() {
     // create a dialog for holding the log
     var tb = new Jx.Toolbar();
     tb.add(
@@ -111,15 +111,13 @@ window.addEvent('domready', function() {
             var s = $(p.id+'Script');
             if (!s) return;
             var d = new Element('div', {'class':'sourceButton'});
-            new Jx.Toolbar({parent:d}).add(
-                new Jx.Button.Flyout({
-                    tooltip: 'show source for this example',
-                    image: 'images/script.png',
-                    onOpen: function() {prettyPrint();},
-                    content: '<pre class="prettyprint lang-js">'+s.innerHTML+'</pre>',
-                    contentClass: 'exampleScript'
-                })
-            );
+            new Jx.Button.Flyout({
+                tooltip: 'show source for this example',
+                image: 'images/script.png',
+                onOpen: function() {prettyPrint();},
+                content: '<pre class="prettyprint lang-js">'+s.innerHTML+'</pre>',
+                contentClass: 'exampleScript'
+            }).addTo(d);
             d.inject(p);
         }
         
