@@ -108,7 +108,7 @@ dd {
   position: absolute;
   right: 0px;
   bottom: 0px;
-  width: auto;
+  width: 40px;
   background: none;
 }
 
@@ -116,7 +116,7 @@ dd {
   position: absolute;
   right: 0px;
   bottom: 8px;
-  width: auto;
+  /*width: 297px;*/
   background: none;
 }
 

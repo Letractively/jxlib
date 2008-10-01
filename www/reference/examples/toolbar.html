@@ -9,6 +9,7 @@
 window.addEvent('load', function() {
     hToolbar();
     vToolbar();
+    drawMultiToolbar();
 });
 </script>
 
@@ -106,6 +107,43 @@ function vToolbar() {
 
 };
 </script>
+
+<script id="multiToolbarScript" type="text/javascript">
+function drawMultiToolbar() {
+    new Jx.Toolbar.Container().addTo(
+        'toolbar3'
+    ).add(
+        new Jx.Toolbar().add(
+            new Jx.Button({label: 'button one'}),
+            new Jx.Button({label: 'button two'}),
+            new Jx.Button({label: 'button three'}),
+            new Jx.Button({label: 'button four'}),
+            new Jx.Button({label: 'button five'}),
+            new Jx.Button({label: 'button six'})
+        ),
+        new Jx.Toolbar().add(
+            new Jx.Button({label: 'button one'}),
+            new Jx.Button({label: 'button two'}),
+            new Jx.Button({label: 'button three'}),
+            new Jx.Button({label: 'button four'}),
+            new Jx.Button({label: 'button five'}),
+            new Jx.Button({label: 'button six'})
+        )
+    )
+    new Jx.Toolbar.Container().addTo(
+        'toolbar3'
+    ).add(
+        new Jx.Toolbar().add(
+            new Jx.Button({label: 'button one'}),
+            new Jx.Button({label: 'button two'}),
+            new Jx.Button({label: 'button three'}),
+            new Jx.Button({label: 'button four'}),
+            new Jx.Button({label: 'button five'}),
+            new Jx.Button({label: 'button six'})
+        )
+    )
+};
+</script>
 </head>
 <body>
 <h1>Jx.Toolbar Examples</h1>
@@ -117,7 +155,11 @@ function vToolbar() {
 
 <h2 id="vToolbar">Vertical Toolbar</h2>
 <p>Toolbars can also be oriented vertically.  They can be used to the right or left of a panel's content in this orientation, or positioned absolutely, anywhere on the page.</p>
-<div id="toolbar2" style="z-index:1; position:absolute; top:300px; left:20px; height: auto;"></div>
+<div id="toolbar2" style="z-index:1; height: auto; width: auto" class="toolbarBox"></div>
+
+<h2 id="multiToolbar">Multiple Stacked Toolbars with Scrolling</h2>
+<p>blah blah blah.</p>
+<div id="toolbar3" style="width: 500px" class="toolbarBox"></div>
 
 </body>
 </html>
