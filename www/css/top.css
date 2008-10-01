@@ -3,6 +3,7 @@ body {
     background-image:url(../lib/images/crispin/snap_bg.png);
     background-position:0 top;
     background-repeat:repeat-x;
+    overflow: hidden;
 }
 h1 {
     font-family: Arial, Helvetica, sans-serif;

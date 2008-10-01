@@ -116,7 +116,7 @@ dd {
   position: absolute;
   right: 0px;
   bottom: 8px;
-  /*width: 297px;*/
+  width: auto;
   background: none;
 }
 

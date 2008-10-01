@@ -62,7 +62,7 @@ window.addEvent('load', function() {
         
     var defaultGrid = Cookie.read('jxtests.pagebackground') || 'off';
     
-    new Jx.Toolbar({parent:'pageBar', autoSize: true}).add(
+    new Jx.Toolbar({parent:'pageBar', scroll: false}).add(
         // show and hide the background grid
         new Jx.Button({
             label: 'Background Grid',
@@ -111,7 +111,7 @@ window.addEvent('load', function() {
             var s = $(p.id+'Script');
             if (!s) return;
             var d = new Element('div', {'class':'sourceButton'});
-            new Jx.Toolbar().add(
+            new Jx.Toolbar({scroll:false}).add(
                 new Jx.Button.Flyout({
                     tooltip: 'show source for this example',
                     image: 'images/script.png',
@@ -125,13 +125,13 @@ window.addEvent('load', function() {
         
     });
     
-    //$$('a').each(function(a) {
-    //   if (a.id) {
-    //       a.addEvent('click', function() {
-    //          top.main.location.href='../api/#'+a.id; 
-    //       });
-    //   } 
-    //});
+    $$('a').each(function(a) {
+       if (a.id) {
+           a.addEvent('click', function() {
+              top.main.location.href='../api/#'+a.id; 
+           });
+       } 
+    });
     
     new Asset.javascript('http://www.google-analytics.com/ga.js', {
         onload: function(){ 
