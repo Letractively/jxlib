@@ -1,5 +1,5 @@
 body {
-  padding-bottom: 20px;
+  margin: 20px;
 }
 
 .pageGrid {
@@ -36,32 +36,37 @@ pre.prettyprint {
 }
 
 h1 {
+  position: relative;
+  display: block;
+  clear: both;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 24px;
   line-height: 30px;
   font-weight: normal;
   color: #6EAFC5;
-  padding: 20px 0px 10px 0px;
-  margin: 0px  20px;
-  position: relative;
-  clear: both;
+  padding: 0px 0px 10px 0px;
+  margin: 0px;
   border-bottom: 3px solid #DCEAEE;
 }
 
 h2 {
+  position: relative;
+  display: block;
+  clear: both;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   line-height: 24px;
   font-weight: normal;
   color: #E3996D;
-  margin: 10px 20px;
+  margin: 10px 0px;
   padding: 6px 0px;
-  clear: both;
-  position: relative;
   border-bottom: 1px solid #EEE1D9;
 }
 
 h3 {
+  display: block;
+  position: relative;
+  clear: both;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 20px;
@@ -69,8 +74,6 @@ h3 {
   color: #7AC56F;
   margin: 0px 20px 10px 20px;
   padding: 16px 0px 6px 0px;
-  clear: both;
-  position: relative;
   border-bottom: 1px solid #A3C59E;
 }
 
@@ -80,7 +83,7 @@ p {
   line-height: 20px;
   font-weight: normal;
   color: #333;
-  margin: 10px 20px;
+  margin: 10px 0px;
   clear: both;
   position: relative;
 }
@@ -89,7 +92,7 @@ dl {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 20px;
-  margin: 10px 20px;
+  margin: 10px 0px;
   color: #333;
   
 }
@@ -107,15 +110,15 @@ dd {
 .sourceButton {
   position: absolute;
   right: 0px;
-  bottom: 0px;
+  top: 6px;
   width: 40px;
   background: none;
 }
 
 #pageBar {
   position: absolute;
+  top: 3px;
   right: 0px;
-  bottom: 8px;
   width: auto;
   background: none;
 }
@@ -129,20 +132,20 @@ dd {
 }
 
 .buttonBox {
-  margin: 10px 20px;
+  margin: 10px 0px;
   clear: both;
   height: 28px;
 }
 
 .toolbarBox {
-  margin: 0px 20px;
+  margin: 0px 0px;
   width: auto;
   clear: both;
 }
 
 .tabBox {
   position: relative;
-  margin: 0px 20px;
+  margin: 0px 0px;
   height: 150px;
   border: 1px solid #ccc; 
   border: 1px solid #ccc;
@@ -152,7 +155,7 @@ dd {
 .layoutBox {
   position: relative;
   background: #f0f0f0;  
-  margin: 0px 20px;
+  margin: 0px 0px;
   padding: 4px;
   width: auto;
   height: 100px;
@@ -166,7 +169,7 @@ dd {
   width: 400px; 
   height: 300px; 
   border: 1px solid #ccc; 
-  margin-left: 20px; 
+  margin: 20px; 
   overflow: scroll; 
   z-index: 0; 
   background-color: #fff; 
@@ -175,7 +178,7 @@ dd {
 
 .gridBox {
   position: relative;
-  margin: 0px 20px;
+  margin: 0px 0px;
   border: 1px solid #ccc;
   width: 500px;
   height: 400px;
@@ -183,14 +186,14 @@ dd {
 
 .panelBox {
   position: relative;
-  margin: 0px 20px;
+  margin: 0px 0px;
   width: 500px;
   border: 1px solid #ccc;
 }
 
 .panelSetBox {
   position: relative;
-  margin: 0px 20px;
+  margin: 0px 0px;
   width: 500px;
   height: 500px;
   border: 1px solid #ccc;
