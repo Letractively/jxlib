@@ -6,7 +6,13 @@ window.addEvent('load', function() {
     var defaultTab = Cookie.read('JxHomePage.CurrentTab') || 'homeTab';
 
     /* toolbar to contain the tabs, goes in the panel */
-    var toolbar = new Jx.Toolbar({parent:'content'});
+    var toolbarContainer = new Jx.Toolbar.Container({
+        scroll: false, 
+        autoSize: true
+    }).addTo('content');
+    
+    var toolbar = new Jx.Toolbar();
+    toolbarContainer.add(toolbar);
     
     /* create the main navigation tabs */
     homeTab = new Jx.Button.Tab({

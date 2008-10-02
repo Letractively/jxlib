@@ -15,7 +15,7 @@ h1 {
     
     font-size: 30px;
     line-height: 30px;
-    padding: 13px;
+    padding: 13px 0px 0px 13px;
     font-weight: bold;
 }
 
@@ -26,4 +26,10 @@ h1 {
   position: absolute;
   bottom: 1px;
   padding-left: 185px
+}
+
+.jxBarContainer {
+  width: auto;
+  background-image: none;
+  background-color: transparent;
 }
