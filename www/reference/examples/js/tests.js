@@ -154,11 +154,14 @@ window.addEvent('load', function() {
 });
 
 function log(what) {
-    logDialog.content.firstChild.adopt(
-        new Element('li', {html: what})
-    );
+    if (logDialog && logDialog.content) {
+        $(logDialog.content.firstChild).adopt(
+            new Element('li', {html: what})
+        );        
+    } else {
+        log.delay(500, null, what);
+    }
 }
-
 // Copyright (C) 2006 Google Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
