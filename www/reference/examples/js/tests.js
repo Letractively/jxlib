@@ -22,6 +22,12 @@ jxSkins.each(function(skin, i) {
         rel: rel,
         title: skin.label
     });
+    if (Browser.Engine.trident4) {
+        new Asset.css('../../lib/themes/'+skin.skin+'/ie6.css', { rel: 'stylesheet' });
+    }
+    if (Browser.Engine.trident5) {
+        new Asset.css('../../lib/themes/'+skin.skin+'/ie7.css', { rel: 'stylesheet' });
+    }
 });
 
 // load the code prettifier CSS (code is inlined)

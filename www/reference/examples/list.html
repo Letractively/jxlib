@@ -4,6 +4,7 @@
 <title>Jx Examples List</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <script type="text/javascript" src="../../lib/jxlib.js"></script>
+<link rel="stylesheet" href="../../lib/themes/crispin/jxtheme.css" type="text/css" media="screen" charset="utf-8">
 <script type="text/javascript" charset="utf-8">
 
 window.addEvent('load', function() {
@@ -79,10 +80,15 @@ window.addEvent('load', function() {
     if (defaultPage) {
         parent.test.location.href=defaultPage;
     }
+    if (Browser.Engine.trident4) {
+        new Asset.css('../../lib/themes/crispin/ie6.css', { rel: 'stylesheet' });
+    }
+    if (Browser.Engine.trident5) {
+        new Asset.css('../../lib/themes/crispin/ie7.css', { rel: 'stylesheet' });
+    }
 
 });
 </script>
-<link rel="stylesheet" href="../../lib/themes/crispin/jxtheme.css" type="text/css" media="screen" charset="utf-8">
 <link rel="stylesheet" href="css/list.css" type="text/css" media="screen" title="" charset="utf-8">
 </head>
 <body>
