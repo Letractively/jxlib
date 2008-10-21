@@ -132,10 +132,12 @@ function drawTabsOnLeft() {
      */
     tabBox.add(
         new Jx.Button.Tab({
-            label: '<img src="images/tab1.png" width="16" height="32">'
+            label: '<img src="images/tab1.png" width="16" height="32">',
+            content: 'leftTabContent'
         }),
         new Jx.Button.Tab({
             label: '<img src="images/tab2.png" width="16" height="53">', 
+            content: 'leftTabCloseable',
             close: true
         })
     );
@@ -165,5 +167,7 @@ function drawTabsOnLeft() {
 <div id="labelContent"><p>This tab just has a label.</p></div>
 <div id="eventContent"><p>The label on this tab changes when it is active or inactive.  Click the button to enable the other tab and then you can switch to it to see the event happen.</p><div id="eventButton" class="buttonBox"></div></div>
 <div id="disabledContent"><p>This tab was disabled to start with.</p></div>
+<div id="leftTabContent"><p>This tab is on the left.</p></div>
+<div id="leftTabCloseable"><p>This tab is on the left and it is closeable.</p></div>
 </body>
 </html>
