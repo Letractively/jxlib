@@ -36,7 +36,9 @@ function drawVerticalSplit() {
 <script id="snapSplitScript" type="text/javascript" charset="utf-8">
 function drawSnapSplit() {
     var snapImg = new Element('img', {
-        src: 'images/a_pixel.png'
+        src: 'images/a_pixel.png',
+        width: 5,
+        height: 14
     });
     /* we can change the orientation of the splitter and ask it to use
      * existing child nodes.  We can also set specific layout constraints
@@ -49,7 +51,7 @@ function drawSnapSplit() {
          * uses another element for the snap.
          */
         barOptions: [
-            {snap:'before'}, 
+            {snap:'before'},
             {snap:'after',snapElement: snapImg, snapEvents:['click']}
         ]
     });
