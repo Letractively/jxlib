@@ -147,7 +147,7 @@ function menuContext() {
     /* you can specify the id of the element to attach the context menu
      * to in the constructor
      */
-    var contextMenu = new Jx.Menu.Context(window);
+    var contextMenu = new Jx.Menu.Context(document.body);
     contextMenu.add(fileMenu,editMenu,formatMenu);   
 }
 </script>
@@ -157,7 +157,7 @@ function menuContext() {
   <h1>Jx.Menu.Context Examples</h1>
   <p>API Reference: <a id="menu-context-js" href="javascript:void();" title="link to API Reference">Jx.Menu.Context</a>, <a id="menu-submenu-js" href="javascript:void();" title="link to API Reference">Jx.Menu.SubMenu</a>, <a id="menu-item-js" href="javascript:void();" title="link to API Reference">Jx.Menu.Item</a>, <a id="menu-separator-js" href="javascript:void();" title="link to API Reference">Jx.Menu.Separator</a> Extends <a id="menu-js" href="javascript:void();" title="link to API Reference">Jx.Menu</a></p>
   <h2 id="menuContext">Context Menus</h2>
-  <p id="contextMenuText">Context menus are menus that pop up when the user clicks the right mouse button.  A context menu has been added to this page, go ahead and try it out.</p>
+  <p id="contextMenuText">Context menus are menus that pop up when the user clicks the right mouse button.  A context menu has been added to the content of this page, go ahead and try it out - it should work on this text and above.</p>
 </div>
 </body>
 </html>
