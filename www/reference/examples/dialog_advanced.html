@@ -122,27 +122,29 @@ function drawSplitDialog() {
         })
     );
 
-    var dialog3 = new Jx.Dialog({
+
+    dialog3 = new Jx.Dialog({
         label: 'dialog with splitter', 
         modal: false, 
-        width: 500,
-        resize: true,
-        toolbars: [toolbar]
+        width: 600,
+        height: 400,
+        toolbars: [toolbar],
+        resize: true
     });
 
     var splitter = new Jx.Splitter(dialog3.content, {
-        elements:['d3left','d3right']
+       elements:['d3left','d3right']
     });
-
+    
     var tabBox = new Jx.TabBox({parent: splitter.elements[0]}).add(
-        new Jx.Button.Tab({
-            label: 'Tab 1', 
-            content: 'tab3'
-        }),
-        new Jx.Button.Tab({
-            label: 'Tab 2', 
-            content: 'tab4'
-        })
+       new Jx.Button.Tab({
+           label: 'Tab 1', 
+           content: 'tab3'
+       }),
+       new Jx.Button.Tab({
+           label: 'Tab 2', 
+           content: 'tab4'
+       })
     );
 
     // Button to launch Dialog
