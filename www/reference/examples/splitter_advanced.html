@@ -12,10 +12,7 @@ window.addEvent('load', function() {
 </script>
 <script id="advancedSplitScript" type="text/javascript" charset="utf-8">
 function drawAdvancedSplit() {
-    
-    var splitH = new Jx.Splitter('splitAdvanced', {
-        
-    });
+    var splitH = new Jx.Splitter('splitAdvanced');
     var splitV1 = new Jx.Splitter(splitH.elements[0], {
         layout: 'vertical'
     });
@@ -48,7 +45,8 @@ function drawAdvancedSplit() {
             new Jx.Button({ label:'b1' }),
             new Jx.Button({ label:'b2' })
         )]
-    })
+    });
+    
     /* top right */
     new Jx.TabBox({
         parent: splitV2.elements[0]
@@ -86,6 +84,7 @@ function drawAdvancedSplit() {
             grid.selectCell(row, col);
         }
     });
+    
 }
 </script>
 <style>
