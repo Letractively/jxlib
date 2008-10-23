@@ -2,6 +2,10 @@ body {
   margin: 20px;
 }
 
+#thePage {
+  padding: 20px;
+}
+
 .pageGrid {
   background-image:url(../images/page_grid.png);
   background-position: 0px 0px;
@@ -132,18 +136,24 @@ dd {
 }
 
 .buttonBox {
+  display: block;
+  position: relative;
   margin: 10px 0px;
   clear: both;
-  height: 28px;
+  overflow: hidden;
 }
 
 .toolbarBox {
+  display: block;
+  position: relative;
   margin: 0px 0px;
   width: auto;
   clear: both;
+  overflow: hidden;
 }
 
 .tabBox {
+  display: block;
   position: relative;
   margin: 0px 0px;
   height: 150px;
@@ -153,6 +163,7 @@ dd {
 }
 
 .layoutBox {
+  display: block;
   position: relative;
   background: #f0f0f0;  
   margin: 0px 0px;
@@ -166,25 +177,29 @@ dd {
 }
 
 .treeBox {
+  display: block;
+  position: relative;
   width: 400px; 
   height: 300px; 
   border: 1px solid #ccc; 
   margin: 20px; 
-  overflow: scroll; 
+  overflow: auto; 
   z-index: 0; 
   background-color: #fff; 
-  position: relative
 }
 
 .gridBox {
+  display: block;
   position: relative;
   margin: 0px 0px;
   border: 1px solid #ccc;
   width: 500px;
   height: 400px;
+  clear: both;
 }
 
 .panelBox {
+  display: block;
   position: relative;
   margin: 0px 0px;
   width: 500px;
@@ -192,6 +207,7 @@ dd {
 }
 
 .panelSetBox {
+  display: block;
   position: relative;
   margin: 0px 0px;
   width: 500px;
