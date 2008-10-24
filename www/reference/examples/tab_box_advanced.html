@@ -32,7 +32,12 @@ function drawTabBox() {
             label: 'Panel', 
             content: new Jx.Panel({
                 label: 'A Panel', 
-                content: 'content3'
+                content: 'content3',
+                toolbars: [
+                    new Jx.Toolbar().add(
+                        new Jx.Button({label: 'a button'})
+                    )
+                ]
             })            
         }),
         new Jx.Button.Tab({
