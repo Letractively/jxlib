@@ -4,6 +4,10 @@
 
 Add things to the list when you think of them, strike them out when they are done.
 
+== Documentation ==
+
+ * Walk through code to ensure everything is up to date
+
 == Examples ==
 
  * review content areas of examples to ensure that they are consistently using the appropriate padding/margins
