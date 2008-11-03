@@ -14,7 +14,7 @@ Add things to the list when you think of them, strike them out when they are don
 
  * review content areas of examples to ensure that they are consistently using the appropriate padding/margins
  * update Grid examples to use the new Grid Model
- * Dialog Integrated Example, Panel Set, open dialog and resize smaller - scroll bars appear.
+ * ~~Dialog Integrated Example, Panel Set, open dialog and resize smaller - scroll bars appear.~~
  * Add a few examples of forms using the jxForm classes
 
 == Components (Code) ==
