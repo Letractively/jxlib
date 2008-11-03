@@ -7,6 +7,8 @@ Add things to the list when you think of them, strike them out when they are don
 == Documentation ==
 
  * Walk through code to ensure everything is up to date
+ * Make sure generated docs are working and that all the links are working
+ * Fix documentation tree.
 
 == Examples ==
 
