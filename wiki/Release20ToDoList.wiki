@@ -1,0 +1,20 @@
+#summary List of things to do before we release 2.0
+
+= 2.0 Release ToDo List =
+
+Add things to the list when you think of them, strike them out when they are done.
+
+== Examples ==
+
+ * review content areas of examples to ensure that they are consistently using the appropriate padding/margins
+ * update Grid examples to use the new Grid Model
+ * Dialog Integrated Example, Panel Set, open dialog and resize smaller - scroll bars a
+== Components (Code) ==
+
+ * finish Grid Model class
+ 
+== Themes (CSS) ==
+
+=== Delicious ===
+
+=== Crispin ===
