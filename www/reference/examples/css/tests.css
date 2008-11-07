@@ -4,6 +4,7 @@ body {
 
 #thePage {
   padding: 10px;
+  overflow: visible;
 }
 
 .pageGrid {
