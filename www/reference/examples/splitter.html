@@ -57,15 +57,6 @@ function drawSnapSplit() {
     });
 }
 </script>
-<style>
-    .jxSplitArea {
-        background-color: #fff;
-        border-top: 1px solid #ccc;
-        border-left: 1px solid #ccc;
-        border-right: 1px solid #f0f0f0;
-        border-bottom: 1px solid #f0f0f0;
-    }
-</style>
 </head>
 <body>
 
@@ -73,21 +64,21 @@ function drawSnapSplit() {
     <p>API Reference: <a id="splitter-js" href="javascript:void(0)" title="link to API Reference">Jx.Splitter</a>, <a id="splitter-snap-js" href="javascript:void(0)" title="link to API Reference">Jx.Splitter.Snap</a></p>
     <h2 id="basicSplit">Splitting an element</h2>
     <p>The Jx.Splitter class is used to split an element into 2 or more areas that can be resized by the user.  There are a variety of options for setting up a splitter, but the most basic use splits a container horizontally into two equally sized areas by creating new elements and a bar to resize them.</p>
-    <div id="splitBasic" class="layoutBox"></div>
+    <div id="splitBasic" class="splitterBox"></div>
     
     <h2 id="verticalSplit">Splitting Vertically</h2>
     <p>In this example, the element is split vertically and we also show off using existing child nodes instead of creating elements.</p>
-    <div id="splitVertical" class="layoutBox">
-        <div><p>This is the first child.</p></div>
-        <div><p>This is the second child.</div>
+    <div id="splitVertical" class="splitterBox">
+        <div class="splitContent"><p>This is the first child.</p></div>
+        <div class="splitContent"><p>This is the second child.</div>
     </div>
     
     <h2 id="snapSplit">Snaps</h2>
     <p>Snaps are controls that allow the user to snap one of the areas in a splitter closed and open.  The first child can be snapped open and closed by double clicking on the bar.  The third child can be snapped by clicking on the.</p>
-    <div id="splitSnap" class="layoutBox">
-        <div><p>This is the first child.</p></div>
-        <div><p>This is the second child.</div>
-        <div><p>This is the third child.</div>
+    <div id="splitSnap" class="splitterBox">
+        <div class="splitContent"><p>This is the first child.</p></div>
+        <div class="splitContent"><p>This is the second child.</div>
+        <div class="splitContent"><p>This is the third child.</div>
     </div>
 </body>
 </html>

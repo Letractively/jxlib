@@ -28,6 +28,12 @@ function hToolbar() {
           tooltip: 'a tooltip',
           onClick: function() { log('click button with just a label'); }
         }),
+        new Jx.Button({
+          id: 'basic2',
+          image: 'images/asterisk_orange.png',
+          tooltip: 'a tooltip',
+          onClick: function() { log('click button with just a label'); }
+        }),
         /* a visual separator in the toolbar */
         new Jx.Toolbar.Separator(),
         new Jx.Button.Flyout({
@@ -59,25 +65,21 @@ function hToolbar() {
         new Jx.Button.Multi({
             items: [
                 new Jx.Button({
-                  label: 'Create Bar Chart',
                   image: 'images/charts.png',
                   imageClass: 'chart_bar',
                   onClick: function(){log('bar chart tool activated');}
                 }),
                 new Jx.Button({
-                  label: 'Create Pie Chart',
                   image: 'images/charts.png',
                   imageClass: 'chart_pie',
                   onClick: function(){log('pie chart tool activated');}
                 }),
                 new Jx.Button({
-                  label: 'Create Line Chart',
                   image: 'images/charts.png',
                   imageClass: 'chart_line',
                   onClick: function(){log('line chart tool activated');}
                 }),
                 new Jx.Button({
-                  label: 'Create Curve Chart',
                   image: 'images/charts.png',
                   imageClass: 'chart_curve',
                   onClick: function(){log('curve chart tool activated');}
@@ -155,7 +157,7 @@ function drawMultiToolbar() {
 
 <h2 id="vToolbar">Vertical Toolbar</h2>
 <p>Toolbars can also be oriented vertically.  They can be used to the right or left of a panel's content in this orientation, or positioned absolutely, anywhere on the page.</p>
-<div id="toolbar2" style="z-index:1; height: auto; width: auto" class="toolbarBox"></div>
+<div id="toolbar2" style="height: auto; width: auto" class="toolbarBox"></div>
 
 <h2 id="multiToolbar">Multiple Stacked Toolbars with Scrolling</h2>
 <p>blah blah blah.</p>

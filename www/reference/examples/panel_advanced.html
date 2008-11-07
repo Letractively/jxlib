@@ -16,7 +16,16 @@ window.addEvent('load', function() {
 
 <script id="drawPanelSetScript" type='text/javascript'>
 function drawPanelSet() {
-    // A Dialog with a Panel Set for content, resizeable and moveable.
+    // A Panel with a Panel Set for content.
+    //Toolbar definition
+    var toolbar1 = new Jx.Toolbar().add(
+        new Jx.Button({
+            label:'b1'
+        }),
+        new Jx.Button({
+            label:'b2'
+        })
+    );
     // Panel definition
     var panelSet = new Jx.PanelSet({panels: [
         new Jx.Panel({
@@ -28,6 +37,7 @@ function drawPanelSet() {
         new Jx.Panel({
             contentURL: 'panel_content.html',
             label: 'Panel 2',
+            toolbars: [toolbar1],
             maximize: true,
             collapse: false
         })
@@ -45,7 +55,7 @@ function drawPanelSet() {
 
 <script id="drawTabPanelScript" type='text/javascript'>
 function drawTabPanel() {
-    // A Dialog with a Tab Box for content, resizeable and moveable.
+    // A Panel with a Tab Box for content.
     // Tab Box definition
     var tabBox = new Jx.TabBox().add(
         new Jx.Button.Tab({
@@ -70,7 +80,7 @@ function drawTabPanel() {
 
 <script id="drawSplitPanelScript" type='text/javascript'>
 function drawSplitPanel() {
-    // A Dialog with a Split Panel for content, resizeable and moveable.
+    // A Split Panel for content.
     
     var toolbar = new Jx.Toolbar().add(
         new Jx.Button({
@@ -124,31 +134,31 @@ function drawSplitPanel() {
 <div id="splitPanelBox" class="panelBox"></div>
 
   
-<div id="tab1" class="testContent">
+<div id="tab1">
     <h3>Tab 1 Content</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 </div>
 
-<div id="tab2" class="testContent">
+<div id="tab2">
     <h3>Tab 2 Contnet</h3>
     <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 </div>
 
-<div id="tab3" class="testContent">
+<div id="tab3">
     <h3>Tab 1 Content</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 </div>
 
-<div id="tab4" class="testContent">
+<div id="tab4">
     <h3>Tab 2 Content</h3>
     <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 </div>
 
-<div id='d3right' class="testContent" style="overflow: auto">
+<div id='d3right' class="splitContent">
   <h3>Right Content</h3>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
