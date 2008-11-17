@@ -46,8 +46,22 @@ window.addEvent('load', function() {
             Cookie.write('JxHomePage.CurrentTab', 'testsTab');
         }
     });
-    new Jx.TabSet('tabset').add(homeTab, refTab, examplesTab, testsTab);
-    toolbar.add(homeTab, examplesTab, refTab/*, testsTab*/);
+    codeTab = new Jx.Button.Tab({
+        label: 'Code', 
+        onDown: function() {
+            window.top.main.location.href = 'http://code.google.com/p/jxlib/';
+            Cookie.write('JxHomePage.CurrentTab', 'codeTab');
+        }
+    });
+    groupTab = new Jx.Button.Tab({
+        label: 'Group', 
+        onDown: function() {
+            window.top.main.location.href = 'http://groups.google.com/group/jxlib';
+            Cookie.write('JxHomePage.CurrentTab', 'groupTab');
+        }
+    });
+    new Jx.TabSet('tabset').add(homeTab, refTab, examplesTab, testsTab, codeTab, groupTab);
+    toolbar.add(homeTab, examplesTab, refTab, codeTab, groupTab);
     
     switch(defaultTab) {
         case 'homeTab':
@@ -61,6 +75,12 @@ window.addEvent('load', function() {
             break;
         case 'testsTab':
             testsTab.setActive(true);
+            break;
+        case 'codeTab':
+            codeTab.setActive(true);
+            break;
+        case 'groupTab':
+            groupTab.setActive(true);
             break;
     }
 });
