@@ -40,7 +40,7 @@ The options argument is may be null (by not specifying it) or an object containi
  
 The meaning of these options is discussed below. The options object is normally built using object literal notation, for instance: 
 
-{{{ 
+{{{
 new Jx.Layout('myElement', {
     left: 10, 
     top: 10, 
