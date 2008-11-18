@@ -1,4 +1,5 @@
 #summary Working with Jx Buttons.
+#labels Featured
 
 = Working with Jx Buttons =
 
