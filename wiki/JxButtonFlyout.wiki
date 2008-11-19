@@ -17,7 +17,7 @@ var flyout = new Jx.Flyout({
 
 == Flyout Events ==
 
-As the flyout button is a toggle button, but instead of up and down, it fires open and close events.
+Although the flyout button is a toggle button, it fires open and close events instead of the down and up events.
 
 {{{
 var flyout = new Jx.Flyout({
@@ -34,5 +34,4 @@ var flyout = new Jx.Flyout({
 });
 }}}
 
-
-When a flyout is first created, its content is not initially part of the DOM tree and so you cannot directly reference elements in the content by id.  You must wait until the first 'down' event before trying to reference elements in the content. 
+When using a flyout button, its content is not part of the DOM tree when it is not open and so you cannot directly reference elements in the content by id.
