@@ -44,6 +44,7 @@
         new Jx.Button({
             label: 'search',
             image: 'images/magnifier.png',
+            tooltip: 'click to search',
             onClick: function() {
                 currentPage = 1;
                 jsonFlickrRequest($('search').value);
@@ -52,6 +53,7 @@
         
         firstButton = new Jx.Button({
             image: 'images/resultset_first.png',
+            tooltip: 'click to return to the first page of the results.',
             onClick: function() {
                 currentPage = 1;
                 jsonFlickrRequest($('search').value);
@@ -59,6 +61,7 @@
         });
         prevButton = new Jx.Button({
             image: 'images/resultset_previous.png',
+            tooltip: 'click to return to the previous page of the results.',
             onClick: function() {
                 if (currentPage > 1) {
                     currentPage --;
@@ -68,6 +71,7 @@
         });
         nextButton = new Jx.Button({
             image: 'images/resultset_next.png',
+            tooltip: 'click to move to the next page of the results.',
             onClick: function() {
                 if (currentPage < totalPages) {
                     currentPage ++;
@@ -77,13 +81,14 @@
         });
         lastButton = new Jx.Button({
             image: 'images/resultset_last.png',
+            tooltip: 'click to move to the last page of the results.',
             onClick: function() {
                 currentPage = totalPages;
                 jsonFlickrRequest($('search').value);
             }
         });
         
-        new Jx.Toolbar({parent: 'searchControl'}).add(
+        new Jx.Toolbar({parent: 'searchControl', scroll: false}).add(
             firstButton,
             prevButton,
             new Element('div', {id: 'pages', html: ''}),
@@ -111,15 +116,7 @@
                 var a = new Element('a', {
                     events: {
                         click: function() {
-                            tabBox.add(
-                                new Jx.Button.Tab({
-                                    label: photo.title,
-                                    image: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_t.jpg',
-                                    close: true,
-                                    active: true,
-                                    content: '<img src="http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg">'
-                                })
-                            );
+                            createTab(photo);
                         }
                     }
                 });
@@ -139,7 +136,15 @@
     
     function jsonFlickrRequest(text) {
         var method = text ? 'search' : 'getRecent';
-        var url = 'http://www.flickr.com/services/rest/?ts='+Math.random()+'&method=flickr.photos.'+method+'&format=json&api_key=2d40b54d95f5e9e2b9a4bcc35a2b8727&text='+text+'&page='+currentPage+'&per_page=5';
+        var search = '';
+        if (method == 'search') {
+            if (text.contains('tag:')) {
+                search = 'tag_mode=all&tags='+encodeURIComponent(text.substring(4).trim().replace(' ', ','));
+            } else {
+                search = 'text='+encodeURIComponent(text);
+            }
+        }
+        var url = 'http://www.flickr.com/services/rest/?ts='+Math.random()+'&method=flickr.photos.'+method+'&format=json&api_key=2d40b54d95f5e9e2b9a4bcc35a2b8727&'+search+'&page='+currentPage+'&per_page=5';
         (function(){
             new Asset.javascript(url);
         }).delay(1);
@@ -159,38 +164,114 @@
                 var a = new Element('a', {
                     events: {
                         click: function() {
-                            tabBox.add(
-                                new Jx.Button.Tab({
-                                    label: photo.title,
-                                    image: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_t.jpg',
-                                    close: true,
-                                    active: true,
-                                    content: '<img src="http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg">'
-                                })
-                            );
+                            createTab(photo);
                         }
                     }
                 });
+                
                 var img = new Element('div', {
                     'class': 'thumbnail',
                     styles: {
                         backgroundImage: 'url(http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_t.jpg)'
                     }
                 });
-                var div = new Element('div', {'class': 'thumbContent'});
-                var h1 = new Element('h1', {html: photo.title});
-                var p = new Element('p', {html: 'some description'});
-                div.adopt(h1);
-                div.adopt(p);
                 a.adopt(img);
-                a.adopt(div);
+                a.adopt(new Element('h1', {html: photo.title}));
                 li.adopt(a);
                 searchResults.adopt(li);
-                
             });
         }
     }
     
+    function createTab(photo) {
+        if ($(photo.id)) {
+            $(photo.id).retrieve('tab').setActive(true);
+            return;
+        }
+        var title = photo.title;
+        if (title.length > 20) {
+            title = title.substring(0,20) + '...';
+        }
+        var tab = new Jx.Button.Tab({
+            label: title,
+            image: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_t.jpg',
+            close: true,
+            active: true,
+            contentId: photo.id,
+            onContentLoaded: function() {
+                (function(){
+                    new Asset.javascript('http://www.flickr.com/services/rest/?ts='+Math.random()+'&method=flickr.photos.getInfo&jsoncallback=updatePhotoInfo&format=json&api_key=2d40b54d95f5e9e2b9a4bcc35a2b8727&photo_id='+photo.id);
+                }).delay(1);
+            }
+        });
+        tab.content.store('tab', tab);
+        
+        tabBox.add(tab);
+    }
+    
+    function updatePhotoInfo(response) {
+        if (response && response.stat == 'ok' && response.photo) {
+            var photo = response.photo;
+            var content = $(photo.id);
+            if (!content) return;
+            content.addClass('imageTab');
+            var title = new Element('h1', {html: photo.title._content});
+            var upload = new Element('p');
+            upload.appendText('Uploaded by ');
+            new Element('a', {
+                href: 'javascript:void(0);',
+                html: photo.owner.username,
+                events: {
+                    click: function() {
+                        tabBox.add(
+                            new Jx.Button.Tab({
+                                label: photo.owner.username,
+                                image: 'images/user.png',
+                                close: true,
+                                active: true,
+                                content: '<iframe src="'+photo.urls.url[0]._content+'" style="width: 100%; height: 100%; border: 1px solid #ccc"></iframe>'
+                            })
+                        );
+                    }
+                }
+            }).inject(upload);
+            upload.appendText(' on '+ photo.dates.taken+'.');
+            upload.appendText(' '+photo.comments._content+' comments.');
+            var d = new Element('div', {
+                'class': 'photoContainer'
+            });
+            new Element('img', {
+                src: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg'
+            }).inject(d);
+            var tags = new Element('div', {
+                'class': 'photoTagsContainer'
+            });
+            tags.adopt(new Element('h3', {html: 'Tags'}));
+            var tagList = new Element('ul');
+            photo.tags.tag.each(function(tag) {
+                var li = new Element('li');
+                new Element('a', {
+                    html: tag._content,
+                    events: {
+                        click: function() {
+                            $('search').value = 'tag: ' + tag._content;
+                            currentPage = 1;
+                            jsonFlickrRequest($('search').value);
+                        }
+                    },
+                    styles: {
+                        cursor: 'pointer'
+                    }
+                }).inject(li);
+                tagList.adopt(li);
+            });
+            tags.adopt(tagList);
+            content.adopt(title);
+            content.adopt(upload);
+            content.adopt(d);
+            content.adopt(tags);
+        }
+    }
   </script>
   <style>
   body {
@@ -222,6 +303,8 @@
       font-size: 11px;
       line-height: 22px;
       margin: 2px;
+      width: 164px;
+      text-align: center;
   }
   
   #recentList {
@@ -251,10 +334,12 @@
       display: block;
       height: 87px;
       cursor: pointer;
+      float: left;
   }
   .searchResult a:hover {
     background-color: #fcfcfc;
   }
+
   .thumbnail {
       float: left;
       margin: 6px;
@@ -264,15 +349,17 @@
       background-position: top left;
   }
 
-  .thumbContent {
+  .searchResult h1 {
       float: left;
       margin: 6px;
       width: 140px;
-  }
-  
-  .thumbContent h1 {
       font-size: 13px;
   }
+  
+  #searchControl ul.jxToolbar {
+      width: 100%;
+  }
+  
   
   .jxTabBox .jxTabBarTop {
       background-image: url(images/tabbar.png);
@@ -285,6 +372,21 @@
   .jxPanelContentContainer {
       background-color: transparent;
   }
+  
+  .photoContainer {
+      float: left;
+  }
+  
+  .photoTagsContainer {
+      float: left;
+      margin-left: 20px;
+  }
+  
+  .imageTab p {
+      margin-left: 0px;
+      color: #666;
+  }
+  
   </style>
   
 </head>
