@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Browsr - a JxLib Example</title>
-  <script src="../lib/jxlib.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../lib/jxlib.uncompressed.js" type="text/javascript" charset="utf-8"></script>
   <link rel="stylesheet" href="../lib/themes/delicious/jxtheme.css" type="text/css" media="screen" charset="utf-8">
   <script type="text/javascript" charset="utf-8">
     var tabBox;
@@ -12,6 +12,8 @@
     var lastButton;
     var currentPage=1;
     var totalPages;
+    var mostRecentFx;
+    
     window.addEvent('load', function() {
         // make thePage fill the browser's viewable area
         new Jx.Layout('thePage');
@@ -38,6 +40,7 @@
                 contentURL: 'about.html', 
                 image: 'images/page.png',
                 onContentLoaded: function() {
+                    mostRecentFx = new Fx.Slide('recentList', {mode: 'horizontal'});
                     updateMostRecent();
                     new Jx.Button({
                         label: 'Update Most Recent',
@@ -122,6 +125,7 @@
         // an initial request to populate the search results with the
         // most recently uploaded images
         jsonFlickrRequest('');
+        
     });
     
     // update the 10 most recent images that we show on the About tab.
@@ -135,28 +139,31 @@
     // callback to actually display the pics and hook them up to the tab creation function when clicked
     function displayMostRecent(response) {
         if (response && response.stat == 'ok' && response.photos) {
-            var photos = response.photos.photo;
-            var recentList = $('recentList');
-            recentList.empty();
-            photos.each(function(photo) {
-                var li = new Element('li');
-                var a = new Element('a', {
-                    events: {
-                        click: function() {
-                            createTab(photo);
+            mostRecentFx.slideOut().chain( function() {
+                var photos = response.photos.photo;
+                var recentList = $('recentList');
+                recentList.empty();
+                photos.each(function(photo) {
+                    var li = new Element('li');
+                    var a = new Element('a', {
+                        events: {
+                            click: function() {
+                                createTab(photo);
+                            }
                         }
-                    }
+                    });
+                    var img = new Element('img', {
+                        src: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_t.jpg',
+                        styles: {
+                            width: 60,
+                            padding: 2
+                        }
+                    });
+                    a.adopt(img);
+                    li.adopt(a);
+                    recentList.adopt(li);
                 });
-                var img = new Element('img', {
-                    src: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_t.jpg',
-                    styles: {
-                        width: 60,
-                        padding: 2
-                    }
-                });
-                a.adopt(img);
-                li.adopt(a);
-                recentList.adopt(li);
+                mostRecentFx.slideIn();
             });
         }    
     }
