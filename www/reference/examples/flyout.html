@@ -34,7 +34,9 @@ function ajaxFlyout() {
     new Jx.Button.Flyout({
       label: 'Asynchronous Content',
       image: 'images/page_white_world.png',
-      contentURL: 'button_content.html'
+      contentURL: 'button_content.html',
+      onOpen: function() {log('flyout open event');},
+      onClose: function() {log('flyout close event');}
     }).addTo('flyoutAjax');
 }
 </script>

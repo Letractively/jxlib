@@ -157,7 +157,9 @@
                         styles: {
                             width: 60,
                             padding: 2
-                        }
+                        },
+                        alt: '',
+                        title: ''
                     });
                     a.adopt(img);
                     li.adopt(a);
@@ -280,7 +282,9 @@
                 'class': 'photoContainer'
             });
             new Element('img', {
-                src: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg'
+                src: 'http://farm'+photo.farm+'.static.flickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'.jpg',
+                alt: '',
+                title: ''
             }).inject(d);
             var tags = new Element('div', {
                 'class': 'photoTagsContainer'

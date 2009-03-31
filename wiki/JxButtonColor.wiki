@@ -2,7 +2,9 @@
 
 === Jx.Button.Color ===
 
-button-color.png
+The color button is a special case of buttons that embeds a [JxColorPalette Jx.ColorPalette] in a flyout and displays a preview of the current color on the main button:
+
+http://jxlib.googlecode.com/svn/wiki/images/button-color.png
 
 Color buttons 
 

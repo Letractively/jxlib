@@ -3,15 +3,16 @@
 <head>
 <title>Jx.Dialog Examples</title>
 <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
-<script type="text/javascript" src="../lib/jxlib.js"></script>
+<!-- <script type="text/javascript" src="../lib/jxlib.js"></script> -->
 <script type="text/javascript" src="../../lib/jxlib.uncompressed.js"></script>
 <script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
 <script  type="text/javascript">
-    var d1, d2, d3, d4;
+    var d1, d2, d3, d4, d5;
     window.addEvent('load', function() {
         drawBasicDialog();
         drawPositionedDialog();
         drawToolbarDialog();
+        drawAjaxFailedDialog();
         drawAjaxDialog();
     });
     
@@ -23,7 +24,7 @@
      * dialog but it is functional if you resize the dialog
      */
     window.addEvent('stylesheetChanged', function() {
-        [d1,d2,d3,d4].each(function(d) {
+        [d1,d2,d3,d4,d5].each(function(d) {
             if (d && d.chrome) {
                 d.close();
                 d.chrome.dispose();
@@ -37,6 +38,7 @@
 function drawBasicDialog() {
     /* a simple dialog with HTML content, not moveable.
      */
+    /*
     d1 = new Jx.Dialog({
         label: 'Static Dialog',
         image: 'images/page_white_text.png',
@@ -46,11 +48,37 @@ function drawBasicDialog() {
         content: "<h3>Content from HTML String</h3>"+
             "<p>This dialog cannot be moved or resized, but it can be collapsed.</p>"
     });
+    */
+    d1 = new Jx.Dialog({
+        label: 'Test',
+        content: "<div id='BtOk'></div> <div id='BtCancel'></div>" ,
+        drawButtons: true,
+        onOpen: function() {
+            if (this.options.drawButtons) {
+                new Jx.Button({
+                    label: 'Yes',
+                    onClick: function() {
+                        // Do something
+                        d1.close();
+                    }
+                }).addTo(this.content.getElementById('BtOk'));
+                new Jx.Button({
+                    label: 'No',
+                    onClick: function() {
+                        d1.close();
+                    }
+                }).addTo(this.content.getElementById('BtCancel'));
+                this.options.drawButtons = false;
+            }
+        }
+    });
+
     new Jx.Button({
         image: 'images/page_white_text.png', 
         label: 'Static', 
         onClick: d1.open.bind(d1)
     }).addTo('basicDialogButton'); 
+    
     
 }
 </script>
@@ -127,8 +155,8 @@ function drawToolbarDialog() {
     }).addTo('toolbarDialogButton');
 }
 </script>
-<script id="ajaxDialogScript">
-function drawAjaxDialog() {
+<script id="ajaxFailedDialogScript">
+function drawAjaxFailedDialog() {
     /* a dialog that fails to load some content so we can test the
      * content events
      */
@@ -159,6 +187,49 @@ function drawAjaxDialog() {
        image: 'images/page_white_world.png', 
        label: 'Invalid Content URL', 
        onClick: d4.open.bind(d4)
+    }).addTo('ajaxFailedDialogButton');
+}
+</script>
+<script id="ajaxDialogScript">
+
+Jx.Dialog.OpenURL = new Class({
+    Extends: Jx.Dialog,
+    openURL: function(url) {
+        if (url) {
+            this.loadfn = (function() {
+                this.removeEvent('contentLoaded', this.loadfn);
+                this.open();
+            }).bind(this);
+            this.addEvent('contentLoaded', this.loadfn);
+            this.options.contentURL = url;
+            this.loadContent(this.content);
+        } else {
+            this.open();
+        }
+    }
+});
+function drawAjaxDialog() {
+    /* a dialog that loads content when it is opened */
+    d5 = new Jx.Dialog.OpenURL({
+        label: 'Content URL',
+        image: 'images/page_white_world.png',
+        modal: false, 
+        width: 400,
+        height: 400,
+        contentURL: 'dialog_content.html',
+        onOpen: function() {
+            //this.loadContent(this.content);            
+        },
+        onContentLoaded: function() {
+          log('Loaded content');
+        }
+    });
+    new Jx.Button({
+       image: 'images/page_white_world.png', 
+       label: 'AJAX Content', 
+       onClick: function() {
+           d5.openURL('dialog_content.html');
+       }
     }).addTo('ajaxDialogButton');
 }
 </script>
@@ -176,6 +247,10 @@ function drawAjaxDialog() {
 <h2 id="toolbarDialog">Toolbars in Dialogs</h2>
 <p>Dialogs can also contain toolbars in any of the four sides of the content area.  This dialog also demonstrates loading content from a URL and processing it after it has loaded.  It also tries some other positioning logic.</p>
 <div id="toolbarDialogButton" class="buttonBox"></div>
+
+<h2 id="ajaxFailedDialog">Ajax Content Fails to Load</h2>
+<p>If dialog content fails to load, you can trap that error and do something useful for the user.</p>
+<div id="ajaxFailedDialogButton" class="buttonBox"></div>
 
 <h2 id="ajaxDialog">Ajax Content in Dialogs</h2>
 <p>If dialog content fails to load, you can trap that error and do something useful for the user.</p>
