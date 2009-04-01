@@ -6,13 +6,12 @@
 <script type="text/javascript" src="../../lib/jxlib.uncompressed.js"></script>
 <script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
 <script  type="text/javascript">
-    var d1, d2, d3, d4, d5;
+    var d1, d2, d3, d4;
     window.addEvent('load', function() {
         drawBasicDialog();
         drawPositionedDialog();
         drawToolbarDialog();
         drawAjaxFailedDialog();
-        drawAjaxDialog();
     });
     
     /* normally we wouldn't switch the stylesheet on the fly - 
@@ -23,7 +22,7 @@
      * dialog but it is functional if you resize the dialog
      */
     window.addEvent('stylesheetChanged', function() {
-        [d1,d2,d3,d4,d5].each(function(d) {
+        [d1,d2,d3,d4].each(function(d) {
             if (d && d.chrome) {
                 d.close();
                 d.chrome.dispose();
@@ -164,49 +163,6 @@ function drawAjaxFailedDialog() {
     }).addTo('ajaxFailedDialogButton');
 }
 </script>
-<script id="ajaxDialogScript">
-
-Jx.Dialog.OpenURL = new Class({
-    Extends: Jx.Dialog,
-    openURL: function(url) {
-        if (url) {
-            this.loadfn = (function() {
-                this.removeEvent('contentLoaded', this.loadfn);
-                this.open();
-            }).bind(this);
-            this.addEvent('contentLoaded', this.loadfn);
-            this.options.contentURL = url;
-            this.loadContent(this.content);
-        } else {
-            this.open();
-        }
-    }
-});
-function drawAjaxDialog() {
-    /* a dialog that loads content when it is opened */
-    d5 = new Jx.Dialog.OpenURL({
-        label: 'Content URL',
-        image: 'images/page_white_world.png',
-        modal: false, 
-        width: 400,
-        height: 400,
-        contentURL: 'dialog_content.html',
-        onOpen: function() {
-            //this.loadContent(this.content);            
-        },
-        onContentLoaded: function() {
-          log('Loaded content');
-        }
-    });
-    new Jx.Button({
-       image: 'images/page_white_world.png', 
-       label: 'AJAX Content', 
-       onClick: function() {
-           d5.openURL('dialog_content.html');
-       }
-    }).addTo('ajaxDialogButton');
-}
-</script>
 </head>
 <body>
 <h1>Jx.Dialog Examples</h1>
@@ -225,10 +181,6 @@ function drawAjaxDialog() {
 <h2 id="ajaxFailedDialog">Ajax Content Fails to Load</h2>
 <p>If dialog content fails to load, you can trap that error and do something useful for the user.</p>
 <div id="ajaxFailedDialogButton" class="buttonBox"></div>
-
-<h2 id="ajaxDialog">Ajax Content in Dialogs</h2>
-<p>If dialog content fails to load, you can trap that error and do something useful for the user.</p>
-<div id="ajaxDialogButton" class="buttonBox"></div>
 
 <div id='inlineContent'>
   <h3>Inline Content</h3>
