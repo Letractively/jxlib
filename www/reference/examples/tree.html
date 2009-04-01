@@ -3,7 +3,6 @@
 <head>
 <title>Jx.Tree Test Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<script type="text/javascript" src="../lib/jxlib.js"></script>
 <script type="text/javascript" src="../../lib/jxlib.uncompressed.js"></script>
 <script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -14,6 +13,11 @@ window.addEvent('load', function() {
 
 <script id="treeScript" type="text/javascript">
 function tree() {
+  
+    var cm = new Jx.Menu.Context();
+    var mi = new Jx.Menu.Item({label:'test'});
+    cm.add(mi);
+    
     /* the tree object goes in a div */
     var tree = new Jx.Tree({parent: 'treeArea'});
 
@@ -23,7 +27,8 @@ function tree() {
         image: 'images/bug.png',
         onClick: function() {
             log('you clicked the bug!');
-        }
+        },
+        contextMenu: cm
     });
     tree.append(item);
     
@@ -31,7 +36,8 @@ function tree() {
     var folder = new Jx.TreeFolder({
         label: 'Tree folder with custom icon',
         image: 'images/blue_folder.png',
-        imageClass: 'blueFolder'
+        imageClass: 'blueFolder',
+        contextMenu: cm
     });
     tree.append(folder);
     

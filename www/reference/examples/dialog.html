@@ -3,7 +3,6 @@
 <head>
 <title>Jx.Dialog Examples</title>
 <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
-<!-- <script type="text/javascript" src="../lib/jxlib.js"></script> -->
 <script type="text/javascript" src="../../lib/jxlib.uncompressed.js"></script>
 <script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
 <script  type="text/javascript">
@@ -38,7 +37,6 @@
 function drawBasicDialog() {
     /* a simple dialog with HTML content, not moveable.
      */
-    /*
     d1 = new Jx.Dialog({
         label: 'Static Dialog',
         image: 'images/page_white_text.png',
@@ -47,30 +45,6 @@ function drawBasicDialog() {
         move: false,
         content: "<h3>Content from HTML String</h3>"+
             "<p>This dialog cannot be moved or resized, but it can be collapsed.</p>"
-    });
-    */
-    d1 = new Jx.Dialog({
-        label: 'Test',
-        content: "<div id='BtOk'></div> <div id='BtCancel'></div>" ,
-        drawButtons: true,
-        onOpen: function() {
-            if (this.options.drawButtons) {
-                new Jx.Button({
-                    label: 'Yes',
-                    onClick: function() {
-                        // Do something
-                        d1.close();
-                    }
-                }).addTo(this.content.getElementById('BtOk'));
-                new Jx.Button({
-                    label: 'No',
-                    onClick: function() {
-                        d1.close();
-                    }
-                }).addTo(this.content.getElementById('BtCancel'));
-                this.options.drawButtons = false;
-            }
-        }
     });
 
     new Jx.Button({

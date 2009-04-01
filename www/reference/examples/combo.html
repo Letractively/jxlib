@@ -3,7 +3,6 @@
 <head>
 <title>Jx.Button.Combo Examples</title>
 <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
-<script type="text/javascript" src="../lib/jxlib.js"></script>
 <script type="text/javascript" src="../../lib/jxlib.uncompressed.js"></script>
 <script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -45,7 +44,7 @@ function basicCombo() {
         ]
     }).addTo('comboBasic');
     /* and just a label this time */
-    new Jx.Button.Combo({
+    var c = new Jx.Button.Combo({
         label: 'Choose a symbol',
         items: [
             {label: 'Small'},
@@ -54,6 +53,7 @@ function basicCombo() {
             {label: 'Extra large'}
         ]
     }).addTo('comboBasic');
+    c.setValue('Medium');
 }
 </script>
 
