@@ -3,9 +3,9 @@
 
 = 2.0 Open Issues =
 
-issue 84 - (bug) visual glitch in menu items when using CSS sprites for images on those menu items
-issue 32 - (task) JxLib cheat sheet
-issue 86 - (task) review API docs before final release
+ * issue 84 - (bug) visual glitch in menu items when using CSS sprites for images on those menu items
+ * issue 32 - (task) JxLib cheat sheet
+ * issue 86 - (task) review API docs before final release
 
 We closed 38 known issues between Beta 6 and RC 1 - thanks to jonlb and KASI for providing fixes to some of the issues.
 
