@@ -7,7 +7,7 @@
 
 == Mix-ins ==
 
-=== Jx.ContentLoader ===
+=== Jx.!ContentLoader ===
   * Common handler for adding content to a JxLib object such as a Jx.Dialog
   * Methods: 
     * loadContent(el) - uses this.options to load content into DOM element 
@@ -37,7 +37,7 @@
   * Events:
     * none
 
-=== Jx.AutoPosition ===
+=== Jx.!AutoPosition ===
   * Helper for positioning an element adjacent to another element using a set of rules
   * Methods: 
     * position(el, rel, options) - positions DOM el relative to DOM rel using rules from options, tries to keep el visible in the viewport of the browser by trying rules in order
@@ -83,14 +83,14 @@
   * Options: close
   * Methods:
   
-=== Jx.ButtonSet ===
+=== Jx.!ButtonSet ===
   * Extends:
   * Implements: Options, Events
   * Events: change
   * Options:
   * Methods: add, remove, setActiveButton
 
-=== Jx.ColorPalette ===
+=== Jx.!ColorPalette ===
   * Extends:
   * Implements: Options, Events, Jx.Addable
   * Events: change, click
@@ -104,7 +104,7 @@
   * Options: label, position, height, collapse, collapseTooltip, exapndLabel, maximizeTooltip, maximizeLabel, detach, close, closeTooltip, closeLabel, hideTitle, toolbars
   * Methods: setLabel, getLabel, maximize, setContent, setContentURL, toggleCollapse, close
 
-=== Jx.PanelSet ===
+=== Jx.!PanelSet ===
   * Extends:
   * Implements: Options, Events, Jx.Addable
   * Events:
@@ -132,7 +132,7 @@
   * Options:
   * Methods:
   
-=== Jx.Menu.SubMenu ===
+=== Jx.Menu.!SubMenu ===
   * Extends: Jx.Menu.Item
   * Implements: Jx.AutoPosition, Jx.Chrome
   * Events:
@@ -146,14 +146,14 @@
   * Options: <button options>
   * Methods: add, show, hide
   
-=== Jx.TabSet ===
+=== Jx.!TabSet ===
   * Extends:
   * Implements: Options, Events
   * Events: tabChange
   * Options:
   * Methods:
   
-=== Jx.TabBox ===
+=== Jx.!TabBox ===
   * Extends:
   * Implements: Options, Events, Jx.Addable
   * Events:
@@ -181,14 +181,14 @@
   * Options: active
   * Methods:
   
-=== Jx.TreeItem ===
+=== Jx.!TreeItem ===
   * Extends:
   * Implements: Options, Events
   * Events: click
   * Options: label, data, contextMenu, image, enabled
   * Methods:
   
-=== Jx.TreeFolder ===
+=== Jx.!TreeFolder ===
   * Extends: Jx.TreeItem
   * Implements: 
   * Events: disclosed
