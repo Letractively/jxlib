@@ -1,5 +1,6 @@
 #summary A quick reference guide to JxLib objects
 #labels Featured
+#sidebar TableOfContents
 
 = Quick Reference Guide =
 
