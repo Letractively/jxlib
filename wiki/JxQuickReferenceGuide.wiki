@@ -51,192 +51,192 @@
 === Jx.Button ===
   * Extends:
   * Implements: 
-	* Options
-	* Events
-	* Jx.Addable
-  * Events: 	
-	* click
-	* down
-	* up
-  * Options: 	
-	* id
-	* image
-	* tooltip
-	* label
-	* toggle
-	* active
-	* enabled
-  * Methods:	
-	* isEnabled
-	* setEnabled
-	* isActive
-	* setActive
-	* getLabel
-	* setLabel
-	* setTooltip
-	* setImage
+    * Options
+    * Events
+    * Jx.Addable
+  * Events:     
+    * click
+    * down
+    * up
+  * Options:     
+    * id
+    * image
+    * tooltip
+    * label
+    * toggle
+    * active
+    * enabled
+  * Methods:    
+    * isEnabled
+    * setEnabled
+    * isActive
+    * setActive
+    * getLabel
+    * setLabel
+    * setTooltip
+    * setImage
   
 === Jx.Button.Flyout ===
-  * Extends:	
-	* Jx.Button
-  * Implements:	
-	* Jx.ContentLoader
-	* Jx.AutoPosition
-	* Jx.Chrome
-  * Events:	
-	* open
-	* close
+  * Extends:    
+    * Jx.Button
+  * Implements:    
+    * Jx.ContentLoader
+    * Jx.AutoPosition
+    * Jx.Chrome
+  * Events:    
+    * open
+    * close
   * Options: (inherited)
   * Methods: 
 
 === Jx.Button.Multi ===
-  * Extends:	
-	* Jx.Button
+  * Extends:    
+    * Jx.Button
   * Implements: 
   * Events: 
   * Options: items
-  * Methods:	
-	* add
-	* remove
-	* set
+  * Methods:    
+    * add
+    * remove
+    * set
   
 === Jx.Button.Combo ===
-  * Extends:	
-	* Jx.Button.Multi
+  * Extends:    
+    * Jx.Button.Multi
   * Implements: 
-  * Events:	
-	* change
-  * Options:	
-	* editable
-  * Methods:	
-	* add
-	* remove
-	* setValue
-	* getValue
+  * Events:    
+    * change
+  * Options:    
+    * editable
+  * Methods:    
+    * add
+    * remove
+    * setValue
+    * getValue
   
 === Jx.Button.Tab ===
-  * Extends:	
-	* Jx.Button
-  * Implements:	
-	* Jx.ContentLoader
-  * Events:	
-	* change
-  * Options:	
-	* close
+  * Extends:    
+    * Jx.Button
+  * Implements:    
+    * Jx.ContentLoader
+  * Events:    
+    * change
+  * Options:    
+    * close
   * Methods:
   
 === Jx.!ButtonSet ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-  * Events:	
-	* change
+  * Implements:    
+    * Options
+    * Events
+  * Events:    
+    * change
   * Options:
-  * Methods:	
-	* add
-	* remove
-	* setActiveButton
+  * Methods:    
+    * add
+    * remove
+    * setActiveButton
 
 === Jx.!ColorPalette ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-	* Jx.Addable
-  * Events:	
-	* change
-	* click
-  * Options:	
-	* color
-	* alpha
-	* alphaLabel
-  * Methods:	
-	* setColor
-	* setAlpha
+  * Implements:    
+    * Options
+    * Events
+    * Jx.Addable
+  * Events:    
+    * change
+    * click
+  * Options:    
+    * color
+    * alpha
+    * alphaLabel
+  * Methods:    
+    * setColor
+    * setAlpha
   
 === Jx.Panel ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-	* Jx.ContentLoader
-	* Jx.Addable
-  * Events:	
-	* close
-	* collapse
-	* expand
-  * Options:	
-	* label
-	* position
-	* height
-	* collapse
-	* collapseTooltip
-	* exapndLabel
-	* maximizeTooltip
-	* maximizeLabel
-	* detach
-	* close
-	* closeTooltip
-	* closeLabel
-	* hideTitle
-	* toolbars
-  * Methods:	
-	* setLabel
-	* getLabel
-	* maximize
-	* setContent
-	* setContentURL
-	* toggleCollapse
-	* close
+  * Implements:    
+    * Options
+    * Events
+    * Jx.ContentLoader
+    * Jx.Addable
+  * Events:    
+    * close
+    * collapse
+    * expand
+  * Options:    
+    * label
+    * position
+    * height
+    * collapse
+    * collapseTooltip
+    * exapndLabel
+    * maximizeTooltip
+    * maximizeLabel
+    * detach
+    * close
+    * closeTooltip
+    * closeLabel
+    * hideTitle
+    * toolbars
+  * Methods:    
+    * setLabel
+    * getLabel
+    * maximize
+    * setContent
+    * setContentURL
+    * toggleCollapse
+    * close
 
 === Jx.!PanelSet ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-	* Jx.Addable
+  * Implements:    
+    * Options
+    * Events
+    * Jx.Addable
   * Events:
-  * Options:	
-	* panels
-	* barTooltip
-  * Methods:	
-	* maximizePanel
-	* 
+  * Options:    
+    * panels
+    * barTooltip
+  * Methods:    
+    * maximizePanel
+    * 
 
 === Jx.Dialog ===
-  * Extends:	
-	* Jx.Panel
-  * Implements:	
-	* Jx.AutoPosition
-	* Jx.Chrome
-  * Events:	
-	* open
-	* close
-	* change
-	* resize
-  * Options:	
-	* modal
-	* width
-	* height
-	* horizontal
-	* vertical
-	* id
-	* resize
-	* resizeTooltip
-	* move
-	* close
-	* collapse
-  * Methods:	
-	* resize
-	* toggleCollapse
-	* openURL
-	* open
-	* close
+  * Extends:    
+    * Jx.Panel
+  * Implements:    
+    * Jx.AutoPosition
+    * Jx.Chrome
+  * Events:    
+    * open
+    * close
+    * change
+    * resize
+  * Options:    
+    * modal
+    * width
+    * height
+    * horizontal
+    * vertical
+    * id
+    * resize
+    * resizeTooltip
+    * move
+    * close
+    * collapse
+  * Methods:    
+    * resize
+    * toggleCollapse
+    * openURL
+    * open
+    * close
 
 === Jx.Menu.Item ===
-  * Extends:	
-	* Jx.Button
+  * Extends:    
+    * Jx.Button
   * Implmements:
   * Events:
   * Options:
@@ -250,157 +250,157 @@
   * Methods:
   
 === Jx.Menu.!SubMenu ===
-  * Extends:	
-	* Jx.Menu.Item
-  * Implements:	
-	* Jx.AutoPosition
-	* Jx.Chrome
+  * Extends:    
+    * Jx.Menu.Item
+  * Implements:    
+    * Jx.AutoPosition
+    * Jx.Chrome
   * Events:
   * Options:
   * Methods:
   
 === Jx.Menu ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-	* Jx.AutoPosition
-	* Jx.Chrome
-	* Jx.Addable
-  * Events:	
-	* show
-	* hide
-  * Options:	
-	* <button options>
-  * Methods	
-	*: add
-	* show
-	* hide
+  * Implements:    
+    * Options
+    * Events
+    * Jx.AutoPosition
+    * Jx.Chrome
+    * Jx.Addable
+  * Events:    
+    * show
+    * hide
+  * Options:    
+    * <button options>
+  * Methods    
+    *: add
+    * show
+    * hide
   
 === Jx.!TabSet ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-  * Events:	
-	* tabChange
+  * Implements:    
+    * Options
+    * Events
+  * Events:    
+    * tabChange
   * Options:
   * Methods:
   
 === Jx.!TabBox ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-	* Jx.Addable
+  * Implements:    
+    * Options
+    * Events
+    * Jx.Addable
   * Events:
-  * Options:	
-	* position
-	* scroll
-	* height
-	* width
-  * Methods:	
-	* add
-	* remove
+  * Options:    
+    * position
+    * scroll
+    * height
+    * width
+  * Methods:    
+    * add
+    * remove
   
 === Jx.Toolbar ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
+  * Implements:    
+    * Options
+    * Events
   * Events: add
-	* remove
-  * Options:	
-	* position
-	* autoSize
-	* scroll
-  * Methods:	
-	* add
-	* remove
-	* showItem
+    * remove
+  * Options:    
+    * position
+    * autoSize
+    * scroll
+  * Methods:    
+    * add
+    * remove
+    * showItem
   
 === Jx.Toolbar.Container ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-	* Jx.Addable
-  * Events:	
-	* add
-	* remove
-  * Options:	
-	* position
-	* autoSize
-	* scroll
-  * Methods:	
-	* add
-	* remove
+  * Implements:    
+    * Options
+    * Events
+    * Jx.Addable
+  * Events:    
+    * add
+    * remove
+  * Options:    
+    * position
+    * autoSize
+    * scroll
+  * Methods:    
+    * add
+    * remove
   
 === Jx.Toolbar.Item ===
   * Extends:
-  * Implements:	
-	* Options
+  * Implements:    
+    * Options
   * Events:
-  * Options:	
-	* active
+  * Options:    
+    * active
   * Methods:
   
 === Jx.!TreeItem ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-  * Events:	
-	* click
-  * Options:	
-	* label
-	* data
-	* contextMenu
-	* image
-	* enabled
+  * Implements:    
+    * Options
+    * Events
+  * Events:    
+    * click
+  * Options:    
+    * label
+    * data
+    * contextMenu
+    * image
+    * enabled
   * Methods:
   
 === Jx.!TreeFolder ===
-  * Extends:	
-	* Jx.TreeItem
+  * Extends:    
+    * Jx.TreeItem
   * Implements: 
   * Events: disclosed
-  * Options:	
-	* open
-	* folderCloseImage
-	* folderOpenImage
-  * Methods:	
-	* append
-	* insert
-	* remove
-	* replace
-	* expand
-	* collapse
-	* findChild
+  * Options:    
+    * open
+    * folderCloseImage
+    * folderOpenImage
+  * Methods:    
+    * append
+    * insert
+    * remove
+    * replace
+    * expand
+    * collapse
+    * findChild
   
 === Jx.Tree ===
-  * Extends:	
-	* Jx.TreeFolder
-  * Implements:	
-	* Jx.Addable
+  * Extends:    
+    * Jx.TreeFolder
+  * Implements:    
+    * Jx.Addable
   * Events:
   * Options:
   * Methods: append
   
 === Jx.Splitter ===
   * Extends:
-  * Implements:	
-	* Options
+  * Implements:    
+    * Options
   * Events:
-  * Options:	
-	* useChildren
-	* splitInto
-	* elements
-	* containerOptions
-	* barOptions
-	* layout
-	* snaps
-	* barTooltip
+  * Options:    
+    * useChildren
+    * splitInto
+    * elements
+    * containerOptions
+    * barOptions
+    * layout
+    * snaps
+    * barTooltip
   * Methods:
 
 === Jx.Splitter.Snap ===
@@ -412,71 +412,71 @@
 
 === Jx.Layout ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-  * Events:	
-	* sizeChange
-  * Options:	
-	* propagate
-	* position
-	* left
-	* top
-	* right
-	* bottom
-	* width
-	* height
-	* minWidth
-	* minHeight
-	* maxWidth
-	* maxHeight
+  * Implements:    
+    * Options
+    * Events
+  * Events:    
+    * sizeChange
+  * Options:    
+    * propagate
+    * position
+    * left
+    * top
+    * right
+    * bottom
+    * width
+    * height
+    * minWidth
+    * minHeight
+    * maxWidth
+    * maxHeight
   * Methods: resize
 
 === Jx.Grid ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-	* Jx.Addable
-  * Options:	
-	* alternateRowColors
-	* rowHeaders
-	* columnHeaders
-	* rowSelection
-	* columnSelection
-	* cellPrelight
-	* rowPrelight
-	* columnPrelight
-	* rowHeaderPrelight
-	* columnHeaderPrelight
-	* cellSelection
+  * Implements:    
+    * Options
+    * Events
+    * Jx.Addable
+  * Options:    
+    * alternateRowColors
+    * rowHeaders
+    * columnHeaders
+    * rowSelection
+    * columnSelection
+    * cellPrelight
+    * rowPrelight
+    * columnPrelight
+    * rowHeaderPrelight
+    * columnHeaderPrelight
+    * cellSelection
   * Events:
-  * Methods:	
-	* setModel
-	* selectCell
-	* selectColumnHeader
-	* selectColumn
-	* selectRow
-	* selectRowHeader
+  * Methods:    
+    * setModel
+    * selectCell
+    * selectColumnHeader
+    * selectColumn
+    * selectRow
+    * selectRowHeader
 
 === Jx.Grid.Model ===
   * Extends:
-  * Implements:	
-	* Options
-	* Events
-  * Events:	
-	* select-row
-	* select-column
-	* select-cell
-  * Options:	
-	* colHeaderHeight
-	* rowHeaderWidth
-	* colWidth
-	* rowHeight
-	* rowHeaders
-	* columnHeaders
-  * Methods:	
-	* getColumnCount
-	* getRowCount
-	* getValueAt
-	* setValueAt
+  * Implements:    
+    * Options
+    * Events
+  * Events:    
+    * select-row
+    * select-column
+    * select-cell
+  * Options:    
+    * colHeaderHeight
+    * rowHeaderWidth
+    * colWidth
+    * rowHeight
+    * rowHeaders
+    * columnHeaders
+  * Methods:    
+    * getColumnCount
+    * getRowCount
+    * getValueAt
+    * setValueAt
