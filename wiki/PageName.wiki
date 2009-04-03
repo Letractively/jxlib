@@ -1,4 +1,5 @@
 #summary A quick reference guide to JxLib objects
+#labels Featured
 
 = Quick Reference Guide =
 
