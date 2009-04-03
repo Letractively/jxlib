@@ -4,6 +4,8 @@
 
 = Quick Reference Guide =
 
+<wiki:toc max_depth="3" />
+
 == Mix-ins ==
 
 === Jx.ContentLoader ===
