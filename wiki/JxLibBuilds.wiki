@@ -18,9 +18,11 @@ The CSS files shipped with JxLib skins include both compressed and uncompressed 
 
 == MooTools Dependencies ==
 
+For the moment, the best way to get these dependencies is to use the mootools.net ore and more builder. They will automatically include the necessary dependencies (i.e. "Class" depends on "Core", etc.). Eventually, we will have a builder available on jxlib.org that will do this all for you.
+
 === Mandatory ===
 
-If you are building a minimal MooTools to include with jxlib.standalone.js, you must include the following components from MooTools Core:
+If you are building a minimal MooTools to include with jxlib.standalone.js, you must include the following components from MooTools Core along with their dependencies:
 
   * "Class"
   * "Element"
