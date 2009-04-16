@@ -1,4 +1,9 @@
 <?php 
+/**
+ * Copyright 2009 by Jonathan Bomgardner
+ * License: MIT-style
+ */
+
 session_start();
 
 define('DS',DIRECTORY_SEPARATOR);

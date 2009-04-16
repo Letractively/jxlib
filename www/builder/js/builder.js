@@ -1,5 +1,9 @@
 /**
+ * Class: builder
+ * Provides functionality for the jxlib.org download builder
  * 
+ * Copyright 2009 by Jonathan Bomgardner
+ * License: MIT-style
  */
 var builder = new Class({
 	
