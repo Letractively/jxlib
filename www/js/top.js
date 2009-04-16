@@ -60,8 +60,15 @@ window.addEvent('load', function() {
             Cookie.write('JxHomePage.CurrentTab', 'groupTab');
         }
     });
-    new Jx.TabSet('tabset').add(homeTab, refTab, examplesTab, testsTab, codeTab, groupTab);
-    toolbar.add(homeTab, examplesTab, refTab, codeTab, groupTab);
+    downloadTab = new Jx.Button.Tab({
+        label: 'Download Builder', 
+        onDown: function() {
+            window.top.main.location.href = 'builder';
+            Cookie.write('JxHomePage.CurrentTab', 'downloadTab');
+        }
+    });
+    new Jx.TabSet('tabset').add(homeTab, refTab, examplesTab, testsTab, codeTab, groupTab, downloadTab);
+    toolbar.add(homeTab, examplesTab, refTab, codeTab, groupTab, downloadTab);
     
     switch(defaultTab) {
         case 'homeTab':
@@ -81,6 +88,9 @@ window.addEvent('load', function() {
             break;
         case 'groupTab':
             groupTab.setActive(true);
+            break;
+        case 'downloadTab':
+            downloadTab.setActive(true);
             break;
     }
 });
