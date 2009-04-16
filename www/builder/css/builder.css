@@ -1,0 +1,138 @@
+@CHARSET "UTF-8";
+
+
+
+.library {
+	width: 90%;
+	margin: 0px auto;
+	border: 2px solid #E3996D; 
+	background-color: #EEE1D9;
+	padding: 5px;
+	color: #E3996D;
+	font-weight: bold;
+}
+
+.library p {
+	float: left;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:18px;
+	font-weight: bold;
+	line-height:24px;
+	margin: 0;
+	padding:0;
+	color: #E3996D;
+}
+
+.library div {
+	float: right;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:18px;
+	font-weight:normal;
+	line-height:24px;
+	margin:0;
+	padding:0;
+}
+
+.library-selector {
+	clear: both;
+	width: 85%;
+	margin: 0 auto;
+	border: 1px solid #DCEAEE;
+	border-top: none;
+	padding: 5px;
+	background-color: #DCEAEE;
+}
+
+.library-selector div {
+	float: left;
+	margin: 0 0 0 10px;
+	padding: 0;
+	font-size: 14px;
+	line-height: 16px;
+}
+
+.files {
+	clear: both;
+	width: 85%;
+	margin: 0 auto;
+	border: 1px solid #DCEAEE;
+	border-top: none;
+	padding: 5px;
+}
+
+.folder {
+	border-bottom: 1px solid #DCEAEE;
+	margin: 5px 5px 10px 5px;
+	width: 100%;
+	
+	
+}
+
+.file  {
+	padding: 2px;
+}
+
+.file:hover {
+	background-color: teal;
+	color: white;
+	cursor: pointer;
+}
+
+input:hover {
+	cursor: pointer;
+}
+
+.file span {
+	display: block;
+	float: left;
+	font-size: 13px;
+}
+
+.check {
+	margin-left: 10px;
+	width: 25px;
+	clear: left;
+}
+
+.name {
+	width: 130px;
+	margin-left: 5px;
+	margin-top: 2px;
+}
+
+.desc {
+	margin-left: 5px;
+	margin-top: 2px;
+	font-size: 12px;
+	width: 80%;
+}
+
+#options div, #download {
+	font-size: 14px;
+	margin-left: 15px;
+}
+
+#download div.jxButtonContainer {
+	margin-bottom: 20px;	
+}
+
+#options div div {
+	margin-bottom: 10px;
+	margin-left: 30px;
+}
+
+#options label {
+	margin-left: 5px;	
+}
+
+#progress-message {
+	text-align: center;
+}
+	
+.clear {
+	clear: both;
+}
+
+.spacer {
+	margin-top: 20px;
+}
