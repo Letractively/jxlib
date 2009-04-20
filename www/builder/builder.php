@@ -41,18 +41,30 @@ foreach ($libs as $lib){
 
 //put the files together as required
 $strFiles = array();
+$more = in_array('more',$libs);
+$core = in_array('core',$libs);
 switch ($_POST['numFiles']) {
 	case "1":
 		$strFiles['jxlib'] = implode("\n",$srcString);
 		break;
 	case "2":
 		$strFiles['jxlib'] = $srcString['jxlib'];
-		$strFiles['mootools'] = $srcString['core']."\n".$srcString['more'];
+		if ($more && $core) {
+			$strFiles['mootools'] = $srcString['core']."\n".$srcString['more'];
+		} else if ($core && !$more){
+			$strFiles['mootools-core'] = $srcString['core'];
+		} else if ($more && !$core) {
+			$strFiles['mootools-more'] = $srcString['more'];
+		}
 		break;
 	case "3":
 		$strFiles['jxlib'] = $srcString['jxlib'];
-		$strFiles['mootools-core'] = $srcString['core'];
-		$strFiles['mootools-more'] = $srcString['more'];
+		if ($core) {
+			$strFiles['mootools-core'] = $srcString['core'];
+		}
+		if ($more) {
+			$strFiles['mootools-more'] = $srcString['more'];
+		}
 		break;
 }
 

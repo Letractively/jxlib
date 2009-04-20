@@ -47,7 +47,9 @@ $_SESSION['deps'] = $deps;
 	
 	<!-- Javascript for the builder -->
 	<script type="text/javascript" src="../lib/jxlib.js"></script>
+	<script type="text/javascript" src="js/slider.js"></script>
 	<script type="text/javascript" src="js/builder.js"></script>
+
 	<script type="text/javascript">
 		window.addEvent('domready',function(){
 			var b = new builder(); 
@@ -60,6 +62,16 @@ $_SESSION['deps'] = $deps;
 	<h1>JxLib Downloads Builder</h1>
 	
 	<p>Introductory text goes here</p>
+	
+	<h2>Icon Meanings</h2>
+	<ul>
+		<li><img alt="gray check mark" src="img/check-gray16.png"> - 
+			No files in the section have been selected.</li>
+		<li><img alt="blue check mark" src="img/check-blue16.png"> -
+			Some, but not all, files in the section have been selected.</li>
+		<li><img alt="green check mark" src="img/check-green16.png"> - 
+			All of the files in that section have been selected.</li>
+	</ul>
 	
 	<!-- Start the actual builder -->
 	<form action="builder.php" id="builder-form" method="post">
@@ -88,7 +100,9 @@ $_SESSION['deps'] = $deps;
 				<table>
 					<?php 
 						foreach($deps['core'] as $folder => $files){
-							echo "<div class=\"folder\">".$folder."</div>";
+							echo "<div class=\"folder\" id=\"core-".$folder."\">".$folder."</div>";
+							echo "<div class=\"filelist\">";
+							echo "<div class=\"toggles\"><span class=\"all\">select all</span> | <span class=\"none\">select none</span></span></div>";
 							foreach($files as $name => $a){
 								echo "<div class=\"file\">";
 								echo "<span class=\"check\"><input type=\"checkbox\" name=\"files[]\" value=\"".$name."\" id=\"".$name."\" class=\"dep\"></span>";
@@ -97,6 +111,7 @@ $_SESSION['deps'] = $deps;
 								echo "<br class=\"clear\"/>";
 								echo "</div>";
 							}
+							echo "</div>";
 						}
 					?>
 				</table>
@@ -124,21 +139,23 @@ $_SESSION['deps'] = $deps;
 				<br class="clear">
 			</div>
 			<div class="files" id="more-files">
-				<table>
-					<?php 
-						foreach($deps['more'] as $folder => $files){
-							echo "<div class=\"folder\">".$folder."</div>";
-							foreach($files as $name => $a){
-								echo "<div class=\"file\">";
-								echo "<span class=\"check\"><input type=\"checkbox\" name=\"files[]\" value=\"".$name."\" id=\"".$name."\" class=\"dep\"></span>";
-								echo "<span class=\"name\">".$name."</span>";
-								echo "<span class=\"desc\">".$a['desc']."</span>";
-								echo "<br class=\"clear\"/>";
-								echo "</div>";
-							}
+				<?php 
+					foreach($deps['more'] as $folder => $files){
+						echo "<div class=\"folder\" id=\"more-".$folder."\">".$folder."</div>";
+						echo "<div class=\"filelist\">";
+						echo "<div class=\"toggles\"><span class=\"all\">select all</span> | <span class=\"none\">select none</span></span></div>";
+						foreach($files as $name => $a){
+							echo "<div class=\"file\">";
+							echo "<span class=\"check\"><input type=\"checkbox\" name=\"files[]\" value=\"".$name."\" id=\"".$name."\" class=\"dep\"></span>";
+							echo "<span class=\"name\">".$name."</span>";
+							echo "<span class=\"desc\">".$a['desc']."</span>";
+							echo "<br class=\"clear\"/>";
+							echo "</div>";
 						}
-					?>
-				</table>
+						echo "</div>";
+					}
+				?>
+			
 			</div>
 		</div>
 		<!-- JxLib -->
@@ -146,31 +163,35 @@ $_SESSION['deps'] = $deps;
 			<p>JxLib</p>
 			<br class="clear">
 		</div>
-		<div class="files">
-			<table>
-				<?php 
-					foreach($deps['jxlib']['js'] as $name => $a){
-						echo "<div class=\"file\">";
-						echo "<span class=\"check\"><input type=\"checkbox\" name=\"files[]\" value=\"".$name."\" id=\"".$name."\" class=\"dep\"></span>";
-						echo "<span class=\"name\">".ucfirst($name)."</span>";
-						echo "<span class=\"desc\">".$a['desc']."</span>";
-						echo "<br class=\"clear\"/>";
+		<div class="files">		
+			<?php 
+				foreach($deps['jxlib'] as $folder => $files){
+						echo "<div class=\"folder\" id=\"jxlib-".$folder."\">".$folder."</div>";
+						echo "<div class=\"filelist\">";
+						echo "<div class=\"toggles\"><span class=\"all\">select all</span> | <span class=\"none\">select none</span></span></div>";
+						foreach($files as $name => $a){
+							echo "<div class=\"file\">";
+							echo "<span class=\"check\"><input type=\"checkbox\" name=\"files[]\" value=\"".$name."\" id=\"".$name."\" class=\"dep\"></span>";
+							echo "<span class=\"name\">".ucfirst($name)."</span>";
+							echo "<span class=\"desc\">".$a['desc']."</span>";
+							echo "<br class=\"clear\"/>";
+							echo "</div>";
+						}
 						echo "</div>";
 					}
-				?>
-			</table>
+			?>
 		</div>
 		
 		<div id="options">
 			<!-- Optional Dependencies -->
 			<h2>Dependencies</h2>
-			<div>
+			<div id="dependencies">
 				<input type="checkbox" name="opt-deps" id="opt-deps"/><label>Include Optional Dependencies</label>
 			</div>
 			<!-- Build options -->
-			<h2>Build</h2>
-			<p>Choose your build configuration:</p>
+			<h2 class="toggle">Build  <span class="defaults">- selected: <span id="build-choice">All Javascript in one file (jxlib.js)</span></span></h2>
 			<div id="build">
+				<p>Choose your build configuration:</p>
 				<div>
 					<input type="radio" name="numFiles" id="jxlib" value='1' checked="checked"/><label>All Javascript in one file (jxlib.js)</label>
 				</div>			
@@ -183,33 +204,35 @@ $_SESSION['deps'] = $deps;
 				
 			</div>
 			<!-- compression options -->
-			<h2>Compression</h2>
-			<p>Choose one of the following Javascript compression types:</p>
-			<div id="j-compress">
-				<div>
-					<input name="j-compress" type="radio" value="jsmin" checked="checked" /><label>JsMin by Douglas Crockford (default)</label>
+			<h2 class="toggle">Compression <span class="defaults">- selected: <span id="js-choice">JsMin</span> Compression, <span id="file-choice">.tar.gz</span> file type</span></h2>
+			<div id="compression">
+				<p>Choose one of the following Javascript compression types:</p>
+			
+				<div id="j-compress">
+					<div>
+						<input name="j-compress" type="radio" value="jsmin" checked="checked" /><label><span>JsMin</span> by Douglas Crockford (default)</label>
+					</div>
+					<div>
+						<input name="j-compress" type="radio" value="packer" /><label><span>Packer</span> by Dean Edward</label>
+					</div>
+					<div>
+						<input name="j-compress" type="radio" value="none" /><label><span>No</span> compression at all</label>
+					</div>
 				</div>
-				<div>
-					<input name="j-compress" type="radio" value="packer" /><label>Packer by Dean Edward</label>
-				</div>
-				<div>
-					<input name="j-compress" type="radio" value="none" /><label>No compression at all</label>
-				</div>
-			</div>
-			<p>And also one of the following archive/compression combinations for your downloaded file:</p>
-			<div id="f-compress">
-				<div>
-					<input name="f-compress" type="radio" value="gzip" checked="checked" /><label>Tar archive format with gzip compression - .tar.gz (default)</label>
-				</div>
-				<div>
-					<input name="f-compress" type="radio" value="bz2" /><label>Tar archive format with bz2 compression - .tar.bz2</label>
-				</div>
-				<div>
-					<input name="f-compress" type="radio" value="zip" /><label>Zip archive format - .zip</label>
+				<p>And also one of the following archive/compression combinations for your downloaded file:</p>
+				<div id="f-compress">
+					<div>
+						<input name="f-compress" type="radio" value="gzip" checked="checked" /><label>Tar archive format with gzip compression - <span>.tar.gz</span> (default)</label>
+					</div>
+					<div>
+						<input name="f-compress" type="radio" value="bz2" /><label>Tar archive format with bz2 compression - <span>.tar.bz2</span></label>
+					</div>
+					<div>
+						<input name="f-compress" type="radio" value="zip" /><label>Zip archive format - <span>.zip</span></label>
+					</div>
 				</div>
 			</div>
 		</div>
-		<h2>Download</h2>
 		<div id='download'></div>
 			<!-- Launch builder button -->
 
