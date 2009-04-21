@@ -76,20 +76,22 @@ var builder = new Class({
 				'click': this._handleToggleClick.bind(this,el)
 			});
 			if (el.hasClass('folder')){
-				numFiles = el.getNext().getChildren().length - 1;
+				numFiles = el.getNext().getChildren().length;
+				id = el.get('id');
+				if (id.contains('jxlib')){
+					numFiles--;
+				}
 				obj = {count: numFiles, checked: 0};
-				this._fileCount.set(el.get('id'),obj);
+				this._fileCount.set(id,obj);
 			}
 		},this);
 		
-		console.log(this._fileCount);
-		
 		//select all/select none links
 		$$('.all').each(function(el){
-			$(el).addEvent('click',this._select.bind(this,[el,true]));
+			$(el).addEvent('click',this._select.bindWithEvent(this,[el,true]));
 		},this);
 		$$('.none').each(function(el){
-			$(el).addEvent('click',this._select.bind(this,[el,false]));
+			$(el).addEvent('click',this._select.bindWithEvent(this,[el,false]));
 		},this);
 		
 		//options radio buttons
@@ -125,9 +127,10 @@ var builder = new Class({
 		this._loading = false;
 	},
 	
-	_select: function(el,flag){
+	_select: function(ev,el,flag){
+		ev.stopPropagation();
 		el = $(el);
-		c = el.getParent().getParent().getChildren();
+		c = el.getParent().getParent().getNext().getChildren();
 		c.shift();
 		c.each(function(elem){
 			check = $(elem).getFirst().getFirst();
@@ -287,7 +290,6 @@ var builder = new Class({
 	},
 	
 	_checkSection: function(dep){
-		console.log('Check section for dependency: '+dep);
 		var el = $(dep);
 		fileList = el.getParent().getParent().getParent();
 		folder = fileList.getPrevious();
@@ -301,12 +303,10 @@ var builder = new Class({
 				}
 			}
 		},this);
-		console.log("   folderName:"+folderName);
 		obj = this._fileCount.get(folderName);
 		obj.checked = count;
 		this._fileCount.set(folderName,obj);
-		console.log("        count:"+obj.count);
-		console.log("      checked:"+obj.checked);
+		
 		if (obj.checked === obj.count){
 			//all are checked
 			if (folder.hasClass('some')){

@@ -120,14 +120,25 @@ input:hover {
 .toggles {
 	font-size: 12px;
 	margin-left: 20px;
-	margin-top: -5px;
-	margin-bottom: 10px;
-	padding-top: 0px;
+}
+
+.folder-name {
+	width: 100px;
+	display: inline-block;
 }
 
 .all:hover, .none:hover {
 	cursor: pointer;
 	text-decoration: underline;
+}
+
+.description {
+	font-size: 13px;
+	margin-left: 20px;
+	margin-top: 0px;
+	padding-top: 0px;
+	margin-bottom: 20px;
+	color: #6EAFC5;
 }
 
 .file span {
@@ -183,7 +194,7 @@ input:hover {
 .defaults {
 	font-size: 12px;
 	font-weight: bold;
-	color: 	#6EAFC5;
+	color: #6EAFC5;
 }
 
 ul {

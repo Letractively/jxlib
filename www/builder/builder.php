@@ -31,7 +31,7 @@ foreach ($libs as $lib){
 	$srcString[$lib] = '';
 	foreach ($deps[$lib] as $dir => $files){
 		foreach ($files as $file => $arr){
-			if (in_array($file,$_POST['files']) || $_POST[$lib] == 'full' ) {
+			if ((in_array($file,$_POST['files']) || $_POST[$lib] == 'full' ) && $file !== 'desc' ) {
 				$path = $basedir . DS . $lib . DS . $src . DS . $dir . DS . $file . '.js';
 				$srcString[$lib] .= file_get_contents($path);
 			}
