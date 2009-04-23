@@ -1,3 +1,10 @@
+/**
+ * Class: Jx.Slider
+ * Hides and shows an element without depending on a fixed width or height
+ * 
+ * Copyright 2009 by Jonathan Bomgardner
+ * License: MIT-style
+ */
 Jx.Slider = new Class({
 	
 	Implements: [Options,Events],
