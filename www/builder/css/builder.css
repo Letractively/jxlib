@@ -60,12 +60,13 @@
 
 .folder {
 	border-bottom: 1px solid #DCEAEE;
-	margin: 5px 5px 10px 5px;
+	margin: 5px 5px 10px 3px;
 	width: 98%;
 	position: relative;
 	padding-left: 20px;
 	background-image: url("../img/check-gray16.png");
 	background-repeat: no-repeat;
+	overflow: hidden;
 }
 
 h2 {
@@ -119,12 +120,16 @@ input:hover {
 
 .toggles {
 	font-size: 12px;
-	margin-left: 20px;
+	/*margin-left: 20px;*/
+	margin: 5px 0px;
+	display: block;
 }
 
 .folder-name {
 	width: 100px;
 	display: inline-block;
+	float: left;
+	margin-right: 20px;
 }
 
 .all:hover, .none:hover {
@@ -133,11 +138,13 @@ input:hover {
 }
 
 .description {
+    display: block;
 	font-size: 13px;
-	margin-left: 20px;
+	line-height: 18px;
+/*  margin-left: 20px;*/
 	margin-top: 0px;
 	padding-top: 0px;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 	color: #6EAFC5;
 }
 

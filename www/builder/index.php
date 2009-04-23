@@ -173,12 +173,12 @@ $_SESSION['deps'] = $deps;
 		<div class="files">		
 			<?php 
 				foreach($deps['jxlib'] as $folder => $files){
-						echo "<div class=\"folder\" id=\"jxlib-".$folder."\"><span class=\"folder-name\">".$folder."</span>";
-						echo "<span class=\"toggles\">Select: <span class=\"all\">all</span> | <span class=\"none\">none</span></span></span>";
+						echo "<div class=\"folder\" id=\"jxlib-".$folder."\"><span class=\"folder-name\">".$folder;
+						echo "<span class=\"toggles\">Select: <span class=\"all\">all</span> | <span class=\"none\">none</span></span></span></span>";
+						$desc = array_shift($files);
+						echo "<span class=\"description\">".$desc."</span>";
 						echo "</div>";
 						echo "<div class=\"filelist\">";
-						$desc = array_shift($files);
-						echo "<div class=\"description\">".$desc."</div>";
 						foreach($files as $name => $a){
 							echo "<div class=\"file\">";
 							echo "<span class=\"check\"><input type=\"checkbox\" name=\"files[]\" value=\"".$name."\" id=\"".$name."\" class=\"dep\"></span>";

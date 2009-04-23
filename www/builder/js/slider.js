@@ -6,7 +6,7 @@ Jx.Slider = new Class({
 		elem: null,		//the element that we'll be sliding
 		trigger: null,
 		onSlideOut: $empty,	//called when a panel slides out (shows)
-		onSlideIn: $empty, //called when a panel slides in (hides)
+		onSlideIn: $empty //called when a panel slides in (hides)
 	},
 	
 	initialize: function(options){
@@ -27,8 +27,8 @@ Jx.Slider = new Class({
 	},
 	
 	_handleClick: function(e){
-		h = this.elem.getStyle('height').toInt();
-		if (h==0) {
+		var h = this.elem.getStyle('height').toInt();
+		if (h===0) {
 			this.slide('in');
 		} else {
 			this.slide('out');
@@ -36,8 +36,8 @@ Jx.Slider = new Class({
 	},
 	
 	setDisplay: function(){
-		h = this.elem.getStyle('height').toInt();
-		if (h==0){
+		var h = this.elem.getStyle('height').toInt();
+		if (h===0){
 			this.elem.setStyle('display','none');
 			this.fireEvent('slideIn', this.elem);
 		} else {
@@ -50,6 +50,7 @@ Jx.Slider = new Class({
 	},
 	
 	slide: function(dir){
+		var h;
 		if (dir == 'in') {
 			h = this.elem.retrieve('height');
 			this.elem.setStyles({

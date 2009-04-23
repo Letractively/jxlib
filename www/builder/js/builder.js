@@ -23,8 +23,7 @@ var builder = new Class({
 			'#moo-more .files',
 			'#moo-more .library-selector',
 			'#build',
-			'#compression'
-		).each(function(el){
+			'#compression').each(function(el){
 			new Jx.Slider({
 				elem: el
 			}).slide('out');
@@ -76,12 +75,12 @@ var builder = new Class({
 				'click': this._handleToggleClick.bind(this,el)
 			});
 			if (el.hasClass('folder')){
-				numFiles = el.getNext().getChildren().length;
-				id = el.get('id');
-				if (id.contains('jxlib')){
-					numFiles--;
-				}
-				obj = {count: numFiles, checked: 0};
+				var numFiles = el.getNext().getChildren().length;
+				var id = el.get('id');
+				// if (id.contains('jxlib')){
+				//                  numFiles--;
+				//              }
+				var obj = {count: numFiles, checked: 0};
 				this._fileCount.set(id,obj);
 			}
 		},this);
@@ -98,21 +97,21 @@ var builder = new Class({
 		$$('#build div input').each(function(el){
 			el = $(el);
 			el.addEvent('click',function(){
-				label = el.getNext();
+				varlabel = el.getNext();
 				$('build-choice').set('html',label.get('html'));
 			});
 		},this);
 		$$('#j-compress div input').each(function(el){
 			el = $(el);
 			el.addEvent('click',function(){
-				choice = el.getNext().getFirst();
+				var choice = el.getNext().getFirst();
 				$('js-choice').set('html',choice.get('html'));
 			});
 		},this);
 		$$('#f-compress div input').each(function(el){
 			el = $(el);
 			el.addEvent('click',function(){
-				choice = el.getNext().getFirst();
+				var choice = el.getNext().getFirst();
 				$('file-choice').set('html',choice.get('html'));
 			});
 		},this);
@@ -130,28 +129,30 @@ var builder = new Class({
 	_select: function(ev,el,flag){
 		ev.stopPropagation();
 		el = $(el);
-		c = el.getParent().getParent().getNext().getChildren();
-		c.shift();
+		//c = el.getParent().getParent().getParent().getNext().getChildren();
+		var c = el.getParent('.folder').getNext().getChildren();
+		//c.shift();
 		c.each(function(elem){
 			check = $(elem).getFirst().getFirst();
 			check.set('checked',flag);
 			id = check.get('id');
-			this._checkSection(id)
+			this._checkSection(id);
 			this._dependencyCheck(id);
 		},this);
 	},
 	
 	_showSelector: function(el,origin,selector){
-		el = $(el)
+		el = $(el);
 		selector = $(selector);
+		var files;
 		if ($(origin).get('checked')){
 			el.retrieve('slider').slide('in');
 			if (selector.get('checked')){
-				var files = el.getNext();
+				files = el.getNext();
 				files.retrieve('slider').slide('in');
 			}
 		} else {
-			var files = el.getNext();
+			files = el.getNext();
 			if (files.getStyle('height') == 'auto'){
 				files.retrieve('slider').slide('out');
 			}
@@ -164,7 +165,7 @@ var builder = new Class({
 	
 	_showFiles: function(el){
 		el = $(el);
-		if (el.getStyle('height').toInt() == 0) {
+		if (el.getStyle('height').toInt() === 0) {
 			$(el).retrieve('slider').slide('in');
 		}
 	},
@@ -182,18 +183,18 @@ var builder = new Class({
 	
 	_check: function(e){
 		e.stopPropagation();
-		dep = $(e.target).get('id');
+		var dep = $(e.target).get('id');
 		this._checkSection(dep);
 		this._dependencyCheck(e.target);
 	},
 	
 	_dependencyCheck: function(el){
 		el = $(el);
-		id = el.get('id');
+		var id = el.get('id');
 		this._checked.push(id);
-		add = el.get('checked');
+		var add = el.get('checked');
 		if (add){
-			deps = (this._deps.get(id)).deps;
+			var deps = (this._deps.get(id)).deps;
 			this._addDeps(deps);
 		} else {
 			this._removeDeps(id);
@@ -206,7 +207,7 @@ var builder = new Class({
 				$(dep).set('checked',true);
 				this._checked.push(dep);
 				this._checkSection(dep);
-				d = this._deps.get(dep);
+				var d = this._deps.get(dep);
 				newDeps = d.deps;
 				if (this._includeOpts && $defined(d.opt)){
 					this._addDeps(d.opt);
@@ -241,7 +242,7 @@ var builder = new Class({
 			//loop through the already checked files and add optional dependencies
 			//if they aren't already checked
 			this._checked.each(function(dep){
-				var d = this._deps.get(dep)
+				var d = this._deps.get(dep);
 				if ($defined(d.opt)){
 					this._addOpts(d.opt);
 				} 
@@ -257,7 +258,7 @@ var builder = new Class({
 				this._checkedOpts.push(dep);
 				$(dep).set('checked',true);
 				this._checkSection(dep);
-				newDeps = (this._deps.get(dep)).deps;
+				var newDeps = (this._deps.get(dep)).deps;
 				this._addOpts(newDeps);
 			}
 		},this);
@@ -273,7 +274,7 @@ var builder = new Class({
 	
 	_handleFileClick: function(el){
 		el = $(el);
-		input = el.getFirst().getFirst();
+		var input = el.getFirst().getFirst();
 		input.set('checked',!input.get('checked'));
 		this._dependencyCheck(input);
 	},
@@ -291,10 +292,10 @@ var builder = new Class({
 	
 	_checkSection: function(dep){
 		var el = $(dep);
-		fileList = el.getParent().getParent().getParent();
-		folder = fileList.getPrevious();
-		folderName = folder.get('id');
-		count = 0;
+		var fileList = el.getParent().getParent().getParent();
+		var folder = fileList.getPrevious();
+		var folderName = folder.get('id');
+		var count = 0;
 		fileList.getChildren().each(function(el){
 			el = $(el);
 			if (el.hasClass('file')){
@@ -303,7 +304,7 @@ var builder = new Class({
 				}
 			}
 		},this);
-		obj = this._fileCount.get(folderName);
+		var obj = this._fileCount.get(folderName);
 		obj.checked = count;
 		this._fileCount.set(folderName,obj);
 		
@@ -335,7 +336,7 @@ var builder = new Class({
 		});
 		var p = new Element('p',{
 			html: 'Please wait while we prepare your download<br/>'
-		})
+		});
 		p.inject(d);
 		new Element('img',{
 			src: 'img/ajax-loader.gif'
@@ -367,7 +368,7 @@ var builder = new Class({
 	},
 	
 	_startDownload: function(responseText, responseXML){
-		obj = JSON.decode(responseText);
+		var obj = JSON.decode(responseText);
 		this.dlg.close();
 		this._button.setEnabled(true);
 		if (obj.success){
