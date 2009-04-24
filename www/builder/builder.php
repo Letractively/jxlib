@@ -15,11 +15,12 @@ $src = 'Source';
 $licenseFile = 'license.txt';
 
 $deps = $_SESSION['deps'];
+$sortedDeps = $_SESSION['sortedDeps'];
 
-if ($_POST['mootools-core'] == 'on'){
+if ($_REQUEST['mootools-core'] == 'on'){
 	$libs[] = 'core';
 }
-if ($_POST['mootools-more'] == 'on'){
+if ($_REQUEST['mootools-more'] == 'on'){
 	$libs[] = 'more';
 }
 $libs[] = 'jxlib';
@@ -29,13 +30,14 @@ $libs[] = 'jxlib';
 $srcString = array();
 foreach ($libs as $lib){
 	$srcString[$lib] = '';
-	foreach ($deps[$lib] as $dir => $files){
-		foreach ($files as $file => $arr){
-			if ((in_array($file,$_POST['files']) || $_POST[$lib] == 'full' ) && $file !== 'desc' ) {
-				$path = $basedir . DS . $lib . DS . $src . DS . $dir . DS . $file . '.js';
-				$srcString[$lib] .= file_get_contents($path);
-			}
-		}
+}
+foreach ($sortedDeps as $file => $arr) {
+	if ((in_array($file,$_REQUEST['files']) || 
+	     (isset($_REQUEST[$lib]) && $_REQUEST[$lib] == 'full')) &&
+	     $file !== 'desc' ) {
+		$lib = $arr['lib'];
+		$path = $arr['path'];
+		$srcString[$lib] .= file_get_contents($path);
 	}
 }
 
@@ -43,7 +45,7 @@ foreach ($libs as $lib){
 $strFiles = array();
 $more = in_array('more',$libs);
 $core = in_array('core',$libs);
-switch ($_POST['numFiles']) {
+switch ($_REQUEST['numFiles']) {
 	case "1":
 		$strFiles['jxlib'] = implode("\n",$srcString);
 		break;
@@ -70,7 +72,7 @@ switch ($_POST['numFiles']) {
 
 //compress the javascript libs as required
 $compressed = array();
-switch ($_POST['j-compress']){
+switch ($_REQUEST['j-compress']){
 	case 'jsmin':
 		require_once 'includes/jsmin-1.1.1.php';
 		foreach ($strFiles as $key => $script){
@@ -117,7 +119,7 @@ $archiveName = '';
 $fileName = '';
 $archiveSubPath = $archiveDir;
 //need zlib and bzip2 compression libraries for this part to work.
-switch ($_POST['f-compress']){
+switch ($_REQUEST['f-compress']){
 	case 'zip':
 		$fileName = "jxlib.zip";
 		$archiveSubPath .= DS.$fileName;
@@ -170,7 +172,7 @@ switch ($_POST['f-compress']){
 foreach ($filesToArchive as $file){
 	$sections = explode(DS,$file);
 	if ($sections[0] == 'work'){
-		unlink($file);
+		//unlink($file);
 	}
 }
 
