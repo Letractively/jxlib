@@ -34,7 +34,27 @@ foreach($deps as $key => $arr){
 	}
 }
 
-$fout = json_encode($depsOut);
+//sort dependencies
+$depsFinal = NULL;
+function includeDependency($key, $all, &$sorted) {
+  $dep = $all[$key];
+  if (is_array($dep['deps'])) {
+    foreach($dep['deps'] as $anotherDep) {
+      if (!isset($sorted->$anotherDep)) {
+        //prevent recursive inclusion of Core since it depends on itself!
+        $sorted->$anotherDep = true;
+        includeDependency($anotherDep, $all, $sorted);
+      }
+    }
+  }
+  $sorted->$key = $all[$key];
+}
+
+foreach($depsOut as $key => $dep) {
+  includeDependency($key, $depsOut, $depsFinal);
+}
+
+$fout = json_encode($depsFinal);
 file_put_contents('./work/deps.json',$fout);
 
 $_SESSION['deps'] = $deps;
