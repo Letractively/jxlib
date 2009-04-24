@@ -29,8 +29,10 @@ foreach($deps as $key => $arr){
 		if ($key === 'jxlib') {
 			array_shift($a);
 		}
-		$depsOut = array_merge($depsOut,$a);
-		
+		foreach($a as $file => $vals) {
+		  $path = $basedir . DS . $key . DS . "Source" . DS . $k . DS . $file . ".js";
+  		$depsOut[$file] = $vals;
+		}
 	}
 }
 
@@ -40,14 +42,12 @@ function includeDependency($key, $all, &$sorted) {
   $dep = $all[$key];
   if (is_array($dep['deps'])) {
     foreach($dep['deps'] as $anotherDep) {
-      if (!isset($sorted->$anotherDep)) {
-        //prevent recursive inclusion of Core since it depends on itself!
-        $sorted->$anotherDep = true;
+      if (!isset($sorted->$anotherDep) && $anotherDep != $key) {
         includeDependency($anotherDep, $all, $sorted);
       }
     }
   }
-  $sorted->$key = $all[$key];
+  $sorted->$key = $dep;
 }
 
 foreach($depsOut as $key => $dep) {
@@ -58,7 +58,7 @@ $fout = json_encode($depsFinal);
 file_put_contents('./work/deps.json',$fout);
 
 $_SESSION['deps'] = $deps;
-
+$_SESSION['sortedDeps'] = $depsFinal;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
