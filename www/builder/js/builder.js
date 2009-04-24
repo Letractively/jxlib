@@ -97,7 +97,7 @@ var builder = new Class({
 		$$('#build div input').each(function(el){
 			el = $(el);
 			el.addEvent('click',function(){
-				varlabel = el.getNext();
+				var label = el.getNext();
 				$('build-choice').set('html',label.get('html'));
 			});
 		},this);
