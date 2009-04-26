@@ -3,15 +3,12 @@
  * Copyright 2009 by Jonathan Bomgardner
  * License: MIT-style
  */
-session_start();
-
 define('DS',DIRECTORY_SEPARATOR);
 
 $basedir = 'src';
 $sdirs = array('core','more','jxlib');
 $file = 'Source/scripts.json';
-$deps = array();
-$depsOut = array();
+
 /**
  * grab all scripts.json files, translate to php data structures
  * We do this so we don't have to manually update this file each time
@@ -23,42 +20,8 @@ foreach($sdirs as $d){
 	$deps[$d] = json_decode($f,true);
 }
 
-//flatten the depsOut array
-foreach($deps as $key => $arr){
-	foreach ($arr as $k => $a){
-		if ($key === 'jxlib') {
-			array_shift($a);
-		}
-		foreach($a as $file => $vals) {
-		  $path = $basedir . DS . $key . DS . "Source" . DS . $k . DS . $file . ".js";
-  		$depsOut[$file] = $vals;
-		}
-	}
-}
+//All Dependencies have been figured and JSON files pre-created by the ANT script
 
-//sort dependencies
-$depsFinal = NULL;
-function includeDependency($key, $all, &$sorted) {
-  $dep = $all[$key];
-  if (is_array($dep['deps'])) {
-    foreach($dep['deps'] as $anotherDep) {
-      if (!isset($sorted->$anotherDep) && $anotherDep != $key) {
-        includeDependency($anotherDep, $all, $sorted);
-      }
-    }
-  }
-  $sorted->$key = $dep;
-}
-
-foreach($depsOut as $key => $dep) {
-  includeDependency($key, $depsOut, $depsFinal);
-}
-
-$fout = json_encode($depsFinal);
-file_put_contents('./work/deps.json',$fout);
-
-$_SESSION['deps'] = $deps;
-$_SESSION['sortedDeps'] = $depsFinal;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -219,17 +182,41 @@ $_SESSION['sortedDeps'] = $depsFinal;
 				<input type="checkbox" name="opt-deps" id="opt-deps"/><label>Include Optional Dependencies</label>
 			</div>
 			<!-- Build options -->
-			<h2 class="toggle">Build  <span class="defaults">- selected: <span id="build-choice">All Javascript in one file (jxlib.js)</span></span></h2>
+			<h2 class="toggle">Build and Compression options  <span class="defaults">- selected: <span id="build-choice">jxlib,jxlib.uncompressed</span></span></h2>
 			<div id="build">
-				<p>Choose your build configuration:</p>
+				<p>Select the build configurations to include in your download package:</p>
+
+				<p>Select: <span id="build-all">all</span> | <span id="build-default">default</span> | <span id="build-none">none</span></p>
+								
 				<div>
-					<input type="radio" name="numFiles" id="jxlib" value='1' checked="checked"/><label>All Javascript in one file (jxlib.js)</label>
-				</div>			
-				<div>
-					<input type="radio" name="numFiles" id="jxlib-moo" value='2'/><label>JxLib in one file (jxlib.js), All of Mootools in a separate file (mootools.js)</label>
+					<input type="checkbox" name="build[]" id="build-jxlib" value="jxlib" checked="checked" /><label for="build-jxlib">jxlib.js - combines all requested files into a single compressed file</label>
 				</div>
 				<div>
-					<input type="radio" name="numFiles" id="jxlib-core-more" value='3'/><label>JxLib in one file (jxlib.js), Mootools-core and -more in their own files (mootools-core.js,mootools-more.js)</label>
+					<input type="checkbox" name="build[]" id="build-jxlib-uncompressed" value="jxlib.uncompressed" checked="checked" /><label for="build-jxlib-uncompressed">jxlib.uncompressed.js - combines all requested files into a single uncompressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-jxlib-standalone" value="jxlib.standalone" /><label for="build-jxlib-standalone">jxlib.standalone.js - combines all jxlib files into a single compressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-jxlib-standalone-uncompressed" value="jxlib.standalone.uncompressed" /><label for="build-jxlib-standalone-uncompressed">jxlib.standalone.uncompressed.js - combines all jxlib files into a single uncompressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-mootools" value="mootools" /><label for="build-mootools">mootools.js - combines all mootools core and more files into a single compressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-mootools-uncompressed" value="mootools.uncompressed" /><label for="build-mootools-uncompressed">mootools.uncompressed.js - combines all mootools core and more files into a single uncompressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-mootools-core" value="mootools.core" /><label for="build-mootools-core">mootools.core.js - combines all mootools core files into a single compressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-mootools-core-uncompressed" value="mootools.core.uncompressed" /><label for="build-mootools-core-uncompressed">mootools.core.uncompressed.js - combines all mootools core files into a single uncompressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-mootools-more" value="mootools.more" /><label for="build-mootools-more">mootools.more.js - combines all mootools more files into a single compressed file</label>
+				</div>
+				<div>
+					<input type="checkbox" name="build[]" id="build-mootools-more-uncompressed" value="mootools.more.uncompressed" /><label for="build-mootools-more-uncompressed">mootools.more.uncompressed.js - combines all mootools more files into a single uncompressed file</label>
 				</div>
 				
 			</div>
@@ -244,9 +231,6 @@ $_SESSION['sortedDeps'] = $depsFinal;
 					</div>
 					<div>
 						<input name="j-compress" type="radio" value="packer" /><label><span>Packer</span> by Dean Edward</label>
-					</div>
-					<div>
-						<input name="j-compress" type="radio" value="none" /><label><span>No</span> compression at all</label>
 					</div>
 				</div>
 				<p>And also one of the following archive/compression combinations for your downloaded file:</p>

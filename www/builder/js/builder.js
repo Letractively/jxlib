@@ -12,6 +12,7 @@ var builder = new Class({
 	_includeOpts: false,
 	_checkedOpts: [],
 	_fileCount: new Hash(),
+	_buildChoice: new Hash(),
 
 	initialize: function(){
 	
@@ -96,10 +97,11 @@ var builder = new Class({
 		//options radio buttons
 		$$('#build div input').each(function(el){
 			el = $(el);
-			el.addEvent('click',function(){
-				var label = el.getNext();
-				$('build-choice').set('html',label.get('html'));
-			});
+			this._buildChoice.set(el.get('value'),el.get('checked'));
+			el.addEvent('click',(function(){
+				this._buildChoice.set(el.get('value'),el.get('checked'));
+				this._setBuildText();
+			}).bind(this));
 		},this);
 		$$('#j-compress div input').each(function(el){
 			el = $(el);
@@ -116,6 +118,29 @@ var builder = new Class({
 			});
 		},this);
 		
+		//build and compress select links
+		$('build-all').addEvent('click',(function(ev){
+			el = $(ev.target);
+			this._setBuildChoices(el,true);
+			this._setBuildText();
+		}).bindWithEvent(this));
+		
+		$('build-default').addEvent('click',(function(ev){
+			el = $(ev.target);
+			this._setBuildChoices(el,false);
+			$('build-jxlib').set('checked', true);
+			$('build-jxlib-uncompressed').set('checked', true);
+			this._buildChoice.set('jxlib',true);
+			this._buildChoice.set('jxlib.compressed',true);
+			this._setBuildText();
+		}).bindWithEvent(this));
+		
+		$('build-none').addEvent('click',(function(ev){
+			el = $(ev.target);
+			this._setBuildChoices(el,false);
+			this._setBuildText();
+		}).bindWithEvent(this));
+		
 		//add download button
 		this._button = new Jx.Button({
 			label: 'Download',
@@ -124,6 +149,29 @@ var builder = new Class({
 		}).addTo('download');
 		
 		this._loading = false;
+	},
+	
+	_setBuildChoices: function(el,flag){
+		var divs = el.getParent().getAllNext('div');
+		divs.each(function(el){
+			var i = el.getFirst();
+			i.set('checked',flag);
+			this._buildChoice.set(i.get('value'),flag);
+		},this);
+	},
+	
+	_setBuildText: function(){
+		var text = '';
+		this._buildChoice.each(function(value, key){
+			if (value === true){
+				if (text == '') {
+					text = key;
+				} else {
+					text = text + ", " + key;
+				}
+			}
+		},this);
+		$('build-choice').set('html', text);
 	},
 	
 	_select: function(ev,el,flag){
@@ -330,6 +378,7 @@ var builder = new Class({
 	},
 	
 	_download: function(){
+		
 		this._button.setEnabled(false);
 		var d = new Element('div',{
 			id: 'progress-message'
@@ -354,7 +403,6 @@ var builder = new Class({
 			height: 200
 		});
 		this.dlg.open();
-		
 	},
 	
 	_startRequest: function(){

@@ -194,6 +194,11 @@ input:hover {
 	margin-left: 30px;
 }
 
+#build span:hover {
+	cursor: pointer;
+	text-decoration: underline;	
+}
+
 #progress-message {
 	text-align: center;
 }
