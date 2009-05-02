@@ -67,4 +67,4 @@ If you're writing tests for the framework, please follow these guidelines:
   * Add a script tag in the index.html in the jsspec directory listing the new file (see the index.html file for an example).
 
 
-= How to write Interactive Tests =
+== How to write Interactive Tests ==
