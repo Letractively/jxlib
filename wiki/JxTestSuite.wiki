@@ -1,0 +1,70 @@
+#summary Description and explanation of the test suite that will be used by JxLib.
+#labels Phase-QA
+
+== Introduction ==
+
+The new JxLib test suite consists of JsSpec for tests that return immediate results and an interactive test framework (thanks go to Aaron over at [http://www.clientcide.com/ Clientcide.com] for making this test suite available) for visual and Ajax based testing. 
+
+
+== How to run the Tests ==
+
+In order to run the tests, you'll need to check out the following parts of the svn:
+
+  * trunk
+  * vendors
+  * www 
+
+Then run the tests target of the ant build file located in the trunk directory (build.xml). That will set everything up so that you can easily run the tests by setting up your local web server to serve the root of the www directory and then go to http://localhost/tests/. Obviously, adjust the path for your configuration.
+
+Eventually, all of these tests will be hosted on the jxlib website at [http://jxlib.org/].
+
+
+== How to write JsSpec Tests ==
+
+Writing JsSpec tests are actually pretty easy. They all fall into the following form:
+
+{{{
+describe('what we are testing', {
+    'test title/specific behavior to test':  function(){
+        //test here...
+	value_of(something producing a value).test(testing against);
+    }, more tests....
+
+});
+}}}
+
+You can also add before_each and after_each methods to the set of tests. They would act like setup and tear down methods of other frameworks. 
+
+Here is an example from the JxLib tests:
+
+{{{
+describe('common tests',{
+    'Jx should be defined': function(){
+        value_of($defined(Jx)).should_be_true();
+    },
+    'Family mutator check': function(){
+        var c = new Class({
+	    Family: 'Jx.Widget'
+	});
+	newC = new c();
+	value_of($type(newC)).should_be('Jx.Widget');
+    },
+    'Element.getNumber()':function() {
+        var body = $(document.body);
+        value_of(body.getNumber()).should_be(0);
+        value_of(body.getNumber('letter')).should_be(0);
+        value_of(body.getNumber(10)).should_be(10);
+    }
+});
+}}}
+
+If you're writing tests for the framework, please follow these guidelines:
+
+  * One file per class tested
+  * Try NOT to add any global varibles as all test files will share the same scope. Any variables you add could affect other tests. For example, if you need a specific data set for a series of tests and it needs to be reset for each test, put it in the before_each method. 
+  * Place all tests in the UserTests directory under the path trunk/tests/jsspec.
+  * Name the test file Class-specs.js where 'Class' is the name of the class you're testing. For example, to test the file Jx.Object class, the test is named object-specs.js
+  * Add a script tag in the index.html in the jsspec directory listing the new file (see the index.html file for an example).
+
+
+= How to write Interactive Tests =
