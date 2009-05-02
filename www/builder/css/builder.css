@@ -1,5 +1,12 @@
 @CHARSET "UTF-8";
 
+
+#profile-form {
+	margin-left: 25px;
+	margin-bottom: 50px;
+	font-size: 14px;	
+}
+	
 .library {
 	width: 90%;
 	margin: 0px auto;

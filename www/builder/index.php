@@ -20,6 +20,11 @@ foreach($sdirs as $d){
 	$deps[$d] = json_decode($f,true);
 }
 
+//check for the profile.json file
+if (!empty($_FILES['profile']) && is_file($_FILES['profile']['tmp_name'])){
+	$profile = file_get_contents($_FILES['profile']['tmp_name']);
+}
+
 //All Dependencies have been figured and JSON files pre-created by the ANT script
 
 ?>
@@ -40,7 +45,8 @@ foreach($sdirs as $d){
 
 	<script type="text/javascript">
 		window.addEvent('domready',function(){
-			var b = new builder(); 
+			var b = new builder();
+			b.setProfile(<?= $profile ?>); 
 		});
 	</script>
 	
@@ -60,6 +66,17 @@ foreach($sdirs as $d){
 		<li><img alt="green check mark" src="img/check-green16.png"> - 
 			All of the files in that section have been selected.</li>
 	</ul>
+	
+	<h2>Profiles</h2>
+	<p>
+		Each download comes with a profile.json file that you can upload here 
+		to get the exact same download configuration.
+	</p>
+	<form action="index.php" id="profile-form" enctype="multipart/form-data" method="post">
+	<label for="profile">Profile File: </label><input type="file" name="profile" id="profile">
+	<br/><input type="submit" value="Load Profile">
+	</form>
+	
 	
 	<!-- Start the actual builder -->
 	<form action="builder.php" id="builder-form" method="post">
@@ -227,22 +244,22 @@ foreach($sdirs as $d){
 			
 				<div id="j-compress">
 					<div>
-						<input name="j-compress" type="radio" value="jsmin" checked="checked" /><label><span>JsMin</span> by Douglas Crockford (default)</label>
+						<input name="j-compress" type="radio" value="jsmin" checked="checked" id="jsmin" /><label><span>JsMin</span> by Douglas Crockford (default)</label>
 					</div>
 					<div>
-						<input name="j-compress" type="radio" value="packer" /><label><span>Packer</span> by Dean Edward</label>
+						<input name="j-compress" type="radio" value="packer" id="packer" /><label><span>Packer</span> by Dean Edward</label>
 					</div>
 				</div>
 				<p>And also one of the following archive/compression combinations for your downloaded file:</p>
 				<div id="f-compress">
 					<div>
-						<input name="f-compress" type="radio" value="gzip" checked="checked" /><label>Tar archive format with gzip compression - <span>.tar.gz</span> (default)</label>
+						<input name="f-compress" type="radio" value="gzip" id="gzip" checked="checked" /><label>Tar archive format with gzip compression - <span>.tar.gz</span> (default)</label>
 					</div>
 					<div>
-						<input name="f-compress" type="radio" value="bz2" /><label>Tar archive format with bz2 compression - <span>.tar.bz2</span></label>
+						<input name="f-compress" type="radio" value="bz2" id="bz2" /><label>Tar archive format with bz2 compression - <span>.tar.bz2</span></label>
 					</div>
 					<div>
-						<input name="f-compress" type="radio" value="zip" /><label>Zip archive format - <span>.zip</span></label>
+						<input name="f-compress" type="radio" value="zip" id="zip" /><label>Zip archive format - <span>.zip</span></label>
 					</div>
 				</div>
 			</div>

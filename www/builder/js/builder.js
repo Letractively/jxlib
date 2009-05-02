@@ -7,16 +7,16 @@
  */
 var builder = new Class({
 	
-	_checked: [],
-	_deps: null,
-	_includeOpts: false,
-	_checkedOpts: [],
-	_fileCount: new Hash(),
-	_buildChoice: new Hash(),
+	checked: [],
+	deps: null,
+	includeOpts: false,
+	checkedOpts: [],
+	fileCount: new Hash(),
+	buildChoice: new Hash(),
 
 	initialize: function(){
 	
-		this._loading = true;
+		this.loading = true;
 		
 		$$('.filelist', 
 			'#moo-core .files',
@@ -25,30 +25,31 @@ var builder = new Class({
 			'#moo-more .library-selector',
 			'#build',
 			'#compression').each(function(el){
-			new Jx.Slider({
-				elem: el
-			}).slide('out');
-		},this);
+				var slider = new Jx.Slider({
+					elem: el
+				});
+				slider.slide('out');
+			},this);
 		
-		$('mootools-core').addEvent('click',this._showSelector.bind(this, ["core-selector","mootools-core","core-deps"]));
-		$('mootools-more').addEvent('click',this._showSelector.bind(this, ["more-selector","mootools-more","more-deps"]));
-		$('more-deps').addEvent('click',this._showFiles.bind(this,"more-files"));
-		$('core-deps').addEvent('click',this._showFiles.bind(this,"core-files"));
-		$('core-full').addEvent('click',this._hideFiles.bind(this,"core-files"));
-		$('more-full').addEvent('click',this._hideFiles.bind(this,"more-files"));
+		$('mootools-core').addEvent('click',this.showSelector.bind(this, ["core-selector","mootools-core","core-deps"]));
+		$('mootools-more').addEvent('click',this.showSelector.bind(this, ["more-selector","mootools-more","more-deps"]));
+		$('more-deps').addEvent('click',this.showFiles.bind(this,"more-files"));
+		$('core-deps').addEvent('click',this.showFiles.bind(this,"core-files"));
+		$('core-full').addEvent('click',this.hideFiles.bind(this,"core-files"));
+		$('more-full').addEvent('click',this.hideFiles.bind(this,"more-files"));
 		
 		
 		//get json file of dependencies
 		var req = new Request.JSON({
 			url: 'work/deps.json',
-			onComplete: this._processDeps.bind(this)
+			onComplete: this.processDeps.bind(this)
 		}).send();
 		
 		//setup the dependency checking
 		$$('.dep').each(function(dep){
-			$(dep).addEvent('click',this._check.bindWithEvent(this,dep));
+			$(dep).addEvent('click',this.check.bindWithEvent(this,dep));
 		},this);
-		$('opt-deps').addEvent('click',this._optsCheck.bindWithEvent(this));
+		$('opt-deps').addEvent('click',this.optsCheck.bindWithEvent(this));
 		
 		//add hover and click for files
 		$$('.file').each(function(el){
@@ -60,7 +61,7 @@ var builder = new Class({
 				'mouseleave': function(){
 					el.removeClass('hover');
 				},
-				'click': this._handleFileClick.bind(this,el)
+				'click': this.handleFileClick.bind(this,el)
 			});
 		},this);
 		
@@ -73,7 +74,7 @@ var builder = new Class({
 				'mouseleave': function(){
 					el.removeClass('hover');
 				},
-				'click': this._handleToggleClick.bind(this,el)
+				'click': this.handleToggleClick.bind(this,el)
 			});
 			if (el.hasClass('folder')){
 				var numFiles = el.getNext().getChildren().length;
@@ -82,25 +83,25 @@ var builder = new Class({
 				//                  numFiles--;
 				//              }
 				var obj = {count: numFiles, checked: 0};
-				this._fileCount.set(id,obj);
+				this.fileCount.set(id,obj);
 			}
 		},this);
 		
 		//select all/select none links
 		$$('.all').each(function(el){
-			$(el).addEvent('click',this._select.bindWithEvent(this,[el,true]));
+			$(el).addEvent('click',this.select.bindWithEvent(this,[el,true]));
 		},this);
 		$$('.none').each(function(el){
-			$(el).addEvent('click',this._select.bindWithEvent(this,[el,false]));
+			$(el).addEvent('click',this.select.bindWithEvent(this,[el,false]));
 		},this);
 		
 		//options radio buttons
 		$$('#build div input').each(function(el){
 			el = $(el);
-			this._buildChoice.set(el.get('value'),el.get('checked'));
+			this.buildChoice.set(el.get('value'),el.get('checked'));
 			el.addEvent('click',(function(){
-				this._buildChoice.set(el.get('value'),el.get('checked'));
-				this._setBuildText();
+				this.buildChoice.set(el.get('value'),el.get('checked'));
+				this.setBuildText();
 			}).bind(this));
 		},this);
 		$$('#j-compress div input').each(function(el){
@@ -120,51 +121,120 @@ var builder = new Class({
 		
 		//build and compress select links
 		$('build-all').addEvent('click',(function(ev){
-			el = $(ev.target);
-			this._setBuildChoices(el,true);
-			this._setBuildText();
+			var el = $(ev.target);
+			this.setBuildChoices(el,true);
+			this.setBuildText();
 		}).bindWithEvent(this));
 		
 		$('build-default').addEvent('click',(function(ev){
-			el = $(ev.target);
-			this._setBuildChoices(el,false);
+			var el = $(ev.target);
+			this.setBuildChoices(el,false);
 			$('build-jxlib').set('checked', true);
 			$('build-jxlib-uncompressed').set('checked', true);
-			this._buildChoice.set('jxlib',true);
-			this._buildChoice.set('jxlib.compressed',true);
-			this._setBuildText();
+			this.buildChoice.set('jxlib',true);
+			this.buildChoice.set('jxlib.compressed',true);
+			this.setBuildText();
 		}).bindWithEvent(this));
 		
 		$('build-none').addEvent('click',(function(ev){
-			el = $(ev.target);
-			this._setBuildChoices(el,false);
-			this._setBuildText();
+			var el = $(ev.target);
+			this.setBuildChoices(el,false);
+			this.setBuildText();
 		}).bindWithEvent(this));
 		
 		//add download button
-		this._button = new Jx.Button({
+		this.button = new Jx.Button({
 			label: 'Download',
 			tooltip: 'Download JxLib', 
-            onClick: this._download.bind(this)
+            onClick: this.download.bind(this)
 		}).addTo('download');
 		
-		this._loading = false;
+		this.loading = false;
 	},
 	
-	_setBuildChoices: function(el,flag){
+	setProfile: function(profile){
+		if (!$defined(profile)) { return; }
+		
+		if ($type(profile) !== 'hash') {
+			profile = new Hash(profile);
+		}
+		//go through the profile obj and set all of the appropriate stuff
+		if (profile.has('mootools-core')){
+			$('mootools-core').set('checked',profile.get('mootools-core'));
+			this.showSelector("core-selector","mootools-core","core-deps");
+			if (profile.has('core')){
+				switch (profile.get('core')) {
+					case 'full':
+						$('core-full').set('checked',true);
+						break;
+					case 'deps':
+						$('core-deps').set('checked',true);
+						break;
+				}
+				this.showFiles('core-files');
+			}
+		}
+		if (profile.has('mootools-more')){
+			$('mootools-more').set('checked',profile.get('mootools-more'));
+			this.showSelector("more-selector","mootools-more","more-deps");
+			if (profile.has('more')){
+				switch (profile.get('more')) {
+					case 'full':
+						$('more-full').set('checked',true);
+						break;
+					case 'deps':
+						$('more-deps').set('checked',true);
+						break;
+				}
+				this.showFiles('more-files');
+			}
+		}
+		if (profile.has('build')){
+			profile.get('build').each(function(key){
+				key = key.replace(/\./g,'-');
+				this.setBuildChoices($('build-'+key),true);
+			},this);
+			this.setBuildText();
+		}
+		if (profile.has('files')){
+			profile.get('files').each(function(key){
+				$(key).set('checked',true);
+				this.check(null,key);
+			},this);
+		}
+		if (profile.has('opt-deps')){
+			$('opt-deps').set('checked',profile.get('opt-deps'));
+			this.optsCheck(null,'opt-deps');
+		}
+		if (profile.has('j-compress')){
+			var el = $(profile.get('j-compress')); 
+			el.set('checked',true);
+			var choice = el.getNext().getFirst();
+			$('js-choice').set('html',choice.get('html'));
+		}
+		if (profile.has('f-compress')){
+			el = $(profile.get('f-compress')); 
+			el.set('checked',true);
+			choice = el.getNext().getFirst();
+			$('file-choice').set('html',choice.get('html'));
+		}
+	},
+	
+	setBuildChoices: function(el,flag){
+		el = $(el);
 		var divs = el.getParent().getAllNext('div');
 		divs.each(function(el){
 			var i = el.getFirst();
 			i.set('checked',flag);
-			this._buildChoice.set(i.get('value'),flag);
+			this.buildChoice.set(i.get('value'),flag);
 		},this);
 	},
 	
-	_setBuildText: function(){
+	setBuildText: function(){
 		var text = '';
-		this._buildChoice.each(function(value, key){
+		this.buildChoice.each(function(value, key){
 			if (value === true){
-				if (text == '') {
+				if (text === '') {
 					text = key;
 				} else {
 					text = text + ", " + key;
@@ -174,22 +244,24 @@ var builder = new Class({
 		$('build-choice').set('html', text);
 	},
 	
-	_select: function(ev,el,flag){
-		ev.stopPropagation();
+	select: function(ev,el,flag){
+		if ($defined(ev)){
+			ev.stopPropagation();
+		}
 		el = $(el);
 		//c = el.getParent().getParent().getParent().getNext().getChildren();
 		var c = el.getParent('.folder').getNext().getChildren();
 		//c.shift();
 		c.each(function(elem){
-			check = $(elem).getFirst().getFirst();
+			var check = $(elem).getFirst().getFirst();
 			check.set('checked',flag);
-			id = check.get('id');
-			this._checkSection(id);
-			this._dependencyCheck(id);
+			var id = check.get('id');
+			this.checkSection(id);
+			this.dependencyCheck(id);
 		},this);
 	},
 	
-	_showSelector: function(el,origin,selector){
+	showSelector: function(el,origin,selector){
 		el = $(el);
 		selector = $(selector);
 		var files;
@@ -201,144 +273,159 @@ var builder = new Class({
 			}
 		} else {
 			files = el.getNext();
-			if (files.getStyle('height') == 'auto'){
+			if (files.getStyle('height') === 'auto'){
 				files.retrieve('slider').slide('out');
 			}
-			if (el.getStyle('height') == 'auto') {
+			if (el.getStyle('height') === 'auto') {
 				el.retrieve('slider').slide('out');
 			}
 		}
 		
 	},
 	
-	_showFiles: function(el){
+	showFiles: function(el){
 		el = $(el);
 		if (el.getStyle('height').toInt() === 0) {
 			$(el).retrieve('slider').slide('in');
 		}
 	},
 	
-	_hideFiles: function(el){
+	hideFiles: function(el){
 		el = $(el);
-		if (el.getStyle('height') == 'auto') {
+		if (el.getStyle('height') === 'auto') {
 			$(el).retrieve('slider').slide('out');
 		}
 	},
 	
-	_processDeps:function(deps){
-		this._deps = new Hash(deps);
+	processDeps:function(deps){
+		this.deps = new Hash(deps);
 	},
 	
-	_check: function(e){
-		e.stopPropagation();
-		var dep = $(e.target).get('id');
-		this._checkSection(dep);
-		this._dependencyCheck(e.target);
+	check: function(e,el){
+		var dep;
+		if ($defined(e)){
+			e.stopPropagation();
+			el = $(e.target);
+		} else if ($defined(el)){
+			el = $(el);
+		} else {
+			return;
+		}
+		dep = el.get('id');
+		this.checkSection(dep);
+		this.dependencyCheck(el);
 	},
 	
-	_dependencyCheck: function(el){
+	dependencyCheck: function(el){
 		el = $(el);
 		var id = el.get('id');
-		this._checked.push(id);
+		this.checked.push(id);
 		var add = el.get('checked');
 		if (add){
-			var deps = (this._deps.get(id)).deps;
-			this._addDeps(deps);
+			var deps = (this.deps.get(id)).deps;
+			this.addDeps(deps);
 		} else {
-			this._removeDeps(id);
+			this.removeDeps(id);
 		}
 	},
 	
-	_addDeps: function(deps){
+	addDeps: function(deps){
 		deps.each(function(dep){
-			if (!this._checked.contains(dep)){
+			if (!this.checked.contains(dep)){
 				$(dep).set('checked',true);
-				this._checked.push(dep);
-				this._checkSection(dep);
-				var d = this._deps.get(dep);
-				newDeps = d.deps;
-				if (this._includeOpts && $defined(d.opt)){
-					this._addDeps(d.opt);
+				this.checked.push(dep);
+				this.checkSection(dep);
+				var d = this.deps.get(dep);
+				var newDeps = d.deps;
+				if (this.includeOpts && $defined(d.opt)){
+					this.addDeps(d.opt);
 				}
 				if (newDeps[0].toLowerCase() !== 'none' && dep.toLowerCase() !== 'core'){
-					this._addDeps(newDeps);
+					this.addDeps(newDeps);
 				}
 			}
 		},this);
 	},
 	
-	_removeDeps: function(dep){
+	removeDeps: function(dep){
 		//work through the deps looking for items that list this id
 		//as a dependency and remove them.
-		this._checked.erase(dep);
-		this._deps.each(function(obj,key){
-			if (this._checked.contains(key)){
+		this.checked.erase(dep);
+		this.deps.each(function(obj,key){
+			if (this.checked.contains(key)){
 				if (obj.deps.contains(dep)){
 					$(key).set('checked',false);
-					this._checkSection(key);
+					this.checkSection(key);
 					//work through on this dep
-					this._removeDeps(key);
+					this.removeDeps(key);
 				}
 			}
 		},this);
 	},
 	
-	_optsCheck: function(e){
-		el = $(e.target);
-		this._includeOpts = el.get('checked');
-		if (this._includeOpts){
+	optsCheck: function(e,el){
+		if ($defined(e)){
+			el = $(e.target);
+		} else if ($defined(el)){
+			el = $(el);
+		} else {
+			return;
+		}
+		
+		this.includeOpts = el.get('checked');
+		if (this.includeOpts){
 			//loop through the already checked files and add optional dependencies
 			//if they aren't already checked
-			this._checked.each(function(dep){
-				var d = this._deps.get(dep);
+			this.checked.each(function(dep){
+				var d = this.deps.get(dep);
 				if ($defined(d.opt)){
-					this._addOpts(d.opt);
+					this.addOpts(d.opt);
 				} 
 			},this);
 		} else {
-			this._removeOpts();
+			this.removeOpts();
 		}
 	},
 	
-	_addOpts: function(deps){
+	addOpts: function(deps){
 		deps.each(function(dep){
-			if (!this._checked.contains(dep) && !this._checkedOpts.contains(dep)){
-				this._checkedOpts.push(dep);
+			if (!this.checked.contains(dep) && !this.checkedOpts.contains(dep)){
+				this.checkedOpts.push(dep);
 				$(dep).set('checked',true);
-				this._checkSection(dep);
-				var newDeps = (this._deps.get(dep)).deps;
-				this._addOpts(newDeps);
+				this.checkSection(dep);
+				var newDeps = (this.deps.get(dep)).deps;
+				this.addOpts(newDeps);
 			}
 		},this);
 	},
 	
-	_removeOpts: function(){
-		this._checkedOpts.each(function(dep){
+	removeOpts: function(){
+		this.checkedOpts.each(function(dep){
 			$(dep).set('checked',false);
-			this._checkSection(dep);
+			this.checkSection(dep);
 		},this);
-		this._checkedOpts.empty();
+		this.checkedOpts.empty();
 	},
 	
-	_handleFileClick: function(el){
+	handleFileClick: function(el){
 		el = $(el);
 		var input = el.getFirst().getFirst();
 		input.set('checked',!input.get('checked'));
-		this._dependencyCheck(input);
+		this.dependencyCheck(input);
 	},
 	
-	_handleToggleClick: function(el){
+	handleToggleClick: function(el){
 		//if (!el.hasClass('full')){
 			el.toggleClass('open');
 			if (el.hasClass('open')){
-				this._showFiles(el.getNext());
+				this.showFiles(el.getNext());
 			} else {
-				this._hideFiles(el.getNext());
+				this.hideFiles(el.getNext());
 			}
 		//}
 	},
 	
-	_checkSection: function(dep){
+	checkSection: function(dep){
 		var el = $(dep);
 		var fileList = el.getParent().getParent().getParent();
 		var folder = fileList.getPrevious();
@@ -352,9 +439,9 @@ var builder = new Class({
 				}
 			}
 		},this);
-		var obj = this._fileCount.get(folderName);
+		var obj = this.fileCount.get(folderName);
 		obj.checked = count;
-		this._fileCount.set(folderName,obj);
+		this.fileCount.set(folderName,obj);
 		
 		if (obj.checked === obj.count){
 			//all are checked
@@ -377,9 +464,9 @@ var builder = new Class({
 		}
 	},
 	
-	_download: function(){
+	download: function(){
 		
-		this._button.setEnabled(false);
+		this.button.setEnabled(false);
 		var d = new Element('div',{
 			id: 'progress-message'
 		});
@@ -387,9 +474,10 @@ var builder = new Class({
 			html: 'Please wait while we prepare your download<br/>'
 		});
 		p.inject(d);
-		new Element('img',{
+		var img = new Element('img',{
 			src: 'img/ajax-loader.gif'
-		}).inject(p);
+		});
+		img.inject(p);
 		this.dlg = new Jx.Dialog({
 			label: 'JxLib Download Builder',
 			content: d,
@@ -398,27 +486,27 @@ var builder = new Class({
 			close: false,
 			move: false,
 			collapse: false,
-			onOpen: this._startRequest.bind(this),
+			onOpen: this.startRequest.bind(this),
 			width: 200,
 			height: 200
 		});
 		this.dlg.open();
 	},
 	
-	_startRequest: function(){
+	startRequest: function(){
 		this.req = new Request({
 			url: 'builder.php',
 			data: $('builder-form').toQueryString(),
 			method: 'post',
-			onSuccess: this._startDownload.bind(this)
+			onSuccess: this.startDownload.bind(this)
 		});
 		this.req.send();
 	},
 	
-	_startDownload: function(responseText, responseXML){
+	startDownload: function(responseText, responseXML){
 		var obj = JSON.decode(responseText);
 		this.dlg.close();
-		this._button.setEnabled(true);
+		this.button.setEnabled(true);
 		if (obj.success){
 			window.location = 'download.php?file='+obj.folder+'/'+obj.filename;
 		}

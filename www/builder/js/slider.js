@@ -26,14 +26,14 @@ Jx.Slider = new Class({
 		
 		if ($defined(this.options.trigger)){
 			this.trigger = $(this.options.trigger);
-			this.trigger.addEvent('click',this._handleClick.bindWithEvent(this));
+			this.trigger.addEvent('click',this.handleClick.bindWithEvent(this));
 		}
 		
 		this.elem.store('slider',this);
 
 	},
 	
-	_handleClick: function(e){
+	handleClick: function(e){
 		var h = this.elem.getStyle('height').toInt();
 		if (h===0) {
 			this.slide('in');
@@ -58,7 +58,7 @@ Jx.Slider = new Class({
 	
 	slide: function(dir){
 		var h;
-		if (dir == 'in') {
+		if (dir === 'in') {
 			h = this.elem.retrieve('height');
 			this.elem.setStyles({
 				'overflow':'hidden',

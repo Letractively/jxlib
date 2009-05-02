@@ -10,14 +10,17 @@ define('DS',DIRECTORY_SEPARATOR);
 $basedir = 'src';
 $libs = array();
 $src = 'Source';
-
-$licenseFile = 'license.txt';
+$profile = array();
 
 if ($_REQUEST['mootools-core'] == 'on'){
 	$libs[] = 'core';
+	$profile['mootools-core'] = true;
+	$profile['core'] = $_REQUEST['core'];
 }
 if ($_REQUEST['mootools-more'] == 'on'){
 	$libs[] = 'more';
+	$profile['mootools-more'] = true;
+	$profile['more'] = $_REQUEST['more'];
 }
 $libs[] = 'jxlib';
 
@@ -39,6 +42,7 @@ function removeBOM($str=""){
 $srcString = array();
 foreach ($libs as $lib){
 	$srcString[$lib] = '';
+	
 	foreach ($deps[$lib] as $file => $arr) {
 		if ((in_array($file,$_REQUEST['files']) || 
 	    	 (isset($_REQUEST[$lib]) && $_REQUEST[$lib] == 'full')) &&
@@ -53,6 +57,8 @@ foreach ($libs as $lib){
 $strFiles = array();
 $more = in_array('more',$libs);
 $core = in_array('core',$libs);
+
+$profile['build'] = $_REQUEST['build'];
 
 foreach ($_REQUEST['build'] as $name){
 	switch ($name) {
@@ -88,6 +94,9 @@ foreach ($_REQUEST['build'] as $name){
 			break;
 	}
 }
+
+$profile['j-compress'] = $_REQUEST['j-compress'];
+
 //compress the javascript libs as required
 switch ($_REQUEST['j-compress']){
 	case 'jsmin':
@@ -107,6 +116,17 @@ switch ($_REQUEST['j-compress']){
 			}
 		}
 		break;
+}
+$licenseFile['jxlib'] = removeBOM(file_get_contents('src'.DS.'jxlib'.DS.'Source'.DS.'license.js'));
+$licenseFile['core'] = '/*'.removeBOM(file_get_contents('src'.DS.'core'.DS.'Source'.DS.'license.txt')).'*/';
+
+//add license file(s)
+foreach ($strFiles as $key => $value) {
+	if (strpos($key,'jxlib')){
+		$strFiles[$key] = $licenseFile['jxlib']."\n".$value;
+	} else {
+		$strFiles[$key] = $licenseFile['core']."\n".$value;
+	} 
 }
 
 function guid(){
@@ -144,9 +164,19 @@ if (!is_dir($work_dir.$archiveDir)){
 
 foreach ($strFiles as $key => $f){
 	$name = $work_dir.$archiveDir.DS.$key.".js";
-	file_put_contents($name,$f);$compressed = array();
+	file_put_contents($name,$f);
 	$filesToArchive[] = $name;
 }
+
+//create JSON profile file
+$profile['files'] = $_REQUEST['files'];
+$profile['opt-deps'] = isset($_REQUEST['opt_deps'])?true:false;
+$profile['f-compress'] = $_REQUEST['f-compress'];
+
+$file = $work_dir.$archiveDir.DS.'profile.json';
+file_put_contents($file,json_encode($profile));
+$filesToArchive[] = $file;
+
 
 //add theme and image assets to the file list
 $iterator = new RecursiveDirectoryIterator('assets');
