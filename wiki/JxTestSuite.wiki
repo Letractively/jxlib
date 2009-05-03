@@ -66,5 +66,124 @@ If you're writing tests for the framework, please follow these guidelines:
   * Name the test file Class-specs.js where 'Class' is the name of the class you're testing. For example, to test the file Jx.Object class, the test is named object-specs.js
   * Add a script tag in the index.html in the jsspec directory listing the new file (see the index.html file for an example).
 
+For those who have never written JsSpec tests, you will find a cheat sheet in the jsspec directory in both openOffice format and PDF. It is entitled jsspec-cheat-sheet.odt (.pdf). It will be useful in writing tests.
 
 == How to write Interactive Tests ==
+
+Writing an interactive test requires three things:
+
+  # Change the tests.json file to reflect the new tests
+  # Write a html file for the test
+  # Write the javascript file for the test
+
+We'll take each part in turn.
+
+=== Edit the tests.json file ===
+
+The tests.json file looks like this:
+
+{{{
+{
+    "Base": {
+        "common": [
+        	"dependencies"
+        ]
+    },
+    "Button": {
+    	"button": ["all"]
+    }
+}
+}}}
+
+This is a json object that describes the tests to be run. The first level properties are the folders that the tests, and the source code, can be found in. In this case the tests, and source, can be found in the "Base" or "Button" subdirectories. 
+
+The second level is the file to be loaded and corresponds to the scripts.json file in the Source directory of the svn trunk. The test uses this property to determine what files and dependencies to load from the source tree as well as finding the appropriate files to load for the test itself.
+
+Finally, the array lists the individual tests. If there is only one test file, it is called "all" otherwise it should be a comma delimited list of tests. Each test has two files located in the test directory - one HTML and one Javascript - described below.
+
+=== Write the HTML file ===
+
+Each test should have a single HTML file. It should be named `<class or file>.<test name>.html`. For example, for the button test shown in the previous section, the HTML file would be `button.all.html`. 
+
+The file should only be the portion of HTML that would come between the BODY tags of a full document. For example, the HTML for the button.all.html file is:
+
+{{{
+<style type="text/css">
+	@import url('UserTests/assets/themes/crispin/jxtheme.uncompressed.css');
+</style>
+
+<div id="button"></div>
+}}}
+
+This imports the needed styles and then just has the div for the button. You'll notice that the path to the css file starts with "UserTests/assets". This directory is where you'll find all of the standard JxLib stylesheets, images, and other assets. Any other assets needed for your test should be located in the test directory itself in an assets folder for easy access. You'll still need to reference them with the "full" url starting with UserTests/.
+
+=== Write the Javascript file ===
+
+Each test should also have a single javascript file. It should also be named like the HTML file except with a .js extension instead of .html. For example, `button.all.js` for the button test file.
+
+This file enumerates the tests to be run. It should look like the following:
+
+{{{
+{
+    tests: [
+       {
+        	title: "The test title",
+        	description: "A Description of the test",
+        	verify: "The question the user should answer to verify the test. Yes/No only.",
+        	before: function(){}, //run when the test starts
+        	body:"",   // User editable content to run with the test. Run after before().
+        	post: function(){}  // run after body code and after before();
+        },{
+        	title: "",
+        	description: "",
+        	verify: "",
+        	before: function(){},
+        	body:"",
+        	post: function(){}
+        }
+        
+    ]
+}
+}}}
+
+Most of the sections of the test should be self-explanatory. The Button test file looks like this (as of 5/3/2009 anyway):
+
+{{{
+{
+    tests: [
+        {
+            title: "Button - Visual Representation",
+            description: "This test is to verify that the button displays properly.",
+            verify: "Do you see a fully formed button in window? It won't do anything, just be sure that all the appropriate parts are there and that it looks correct.",
+            before: function(){
+	        	new Jx.Button({
+	        		label: 'Just a label',
+	        		tooltip: 'a tooltip',
+	        		image: 'UserTests/Button/assets/crispin.png'
+	        	}).addTo('button');
+            },
+            body: "",
+            post: function(){
+                
+            }
+        },{
+        	title: "Button - Hover",
+        	description: "This test is to verify that the hover state is correct.",
+        	verify: "Does the button change states when you hover over it?",
+        	before: function(){},
+        	body:"",
+        	post: function(){}
+        },{
+        	title: "Button - Tooltip",
+        	description: "This test is to verify that the tooltip shows up.",
+        	verify: "Does the tooltip show when you mouse over the button and pause?",
+        	before: function(){},
+        	body:"",
+        	post: function(){}
+        }
+        
+    ]
+}
+}}}
+
+This is just the basics of using this test framework. For further information on this testing format, please see the readme file linked from the test index page (It has a ton more information).
