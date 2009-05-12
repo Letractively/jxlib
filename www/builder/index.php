@@ -55,8 +55,8 @@ if (!empty($_FILES['profile']) && is_file($_FILES['profile']['tmp_name'])){
 
 	<h1>JxLib Downloads Builder</h1>
 	
-	<p>Introductory text goes here</p>
-	
+	<p>This page allows you to build a custom version of JxLib, <a href="http://www.mootools.net">MooTools Core and More</a>.</p>
+	<p>The release version of JxLib includes every possible option and it includes complete copies of <a href="http://www.mootools.net">MooTools Core and More</a>.  While convenient for development, you may wish to strip out components of JxLib and/or MooTools that you don't need to minimize file sizes in your production site.  If you want to include everything from JxLib, then you should just use the release package since it contains full and standalone builds in compressed and uncompressed formats.</p>
 	<h2>Icon Meanings</h2>
 	<ul>
 		<li><img alt="gray check mark" src="img/check-gray16.png"> - 
@@ -68,10 +68,7 @@ if (!empty($_FILES['profile']) && is_file($_FILES['profile']['tmp_name'])){
 	</ul>
 	
 	<h2>Profiles</h2>
-	<p>
-		Each download comes with a profile.json file that you can upload here 
-		to get the exact same download configuration.
-	</p>
+	<p>Each download comes with a profile.json file that you can upload here to get the exact same download configuration.</p>
 	<form action="index.php" id="profile-form" enctype="multipart/form-data" method="post">
 	<label for="profile">Profile File: </label><input type="file" name="profile" id="profile">
 	<br/><input type="submit" value="Load Profile">

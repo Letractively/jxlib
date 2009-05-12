@@ -18,25 +18,29 @@ function menuToolbar() {
         label: 'Left',
         toggle: true,
         imageClass: 'format-justify-left', 
-        image: 'images/file-edit-menu.png'
+        image: 'images/file-edit-menu.png',
+        onDown: function() { log('left justify'); }
     });
     var justifyCenter = new Jx.Menu.Item({
         label: 'Center',
         toggle: true,
         imageClass: 'format-justify-center', 
-        image: 'images/file-edit-menu.png'
+        image: 'images/file-edit-menu.png',
+        onDown: function() { log('center justify'); }
     });
     var justifyRight = new Jx.Menu.Item({
         label: 'Right',
         toggle: true,
         imageClass: 'format-justify-right', 
-        image: 'images/file-edit-menu.png'
+        image: 'images/file-edit-menu.png',
+        onDown: function() { log('right justify'); }
     });
     var justifyFill = new Jx.Menu.Item({
         label: 'Fill',
         toggle: true,
         imageClass: 'format-justify-fill', 
-        image: 'images/file-edit-menu.png'
+        image: 'images/file-edit-menu.png',
+        onDown: function() { log('full justify'); }
     });
     new Jx.ButtonSet().add(
         justifyLeft, justifyCenter, justifyRight, justifyFill
@@ -106,12 +110,14 @@ function menuToolbar() {
                 label: 'Indent More',
                 toggle: true,
                 imageClass: 'format-indent-more', 
-                image: 'images/file-edit-menu.png'}),
+                image: 'images/file-edit-menu.png',
+                onClick: function() { log('indent more'); }}),
             new Jx.Menu.Item({
                 label: 'Indent Less',
                 toggle: true,
                 imageClass: 'format-indent-less', 
-                image: 'images/file-edit-menu.png'}),
+                image: 'images/file-edit-menu.png',
+                onClick: function() { log('indent less'); }}),
             new Jx.Menu.SubMenu({label: 'Font'}).add(
                 new Jx.Menu.Item({
                     label: 'Bold',

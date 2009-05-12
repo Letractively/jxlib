@@ -145,6 +145,7 @@ var builder = new Class({
 		//add download button
 		this.button = new Jx.Button({
 			label: 'Download',
+			image: 'img/script_save.png',
 			tooltip: 'Download JxLib', 
             onClick: this.download.bind(this)
 		}).addTo('download');

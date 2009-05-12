@@ -33,10 +33,11 @@ function basicButtons() {
     /* just an image on this one */
     new Jx.Button({
       image: 'images/bug.png',
+      tooltip: 'a tooltip',
       onClick: function() {log('button with just an image clicked')}
     }).addTo('buttons');
     /* test button with nothing */
-    new Jx.Button().addTo('buttons');
+    new Jx.Button({tooltip:'another tooltip'}).addTo('buttons');
 }
 </script>
 
