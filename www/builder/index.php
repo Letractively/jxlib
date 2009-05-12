@@ -46,7 +46,7 @@ if (!empty($_FILES['profile']) && is_file($_FILES['profile']['tmp_name'])){
 	<script type="text/javascript">
 		window.addEvent('domready',function(){
 			var b = new builder();
-			b.setProfile(<?= $profile ?>); 
+			b.setProfile(<?php echo $profile ?>); 
 		});
 	</script>
 	
