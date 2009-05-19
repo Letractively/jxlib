@@ -19,52 +19,66 @@ window.addEvent('load', function() {
         label: 'Home', 
         content: 'homePage',
         onDown: function() {
-            window.top.main.location.href = 'home.html';
-            Cookie.write('JxHomePage.CurrentTab', 'homeTab');
+            (function(){
+                window.top.main.location.href = 'home.html';
+                Cookie.write('JxHomePage.CurrentTab', 'homeTab');
+            }).delay(10);
         }
     });
     examplesTab = new Jx.Button.Tab({
         label: 'Examples', 
         content: 'exampleList',
         onDown: function() {
-            window.top.main.location.href = 'reference/examples';
-            Cookie.write('JxHomePage.CurrentTab', 'examplesTab');
+            (function() {
+                window.top.main.location.href = 'reference/examples';
+                Cookie.write('JxHomePage.CurrentTab', 'examplesTab');                
+            }).delay(10);
         }
     });
     refTab = new Jx.Button.Tab({
         label: 'API Reference', 
         content: 'refList',
         onDown: function() {
-            window.top.main.location.href = 'reference/api';
-            Cookie.write('JxHomePage.CurrentTab', 'refTab');
+            (function(){
+                window.top.main.location.href = 'reference/api';
+                Cookie.write('JxHomePage.CurrentTab', 'refTab');
+            }).delay();
         }
     });
     testsTab = new Jx.Button.Tab({
         label: 'Tests', 
         content: 'testList',
         onDown: function() {
-            Cookie.write('JxHomePage.CurrentTab', 'testsTab');
+            (function(){
+                Cookie.write('JxHomePage.CurrentTab', 'testsTab');
+            }).delay();
         }
     });
     codeTab = new Jx.Button.Tab({
         label: 'Code', 
         onDown: function() {
-            window.top.main.location.href = 'http://code.google.com/p/jxlib/';
-            Cookie.write('JxHomePage.CurrentTab', 'codeTab');
+            (function(){
+                window.top.main.location.href = 'http://code.google.com/p/jxlib/';
+                Cookie.write('JxHomePage.CurrentTab', 'codeTab');
+            }).delay();
         }
     });
     groupTab = new Jx.Button.Tab({
         label: 'Group', 
         onDown: function() {
-            window.top.main.location.href = 'http://groups.google.com/group/jxlib';
-            Cookie.write('JxHomePage.CurrentTab', 'groupTab');
+            (function(){
+                window.top.main.location.href = 'http://groups.google.com/group/jxlib';
+                Cookie.write('JxHomePage.CurrentTab', 'groupTab');
+            }).delay();
         }
     });
     downloadTab = new Jx.Button.Tab({
         label: 'Download Builder', 
         onDown: function() {
-            window.top.main.location.href = 'builder';
-            Cookie.write('JxHomePage.CurrentTab', 'downloadTab');
+            (function(){
+                window.top.main.location.href = 'builder';
+                Cookie.write('JxHomePage.CurrentTab', 'downloadTab');
+            }).delay();
         }
     });
     new Jx.TabSet('tabset').add(homeTab, refTab, examplesTab, testsTab, codeTab, groupTab, downloadTab);
