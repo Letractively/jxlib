@@ -239,7 +239,7 @@ var purge = function(){
 	Hash.each(collected, clean);
 	if (Browser.Engine.trident) $A(document.getElementsByTagName('object')).each(clean);
 	if (window.CollectGarbage) CollectGarbage();
-	collected = storage = null;
+	collected = {}; storage = {};
 };
 
 var walk = function(element, walk, start, match, all, nocash){
