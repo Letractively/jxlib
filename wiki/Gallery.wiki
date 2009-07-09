@@ -1,0 +1,7 @@
+#summary Examples of JxLib in action
+#labels Featured
+
+Send us a link to your JxLib application and we'll post it here.
+
+ * http://www.customcribboards.com/index.html
+ * http://code.google.com/p/reportrunner/
