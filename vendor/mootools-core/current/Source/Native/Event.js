@@ -5,6 +5,7 @@ Script: Event.js
 License:
 	MIT-style license.
 */
+
 var Event = new Native({
 
 	name: 'Event',

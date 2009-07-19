@@ -51,7 +51,7 @@
 		},
 
 		"Date": {
-			"deps": ["More", "Core", "String", "Number", "Array", "String.Extras", "Lang", "Date.English.US"],
+			"deps": ["More", "Core", "String", "Number", "Array", "Lang", "Date.English.US"],
 			"desc": "Extends the Date native object to include methods useful in managing dates."
 		},
 
@@ -76,7 +76,7 @@
 		},
 
 		"URI": {
-			"deps": ["More", "Function", "Array", "Hash"],
+			"deps": ["More", "Function", "Array", "Hash", "Class.Refactor"],
 			"desc": "Provides methods useful in managing the window location and uris."
 		},
 
@@ -264,7 +264,7 @@
 		},
 
 		"Tips": {
-			"deps": ["More", "Class.Extras", "Element.Event", "Element.Style", "Element.Dimensions", "Element.Measure"],
+			"deps": ["More", "Class.Extras", "Element.Event", "Element.Style", "Element.Dimensions"],
 			"desc": "Class for creating nice tooltips that follow the mouse cursor when hovering over an element."
 		}
 

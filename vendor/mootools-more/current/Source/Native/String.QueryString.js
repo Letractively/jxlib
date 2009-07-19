@@ -1,4 +1,4 @@
-﻿/*
+/*
 Script: String.QueryString.js
 	...
 
@@ -8,6 +8,7 @@ Script: String.QueryString.js
 	Authors:
 		Sebastian Markbåge, Aaron Newton, Lennart Pilon, Valerio Proietti
 */
+
 String.implement({
 
 	parseQueryString: function(){

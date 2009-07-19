@@ -19,13 +19,13 @@ var IframeShim = new Class({
 		zIndex: null,
 		margin: 0,
 		offset: {x: 0, y: 0},
-		browsers: true || (Browser.Engine.trident4 || (Browser.Engine.gecko && !Browser.Engine.gecko19 && Browser.Platform.mac))
+		browsers: (Browser.Engine.trident4 || (Browser.Engine.gecko && !Browser.Engine.gecko19 && Browser.Platform.mac))
 	},
 
 	property: 'IframeShim',
 
 	initialize: function(element, options){
-		this.element = $(element);
+		this.element = document.id(element);
 		if (this.occlude()) return this.occluded;
 		this.setOptions(options);
 		this.makeShim();
@@ -37,14 +37,15 @@ var IframeShim = new Class({
 			var zIndex = this.element.getStyle('zIndex').toInt();
 
 			if (!zIndex){
+				zIndex = 1;
 				var pos = this.element.getStyle('position');
 				if (pos == 'static' || !pos) this.element.setStyle('position', 'relative');
-				this.element.setStyle('zIndex', zIndex || 1);
+				this.element.setStyle('zIndex', zIndex);
 			}
 			zIndex = ($chk(this.options.zIndex) && zIndex > this.options.zIndex) ? this.options.zIndex : zIndex - 1;
 			if (zIndex < 0) zIndex = 1;
 			this.shim = new Element('iframe', {
-				src: (window.location.protocol == 'https') ? '://0' : 'javascript:void(0)',
+				src:'javascript:false;document.write("");',
 				scrolling: 'no',
 				frameborder: 0,
 				styles: {
