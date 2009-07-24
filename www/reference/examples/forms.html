@@ -15,7 +15,8 @@ window.addEvent('load', function() {
 <script id="basicFormScript" type="text/javascript" charset="utf-8">
 function drawBasicForm() {
   var form = new Jx.Form({
-    name: 'testForm'
+    name: 'testForm',
+    formClass: 'jxFormInlineblock'
   }).addTo('formBasic');
   
   var fieldSet1 = new Jx.Fieldset({
@@ -24,33 +25,33 @@ function drawBasicForm() {
   }).addTo(form);
   
   new Jx.Field.Text({
-    name: 'Text1',
+    name: 'Text11',
     label: 'Text One',
     value: 'Initial Value',
     tag: 'a tag'
   }).addTo(fieldSet1);
 
   new Jx.Field.Select({
-    name: 'Select1',
+    name: 'Select11',
     label: 'Select One',
     tag: 'another tag',
     comboOpts: [{
-        value: 'opt1',
+        value: 'opt11',
         text: 'Option #1',
         selected: false
     },{
-        value: 'opt2',
+        value: 'opt12',
         text: 'Option #2',
         selected: true
     },{
-        value: 'opt3',
+        value: 'opt13',
         text: 'Option #3',
         selected: false
     }]
   }).addTo(fieldSet1);
   
   new Jx.Field.Textarea({
-    name: 'TextArea1',
+    name: 'TextArea11',
     label: 'TextArea One',
     rows: 6,
     columns: 40,
@@ -58,38 +59,118 @@ function drawBasicForm() {
   }).addTo(fieldSet1);
   
   var radioSet = new Jx.Fieldset({
-    legend: 'Radio Group'
+    legend: 'Radio Group',
+    fieldsetClass: 'jxRadioGroup',
+    template: '<fieldset class="jxFieldset"><legend><span class="jxFieldsetLegend"></span></legend></fieldset>'
   }).addTo(fieldSet1);
   
   new Jx.Field.Radio({
     name: 'RadioGroup1',
-    value: 'radio1',
+    value: 'radio11',
     label: 'Radio 1',
     labelSeparator: ''
   }).addTo(radioSet);
   
   new Jx.Field.Radio({
     name: 'RadioGroup1',
-    value: 'radio2',
+    value: 'radio12',
     label: 'Radio 2',
     labelSeparator: ''
   }).addTo(radioSet);
   
-  new Jx.Button({
-    label: 'Go'
-  }).addTo(form);
+  new Jx.Field.Button({
+    buttonOptions:{label: 'Go'}
+  }).addTo(fieldSet1);
   
   var fieldSet2 = new Jx.Fieldset({
     legend: 'Fieldset Two',
     id: 'FieldSet2'
   }).addTo(form);
 
+  new Jx.Field.Text({
+    name: 'Text21',
+    label: 'Text One',
+    value: 'Initial Value',
+    tag: 'a tag'
+  }).addTo(fieldSet2);
   
+  new Jx.Field.Text({
+    name: 'Text22',
+    label: 'Text One',
+    value: 'Initial Value',
+    tag: 'a tag'
+  }).addTo(fieldSet2);
+  
+  var checkSet = new Jx.Fieldset({
+    legend: 'Check Group',
+    fieldsetClass: 'jxRadioGroup'
+  }).addTo(fieldSet2);
+  
+  new Jx.Field.Checkbox({
+    name: 'check21',
+    value: 'check21',
+    label: 'Check 1',
+    labelSeparator: ''
+  }).addTo(checkSet);
+  
+  new Jx.Field.Checkbox({
+    name: 'check22',
+    value: 'check22',
+    label: 'check 2',
+    labelSeparator: ''
+  }).addTo(checkSet);
+
+  new Jx.Button({
+    label: 'Send it'
+  }).addTo(fieldSet2);
   
   var fieldSet3 = new Jx.Fieldset({
     // no legend in this one
     id: 'FieldSet3'
   }).addTo(form);
+  
+  new Jx.Field.Text({
+    name: 'Text31',
+    label: 'Text One',
+    value: 'Initial Value',
+    tag: 'a tag'
+  }).addTo(fieldSet3);
+
+  new Jx.Field.Select({
+    name: 'Select11',
+    label: 'Select One',
+    tag: 'another tag',
+    comboOpts: [{
+        value: 'opt31',
+        text: 'Option #1',
+        selected: false
+    },{
+        value: 'opt32',
+        text: 'Option #2',
+        selected: true
+    },{
+        value: 'opt33',
+        text: 'Option #3',
+        selected: false
+    }]
+  }).addTo(fieldSet3);
+
+  new Jx.Field.Checkbox({
+    name: 'check31',
+    value: 'check31',
+    label: 'Check 1',
+    labelSeparator: ''
+  }).addTo(fieldSet3);
+
+  
+  new Jx.Field.Textarea({
+    name: 'TextArea31',
+    label: 'TextArea One',
+    rows: 6,
+    columns: 40
+  }).addTo(fieldSet3);
+  
+  
 }
 </script>
 </head>
