@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Jx.Panel Examples</title>
+<meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+<script type="text/javascript" src="../../lib/mootools-core.js"></script>
+<script type="text/javascript" src="../../lib/mootools-more.js"></script>
+<script type="text/javascript" src="../../lib/jxlib.standalone.uncompressed.js"></script>
+<script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
+<script  type="text/javascript">
+window.addEvent('load', function() {
+    drawBasicForm();
+}); 
+</script>
+<script id="basicFormScript" type="text/javascript" charset="utf-8">
+function drawBasicForm() {
+  var form = new Jx.Form({
+    name: 'testForm'
+  }).addTo('formBasic');
+  
+  var fieldSet1 = new Jx.Fieldset({
+    legend: 'Fieldset One',
+    id: 'FieldSet1'
+  }).addTo(form);
+  
+  new Jx.Field.Text({
+    name: 'Text1',
+    label: 'Text One',
+    value: 'Initial Value',
+    tag: 'a tag'
+  }).addTo(fieldSet1);
+
+  new Jx.Field.Select({
+    name: 'Select1',
+    label: 'Select One',
+    tag: 'another tag',
+    comboOpts: [{
+        value: 'opt1',
+        text: 'Option #1',
+        selected: false
+    },{
+        value: 'opt2',
+        text: 'Option #2',
+        selected: true
+    },{
+        value: 'opt3',
+        text: 'Option #3',
+        selected: false
+    }]
+  }).addTo(fieldSet1);
+  
+  new Jx.Field.Textarea({
+    name: 'TextArea1',
+    label: 'TextArea One',
+    rows: 6,
+    columns: 40,
+    tag: 'textarea tag'
+  }).addTo(fieldSet1);
+  
+  var radioSet = new Jx.Fieldset({
+    legend: 'Radio Group'
+  }).addTo(fieldSet1);
+  
+  new Jx.Field.Radio({
+    name: 'RadioGroup1',
+    value: 'radio1',
+    label: 'Radio 1',
+    labelSeparator: ''
+  }).addTo(radioSet);
+  
+  new Jx.Field.Radio({
+    name: 'RadioGroup1',
+    value: 'radio2',
+    label: 'Radio 2',
+    labelSeparator: ''
+  }).addTo(radioSet);
+  
+  new Jx.Button({
+    label: 'Go'
+  }).addTo(form);
+  
+  var fieldSet2 = new Jx.Fieldset({
+    legend: 'Fieldset Two',
+    id: 'FieldSet2'
+  }).addTo(form);
+
+  
+  
+  var fieldSet3 = new Jx.Fieldset({
+    // no legend in this one
+    id: 'FieldSet3'
+  }).addTo(form);
+}
+</script>
+</head>
+<body>
+
+<h1>Jx.Form Examples</h1>
+<p>API Reference: <a id="form-js" href="javascript:void();" title="link to API Reference">Jx.Form</a> See Also: <a id="toolbar-js" href="javascript:void();" title="link to API Reference">Jx.Toolbar</a></p>
+
+<h2 id="basicForm">A Form with Layout</h2>
+<p>A programmatically created form with several fieldsets of fields oriented in various ways.</p>
+<div id="formBasic" class="formBox"></div>
+
+</body>
+</html>
