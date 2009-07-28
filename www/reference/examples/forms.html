@@ -21,7 +21,8 @@ function drawBasicForm() {
   
   var fieldSet1 = new Jx.Fieldset({
     legend: 'Fieldset One',
-    id: 'FieldSet1'
+    id: 'FieldSet1',
+    fieldsetClass: 'jxFormInlineblock'
   }).addTo(form);
   
   new Jx.Field.Text({
@@ -60,19 +61,19 @@ function drawBasicForm() {
   
   var radioSet = new Jx.Fieldset({
     legend: 'Radio Group',
-    fieldsetClass: 'jxRadioGroup',
+    fieldsetClass: 'jxInputGroup',
     template: '<fieldset class="jxFieldset"><legend><span class="jxFieldsetLegend"></span></legend></fieldset>'
   }).addTo(fieldSet1);
   
   new Jx.Field.Radio({
-    name: 'RadioGroup1',
+    name: 'InputGroup1',
     value: 'radio11',
     label: 'Radio 1',
     labelSeparator: ''
   }).addTo(radioSet);
   
   new Jx.Field.Radio({
-    name: 'RadioGroup1',
+    name: 'InputGroup1',
     value: 'radio12',
     label: 'Radio 2',
     labelSeparator: ''
@@ -84,7 +85,8 @@ function drawBasicForm() {
   
   var fieldSet2 = new Jx.Fieldset({
     legend: 'Fieldset Two',
-    id: 'FieldSet2'
+    id: 'FieldSet2',
+    fieldsetClass: 'jxFieldsetInline'
   }).addTo(form);
 
   new Jx.Field.Text({
@@ -103,7 +105,7 @@ function drawBasicForm() {
   
   var checkSet = new Jx.Fieldset({
     legend: 'Check Group',
-    fieldsetClass: 'jxRadioGroup'
+    fieldsetClass: 'jxInputGroup'
   }).addTo(fieldSet2);
   
   new Jx.Field.Checkbox({
@@ -126,7 +128,8 @@ function drawBasicForm() {
   
   var fieldSet3 = new Jx.Fieldset({
     // no legend in this one
-    id: 'FieldSet3'
+    id: 'FieldSet3',
+    fieldsetClass: 'jxFieldsetBlock'
   }).addTo(form);
   
   new Jx.Field.Text({
