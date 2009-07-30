@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<title>Jx.Panel Examples</title>
+<title>Jx.Form Examples</title>
 <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
 <script type="text/javascript" src="../../lib/mootools-core.js"></script>
 <script type="text/javascript" src="../../lib/mootools-more.js"></script>
@@ -19,8 +19,10 @@ function drawBasicForm() {
     formClass: 'jxFormInlineblock'
   }).addTo('formBasic');
   
+// First Fieldset
+
   var fieldSet1 = new Jx.Fieldset({
-    legend: 'Fieldset One',
+    legend: 'Inline-Block Form',
     id: 'FieldSet1',
     fieldsetClass: 'jxFormInlineblock'
   }).addTo(form);
@@ -83,8 +85,10 @@ function drawBasicForm() {
     buttonOptions:{label: 'Go'}
   }).addTo(fieldSet1);
   
+// Second Fieldset
+
   var fieldSet2 = new Jx.Fieldset({
-    legend: 'Fieldset Two',
+    legend: 'Inline Form',
     id: 'FieldSet2',
     fieldsetClass: 'jxFieldsetInline'
   }).addTo(form);
@@ -96,13 +100,31 @@ function drawBasicForm() {
     tag: 'a tag'
   }).addTo(fieldSet2);
   
+  new Jx.Field.Select({
+    name: 'Select21',
+    label: 'Select One',
+    comboOpts: [{
+        value: 'opt21',
+        text: 'Option #1',
+        selected: false
+    },{
+        value: 'opt22',
+        text: 'Option #2',
+        selected: true
+    },{
+        value: 'opt23',
+        text: 'Option #3',
+        selected: false
+    }]
+  }).addTo(fieldSet2);
+  
   new Jx.Field.Text({
     name: 'Text22',
-    label: 'Text One',
+    label: 'Text Two',
     value: 'Initial Value',
     tag: 'a tag'
   }).addTo(fieldSet2);
-  
+
   var checkSet = new Jx.Fieldset({
     legend: 'Check Group',
     fieldsetClass: 'jxInputGroup'
@@ -122,10 +144,12 @@ function drawBasicForm() {
     labelSeparator: ''
   }).addTo(checkSet);
 
-  new Jx.Button({
-    label: 'Send it'
+  new Jx.Field.Button({
+    buttonOptions:{label: 'Send It'}
   }).addTo(fieldSet2);
   
+// Third Fieldset
+
   var fieldSet3 = new Jx.Fieldset({
     // no legend in this one
     id: 'FieldSet3',
@@ -165,7 +189,13 @@ function drawBasicForm() {
     labelSeparator: ''
   }).addTo(fieldSet3);
 
-  
+  new Jx.Field.Checkbox({
+    name: 'check32',
+    value: 'check32',
+    label: 'Check 2',
+    labelSeparator: ''
+  }).addTo(fieldSet3);
+
   new Jx.Field.Textarea({
     name: 'TextArea31',
     label: 'TextArea One',
@@ -182,7 +212,7 @@ function drawBasicForm() {
 <h1>Jx.Form Examples</h1>
 <p>API Reference: <a id="form-js" href="javascript:void();" title="link to API Reference">Jx.Form</a> See Also: <a id="toolbar-js" href="javascript:void();" title="link to API Reference">Jx.Toolbar</a></p>
 
-<h2 id="basicForm">A Form with Layout</h2>
+<h2 id="basicForm">A Form with Inline-Block Class</h2>
 <p>A programmatically created form with several fieldsets of fields oriented in various ways.</p>
 <div id="formBasic" class="formBox"></div>
 
