@@ -24,10 +24,11 @@ function drawBasicForm() {
   var fieldSet1 = new Jx.Fieldset({
     legend: 'Inline-Block Form',
     id: 'FieldSet1',
-    fieldsetClass: 'jxFormInlineblock'
+    fieldsetClass: 'jxFieldsetInlineblock'
   }).addTo(form);
   
   new Jx.Field.Text({
+    id: 'Text11',
     name: 'Text11',
     label: 'Text One',
     value: 'Initial Value',
@@ -35,6 +36,7 @@ function drawBasicForm() {
   }).addTo(fieldSet1);
 
   new Jx.Field.Select({
+    id: 'Select11',
     name: 'Select11',
     label: 'Select One',
     tag: 'another tag',
@@ -54,6 +56,7 @@ function drawBasicForm() {
   }).addTo(fieldSet1);
   
   new Jx.Field.Textarea({
+    id: 'TextArea11',
     name: 'TextArea11',
     label: 'TextArea One',
     rows: 6,
@@ -68,6 +71,7 @@ function drawBasicForm() {
   }).addTo(fieldSet1);
   
   new Jx.Field.Radio({
+    id: 'radio11',
     name: 'InputGroup1',
     value: 'radio11',
     label: 'Radio 1',
@@ -75,6 +79,7 @@ function drawBasicForm() {
   }).addTo(radioSet);
   
   new Jx.Field.Radio({
+    id: 'radio12',
     name: 'InputGroup1',
     value: 'radio12',
     label: 'Radio 2',
@@ -94,6 +99,7 @@ function drawBasicForm() {
   }).addTo(form);
 
   new Jx.Field.Text({
+    id: 'Text21',
     name: 'Text21',
     label: 'Text One',
     value: 'Initial Value',
@@ -101,6 +107,7 @@ function drawBasicForm() {
   }).addTo(fieldSet2);
   
   new Jx.Field.Select({
+    id: 'Select21',
     name: 'Select21',
     label: 'Select One',
     comboOpts: [{
@@ -119,6 +126,7 @@ function drawBasicForm() {
   }).addTo(fieldSet2);
   
   new Jx.Field.Text({
+    id: 'Text22',
     name: 'Text22',
     label: 'Text Two',
     value: 'Initial Value',
@@ -127,10 +135,12 @@ function drawBasicForm() {
 
   var checkSet = new Jx.Fieldset({
     legend: 'Check Group',
-    fieldsetClass: 'jxInputGroup'
+    fieldsetClass: 'jxInputGroup',
+    template: '<fieldset class="jxFieldset"><legend><span class="jxFieldsetLegend"></span></legend></fieldset>'
   }).addTo(fieldSet2);
   
   new Jx.Field.Checkbox({
+    id: 'check21',
     name: 'check21',
     value: 'check21',
     label: 'Check 1',
@@ -138,6 +148,7 @@ function drawBasicForm() {
   }).addTo(checkSet);
   
   new Jx.Field.Checkbox({
+    id: 'check22',
     name: 'check22',
     value: 'check22',
     label: 'check 2',
@@ -145,7 +156,11 @@ function drawBasicForm() {
   }).addTo(checkSet);
 
   new Jx.Field.Button({
-    buttonOptions:{label: 'Send It'}
+    buttonOptions:{label: 'Apply'}
+  }).addTo(fieldSet2);
+
+  new Jx.Field.Button({
+    buttonOptions:{label: 'Cancel'}
   }).addTo(fieldSet2);
   
 // Third Fieldset
@@ -157,6 +172,7 @@ function drawBasicForm() {
   }).addTo(form);
   
   new Jx.Field.Text({
+    id: 'Text31',
     name: 'Text31',
     label: 'Text One',
     value: 'Initial Value',
@@ -164,7 +180,8 @@ function drawBasicForm() {
   }).addTo(fieldSet3);
 
   new Jx.Field.Select({
-    name: 'Select11',
+    id: 'Select31',
+    name: 'Select31',
     label: 'Select One',
     tag: 'another tag',
     comboOpts: [{
@@ -183,6 +200,7 @@ function drawBasicForm() {
   }).addTo(fieldSet3);
 
   new Jx.Field.Checkbox({
+    id: 'check31',
     name: 'check31',
     value: 'check31',
     label: 'Check 1',
@@ -190,6 +208,7 @@ function drawBasicForm() {
   }).addTo(fieldSet3);
 
   new Jx.Field.Checkbox({
+    id: 'check32',
     name: 'check32',
     value: 'check32',
     label: 'Check 2',
@@ -197,6 +216,7 @@ function drawBasicForm() {
   }).addTo(fieldSet3);
 
   new Jx.Field.Textarea({
+    id: 'TextArea31',
     name: 'TextArea31',
     label: 'TextArea One',
     rows: 6,
