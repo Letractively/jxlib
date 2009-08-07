@@ -16,7 +16,7 @@ window.addEvent('load', function() {
 function drawBasicForm() {
   var form = new Jx.Form({
     name: 'testForm',
-    formClass: 'jxFormInlineblock'
+    formClass: 'jxFormInline'
   }).addTo('formBasic');
   
 // First Fieldset
@@ -24,7 +24,7 @@ function drawBasicForm() {
   var fieldSet1 = new Jx.Fieldset({
     legend: 'Inline-Block Form',
     id: 'FieldSet1',
-    fieldsetClass: 'jxFieldsetInlineblock'
+    fieldsetClass: 'jxFormInlineblock'
   }).addTo(form);
   
   new Jx.Field.Text({
@@ -95,7 +95,7 @@ function drawBasicForm() {
   var fieldSet2 = new Jx.Fieldset({
     legend: 'Inline Form',
     id: 'FieldSet2',
-    fieldsetClass: 'jxFieldsetInline'
+    fieldsetClass: 'jxFormInline'
   }).addTo(form);
 
   new Jx.Field.Text({
@@ -168,7 +168,7 @@ function drawBasicForm() {
   var fieldSet3 = new Jx.Fieldset({
     // no legend in this one
     id: 'FieldSet3',
-    fieldsetClass: 'jxFieldsetBlock'
+    fieldsetClass: 'jxFormBlock'
   }).addTo(form);
   
   new Jx.Field.Text({
