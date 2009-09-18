@@ -17,9 +17,9 @@ var sorter;
 
 window.addEvent('load', function() {
   
-    prelighter = new Jx.Plugin.Prelighter({});
-    selector = new Jx.Plugin.Selector({});
-    sorter = new Jx.Plugin.Sorter({});
+    prelighter = new Jx.Plugin.Grid.Prelighter({});
+    selector = new Jx.Plugin.Grid.Selector({});
+    sorter = new Jx.Plugin.Grid.Sorter({});
   
     drawToolbar();
     drawGrid();
@@ -157,7 +157,6 @@ function drawGrid() {
           useHeaders: true,
           alternateRowColors: true,
           headerField: 'header',
-          headerWidth: 40,
           rowHeight: 20
       },
       columns: {
@@ -166,7 +165,7 @@ function drawGrid() {
           columns: [{
               header: null,
               modelField: 'header',
-              width: 100,
+              width: 'auto',
               isEditable: false,
               isSortable: false,
               isResizable: true,
@@ -178,7 +177,7 @@ function drawGrid() {
           },{
               header: '2002',
               modelField: '2002',
-              width: 50,
+              width: 'auto',
               isEditable: true,
               isSortable: true,
               isResizable: true,
@@ -190,7 +189,7 @@ function drawGrid() {
           },{
               header: '2003',
               modelField: '2003',
-              width: 50,
+              width: 'auto',
               isEditable: false,
               isSortable: false,
               isResizable: true,
@@ -202,7 +201,7 @@ function drawGrid() {
           },{
               header: '2004',
               modelField: '2004',
-              width: 50,
+              width: 'auto',
               isEditable: false,
               isSortable: false,
               isResizable: true,
@@ -214,7 +213,7 @@ function drawGrid() {
           },{
               header: '2005',
               modelField: '2005',
-              width: 50,
+              width: 'auto',
               isEditable: false,
               isSortable: false,
               isResizable: true,
@@ -226,7 +225,7 @@ function drawGrid() {
           },{
               header: '2006',
               modelField: '2006',
-              width: 50,
+              width: 'auto',
               isEditable: false,
               isSortable: false,
               isResizable: true,
@@ -238,7 +237,7 @@ function drawGrid() {
           },{
               header: '2007',
               modelField: '2007',
-              width: 50,
+              width: 'auto',
               isEditable: false,
               isSortable: false,
               isResizable: true,
