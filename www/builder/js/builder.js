@@ -7,6 +7,8 @@
  */
 var builder = new Class({
 	
+    Extends: Jx.Object,
+    
 	checked: [],
 	deps: null,
 	includeOpts: false,
@@ -14,7 +16,7 @@ var builder = new Class({
 	fileCount: new Hash(),
 	buildChoice: new Hash(),
 
-	initialize: function(){
+	init: function(){
 	
 		this.loading = true;
 		
@@ -300,6 +302,7 @@ var builder = new Class({
 	
 	processDeps:function(deps){
 		this.deps = new Hash(deps);
+		this.fireEvent('depsLoaded');
 	},
 	
 	check: function(e,el){
