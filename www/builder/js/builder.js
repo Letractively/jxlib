@@ -7,7 +7,7 @@
  */
 var builder = new Class({
 	
-    Extends: Jx.Object,
+    Implements: [Events],
     
 	checked: [],
 	deps: null,
@@ -16,7 +16,7 @@ var builder = new Class({
 	fileCount: new Hash(),
 	buildChoice: new Hash(),
 
-	init: function(){
+	initialize: function(){
 	
 		this.loading = true;
 		
