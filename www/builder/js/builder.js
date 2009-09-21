@@ -7,7 +7,7 @@
  */
 var builder = new Class({
 	
-    Implements: [Events],
+    Implements: [Options, Events],
     
 	checked: [],
 	deps: null,
@@ -16,8 +16,10 @@ var builder = new Class({
 	fileCount: new Hash(),
 	buildChoice: new Hash(),
 
-	initialize: function(){
+	initialize: function(options){
 	
+        this.setOptions(options);
+        
 		this.loading = true;
 		
 		$$('.filelist', 
