@@ -201,10 +201,10 @@ switch ($_REQUEST['f-compress']){
 		$archive->open($archiveName, ZIPARCHIVE::CREATE);
 		foreach ($filesToArchive as $file){
 			$sections = explode(DS,$file);
-			if ($sections[0] == 'work') {
-				$archive->addFile($file,$sections[count($sections)-1]);
+			if ($sections[0] == 'work' || (strpos($file,'a_pixel.png') > 0)) {
+				$archive->addFile($file,'jxlib'.DS.$sections[count($sections)-1]);		
 			} else {
-				$archive->addFile($file);
+				$archive->addFile($file, 'jxlib'.DS.$file);
 			}
 		}
 		$archive->close();
@@ -217,10 +217,10 @@ switch ($_REQUEST['f-compress']){
 		$tar = new Archive_Tar($archiveName,'gz');
 		foreach ($filesToArchive as $file){
 			$sections = explode(DS,$file);
-			if ($sections[0] == 'work') {
-				$tar->addString($sections[count($sections)-1],file_get_contents($file));
+			if ($sections[0] == 'work' || (strpos($file,'a_pixel.png') > 0)) {
+				$tar->addString('jxlib'.DS.$sections[count($sections)-1],file_get_contents($file));
 			} else {
-				$tar->addString($file, file_get_contents($file));
+				$tar->addString('jxlib'.DS.$file, file_get_contents($file));
 			}
 		}
 		break;
@@ -232,10 +232,10 @@ switch ($_REQUEST['f-compress']){
 		$tar = new Archive_Tar($archiveName,'bz2');
 		foreach ($filesToArchive as $file){
 			$sections = explode(DS,$file);
-			if ($sections[0] == 'work') {
-				$tar->addString($sections[count($sections)-1],file_get_contents($file));
+			if ($sections[0] == 'work' || (strpos($file,'a_pixel.png') > 0)) {
+				$tar->addString('jxlib'.DS.$sections[count($sections)-1],file_get_contents($file));
 			} else {
-				$tar->addString($file, file_get_contents($file));
+				$tar->addString('jxlib'.DS.$file, file_get_contents($file));
 			}
 		}
 		break;
