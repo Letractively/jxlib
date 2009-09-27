@@ -182,7 +182,7 @@ $filesToArchive[] = $file;
 $iterator = new RecursiveDirectoryIterator('assets');
 $it = new RecursiveIteratorIterator($iterator);
 while($it->valid()){
-	if (!$it->isDot()){
+	if (!$it->isDot() && !$it->isDir()){
 		$filesToArchive[] = 'assets'.DS.$it->getSubPathName();
 	}
 	$it->next();
@@ -199,11 +199,16 @@ switch ($_REQUEST['f-compress']){
 		$archiveName = $work_dir.$archiveSubPath;
 		$archive = new ZipArchive();
 		$archive->open($archiveName, ZIPARCHIVE::CREATE);
+		$includedPic = false;
 		foreach ($filesToArchive as $file){
 			$sections = explode(DS,$file);
-			if ($sections[0] == 'work' || (strpos($file,'a_pixel.png') > 0)) {
+			$isPic = (strpos($file,'a_pixel.png') > 0)?true:false;
+			if ($sections[0] == 'work' || ($isPic && !$includedPic)) {
+			    if ($isPic) {
+                    $includedPic = true;
+                }
 				$archive->addFile($file,'jxlib'.DS.$sections[count($sections)-1]);		
-			} else {
+			} else if (!$isPic) {
 				$archive->addFile($file, 'jxlib'.DS.$file);
 			}
 		}
@@ -215,11 +220,16 @@ switch ($_REQUEST['f-compress']){
 		$archiveSubPath .= DS.$fileName;
 		$archiveName = $work_dir.$archiveSubPath;
 		$tar = new Archive_Tar($archiveName,'gz');
+		$includedPic = false;
 		foreach ($filesToArchive as $file){
 			$sections = explode(DS,$file);
-			if ($sections[0] == 'work' || (strpos($file,'a_pixel.png') > 0)) {
+			$isPic = (strpos($file,'a_pixel.png') > 0)?true:false;
+			if ($sections[0] == 'work' || ($isPic && !$includedPic)) {
+			    if ($isPic) {
+			        $includedPic = true;
+			    }
 				$tar->addString('jxlib'.DS.$sections[count($sections)-1],file_get_contents($file));
-			} else {
+			} else if (!$isPic){
 				$tar->addString('jxlib'.DS.$file, file_get_contents($file));
 			}
 		}
@@ -230,11 +240,16 @@ switch ($_REQUEST['f-compress']){
 		$archiveSubPath .= DS.$fileName;
 		$archiveName = $work_dir.$archiveSubPath;
 		$tar = new Archive_Tar($archiveName,'bz2');
+		$includedPic = false;
 		foreach ($filesToArchive as $file){
 			$sections = explode(DS,$file);
-			if ($sections[0] == 'work' || (strpos($file,'a_pixel.png') > 0)) {
+			$isPic = (strpos($file,'a_pixel.png') > 0)?true:false;
+			if ($sections[0] == 'work' || ($isPic && !$includedPic)) {
+			    if ($isPic) {
+                    $includedPic = true;
+                }
 				$tar->addString('jxlib'.DS.$sections[count($sections)-1],file_get_contents($file));
-			} else {
+			} else if (!$isPic){
 				$tar->addString('jxlib'.DS.$file, file_get_contents($file));
 			}
 		}
