@@ -349,11 +349,6 @@
 			"desc": "Date messages in Catalan."
 		},
 
-		"Date.Czech": {
-			"deps": ["Lang"],
-			"desc": "Date messages in Czech."
-		},
-
 		"Date.Danish": {
 			"deps": ["Lang"],
 			"desc": "Date messages in Danish."
@@ -399,11 +394,6 @@
 			"desc": "Date messages in Portuguese for Brazil."
 		},
 
-		"Date.Russian": {
-			"deps": ["Lang"],
-			"desc": "Date messages in Russian."
-		},
-
 		"Date.Spanish": {
 			"deps": ["Lang"],
 			"desc": "Date messages in Spanish."
@@ -422,11 +412,6 @@
 		"Form.Validator.Catalan": {
 			"deps": ["Lang"],
 			"desc": "Form.Validator messages in Catalan."
-		},
-
-		"Form.Validator.Czech": {
-			"deps": ["Lang"],
-			"desc": "Form.Validator messages in Czech."
 		},
 
 		"Form.Validator.Chinese": {
