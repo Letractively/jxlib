@@ -1,9 +1,11 @@
-#summary A quick reference guide to JxLib objects
+#summary A quick reference guide to JxLib 2.0 objects
 #labels Featured
 
-= Quick Reference Guide =
+= JxLib 2.0 Quick Reference Guide =
 
 <wiki:toc max_depth="3" />
+
+_this will all change for 3.0_
 
 == Mix-ins ==
 
