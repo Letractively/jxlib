@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Jx.Menu Examples</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../lib/mootools-core.js"></script>
+<script type="text/javascript" src="../../lib/mootools-more.js"></script>
+<script type="text/javascript" src="../../lib/jxlib.standalone.uncompressed.js"></script>
+<script src="js/tests.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/locale.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+window.addEvent('load', function() {
+    menuContext();
+});
+</script>
+
+<script id="menuContextScript" type="text/javascript">
+function menuContext() {
+    /* put together some sub menus for the context menu */
+    var fileMenu = new Jx.Menu.SubMenu({label: {set:'Examples',key:'menuContext',value:'file'}});
+    fileMenu.add([
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'new'},
+            imageClass: 'file-new', 
+            image: 'images/file-edit-menu.png',
+            onClick: function() {log('new file');}}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'open'},
+            imageClass: 'file-open', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'save'},
+            imageClass: 'file-save', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'saveAs'},
+            imageClass: 'file-save-as', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Separator(),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'print'},
+            imageClass: 'file-print', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'printPreview'},
+            imageClass: 'file-print-preview', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Separator(),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'properties'},
+            imageClass: 'file-properties', 
+            image: 'images/file-edit-menu.png'})]
+    );
+    var editMenu = new Jx.Menu.SubMenu({label: {set:'Examples',key:'menuContext',value:'edit'}});
+    editMenu.add([
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'undo'},
+            imageClass: 'edit-undo', 
+            image: 'images/file-edit-menu.png', enabled: false}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'redo'},
+            imageClass: 'edit-redo', 
+            image: 'images/file-edit-menu.png', enabled: false}),
+        new Jx.Menu.Separator(),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'cut'},
+            imageClass: 'edit-cut', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'copy'},
+            imageClass: 'edit-copy', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'paste'},
+            imageClass: 'edit-paste', 
+            image: 'images/file-edit-menu.png'})]
+    );
+    
+    var fontMenu = new Jx.Menu.SubMenu({label: {set:'Examples',key:'menuContext',value:'font'}});
+    fontMenu.add([
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'bold'},
+            toggle: true,
+            imageClass: 'format-text-bold', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'italic'},
+            toggle: true,
+            imageClass: 'format-text-italic', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'strikethrough'},
+            toggle: true,
+            imageClass: 'format-text-strikethrough', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'underline'},
+            toggle: true,
+            imageClass: 'format-text-underline', 
+            image: 'images/file-edit-menu.png'})]
+    );
+    
+    var justifyLeft = new Jx.Menu.Item({
+        label: {set:'Examples',key:'menuContext',value:'left'},
+        toggle: true,
+        imageClass: 'format-justify-left', 
+        image: 'images/file-edit-menu.png'
+    });
+    var justifyCenter = new Jx.Menu.Item({
+        label: {set:'Examples',key:'menuContext',value:'center'},
+        toggle: true,
+        imageClass: 'format-justify-center', 
+        image: 'images/file-edit-menu.png'
+    });
+    var justifyRight = new Jx.Menu.Item({
+        label: {set:'Examples',key:'menuContext',value:'right'},
+        toggle: true,
+        imageClass: 'format-justify-right', 
+        image: 'images/file-edit-menu.png'
+    });
+    var justifyFill = new Jx.Menu.Item({
+        label: {set:'Examples',key:'menuContext',value:'fill'},
+        toggle: true,
+        imageClass: 'format-justify-fill', 
+        image: 'images/file-edit-menu.png'
+    });
+    new Jx.ButtonSet().add(
+        justifyLeft, justifyCenter, justifyRight, justifyFill
+    );
+    
+    var justifyMenu = new Jx.Menu.SubMenu({label: {set:'Examples',key:'menuContext',value:'align'}});
+    justifyMenu.add([justifyLeft, justifyCenter, justifyRight, justifyFill]);
+    
+    var formatMenu = new Jx.Menu.SubMenu({label: {set:'Examples',key:'menuContext',value:'font'}});
+    formatMenu.add([
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'intendMore'},
+            toggle: true,
+            imageClass: 'format-indent-more', 
+            image: 'images/file-edit-menu.png'}),
+        new Jx.Menu.Item({
+            label: {set:'Examples',key:'menuContext',value:'intendLess'},
+            toggle: true,
+            imageClass: 'format-indent-less', 
+            image: 'images/file-edit-menu.png'}),
+        fontMenu, 
+        justifyMenu]
+    );
+    
+    /* you can specify the id of the element to attach the context menu
+     * to in the constructor
+     */
+    var contextMenu = new Jx.Menu.Context(document.body);
+    contextMenu.add([fileMenu,editMenu,formatMenu]);   
+}
+</script>
+</head>
+<body>
+<div>
+  <h1>Jx.Menu.Context Examples</h1>
+  <p>API Reference: <a id="menu-context-js" href="javascript:void();" title="link to API Reference">Jx.Menu.Context</a>, <a id="menu-submenu-js" href="javascript:void();" title="link to API Reference">Jx.Menu.SubMenu</a>, <a id="menu-item-js" href="javascript:void();" title="link to API Reference">Jx.Menu.Item</a>, <a id="menu-separator-js" href="javascript:void();" title="link to API Reference">Jx.Menu.Separator</a> Extends <a id="menu-js" href="javascript:void();" title="link to API Reference">Jx.Menu</a></p>
+  <h2 id="menuContext">Context Menus</h2>
+  <p id="contextMenuText">Context menus are menus that pop up when the user clicks the right mouse button.  A context menu has been added to the content of this page, go ahead and try it out - it should work on this text and above.</p>
+</div>
+</body>
+</html>
