@@ -1,3 +1,28 @@
+/*
+---
+
+name: Jx.Button
+
+description: Jx.Button creates a clickable element that can be added to a web page.
+
+license: MIT-style license.
+
+requires:
+- Jx.Widget
+
+optional:
+- Core/Drag
+
+provides: [Jx.Button]
+
+css:
+- button
+
+images:
+- button.png
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Button
@@ -242,6 +267,7 @@ Jx.Button = new Class({
             this.options.active = false;
             this.setActive(true);
         }
+
     },
     /**
      * APIMethod: clicked

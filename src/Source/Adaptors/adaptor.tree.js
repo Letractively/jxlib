@@ -1,3 +1,19 @@
+/*
+---
+
+name: Jx.Adaptor.Tree
+
+description: Base class for all adaptors that fill Jx.Tree widgets. Also acts as the namespace for other Jx.Tree adaptors.
+
+license: MIT-style license.
+
+requires:
+- Jx.Adaptor
+
+provides: [Jx.Adaptor.Tree]
+
+...
+ */
 /**
  * Class: Jx.Adaptor.Tree
  * This base class is used to change a store (a flat list of records) into the
@@ -43,7 +59,7 @@ Jx.Adaptor.Tree = new Class({
      * Property: folders
      * A Hash containing all of the <Jx.TreeFolders> in this tree.
      */
-    folders: null,
+    folders: new Hash(),
     /**
      * Property: currentRecord
      * An integer indicating the last position we were at in the store. Used to
@@ -51,10 +67,6 @@ Jx.Adaptor.Tree = new Class({
      * data.
      */
     currentRecord: -1,
-    init: function() {
-      this.folders = new Hash();
-      this.parent();
-    },
     /**
      * APIMethod: attach
      * Attaches this adaptor to a specific tree instance.

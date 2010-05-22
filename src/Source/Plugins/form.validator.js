@@ -1,3 +1,20 @@
+/*
+---
+
+name: Jx.Plugin.Form.Validator
+
+description: Provides validation services for Jx.Form
+
+license: MIT-style license.
+
+requires:
+- Jx.Plugin.Form
+- Jx.Plugin.Field.Validator
+
+provides: [Jx.Plugin.Form.Validator]
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Plugin.Form.Validator
@@ -45,6 +62,11 @@ Jx.Plugin.Form.Validator = new Class({
      * element holding
      */
     errorMessage: null,
+    /**
+     * Property: bound
+     * storage for bound methods useful for working with events
+     */
+    bound: {},
     /**
      * APIMethod: init
      * construct a new instance of the plugin.  The plugin must be attached

@@ -1,3 +1,20 @@
+/*
+---
+
+name: Jx.Button.Color
+
+description:
+
+license: MIT-style license.
+
+requires:
+- Jx.Button.Flyout
+- Jx.ColorPalette
+
+provides: [Jx.Button.Color]
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Button.Color
@@ -95,14 +112,12 @@ Jx.Button.Color = new Class({
         this.parent();
         this.updateSwatch();
 
-        this.bound.changed = this.changed.bind(this);
-        this.bound.hide = this.hide.bind(this);
+        this.bound = {
+            changed: this.changed.bind(this),
+            hide: this.hide.bind(this)
+        };
     },
-    cleanup: function() {
-      this.bound.changed = false;
-      this.bound.hide = false;
-      this.parent();
-    },
+
     /**
      * APIMethod: clicked
      * override <Jx.Button.Flyout> to use a singleton color palette.

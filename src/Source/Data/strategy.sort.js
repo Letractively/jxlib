@@ -1,3 +1,20 @@
+/*
+---
+
+name: Jx.Store.Strategy.Sort
+
+description: Strategy used for sorting results in a store after they are loaded.
+
+license: MIT-style license.
+
+requires:
+- Jx.Store.Strategy
+- Jx.Sort
+- Jx.Compare
+
+provides: [Jx.Store.Strategy.Sort]
+...
+ */
 // $Id$
 /**
  * Class: Jx.Store.Strategy.Sort
@@ -62,7 +79,9 @@ Jx.Store.Strategy.Sort = new Class({
      */
     init: function () {
         this.parent();
-        this.bound.sort = this.sort.bind(this);
+        this.bound = {
+            sort: this.sort.bind(this)
+        };
     },
     
     /**

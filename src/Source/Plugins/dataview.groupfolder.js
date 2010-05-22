@@ -1,4 +1,20 @@
+/*
+---
 
+name: Jx.Plugin.DataView.GroupFolder
+
+description: Enables closing and opening groups in a group dataview
+
+license: MIT-style license.
+
+requires:
+- Jx.Plugin.DataView
+- Jx.Slide
+
+provides: [Jx.Plugin.DataView.GroupFolder]
+
+...
+ */
 /**
  * Class: Jx.Plugin.DataView.GroupFolder
  *
@@ -28,10 +44,7 @@ Jx.Plugin.DataView.GroupFolder = new Class({
      * Property: headerState
      * Hash that holds the open/closed state of each header
      */
-    headerState: null,
-    init: function() {
-      this.headerState = new Hash();
-    },
+    headerState: new Hash(),
     /**
      * APIMethod: attach
      * Attaches this plugin to a dataview

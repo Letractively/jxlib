@@ -1,3 +1,19 @@
+/*
+---
+
+name: Jx.Store.Strategy.Save
+
+description: Strategy used for saving data back to a source. Can be called manually or setup to automatically save on every change.
+
+license: MIT-style license.
+
+requires:
+- Jx.Store.Strategy
+
+provides: [Jx.Store.Strategy.Save]
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Store.Strategy.Save 
@@ -49,8 +65,10 @@ Jx.Store.Strategy.Save = new Class({
      */
     init: function () {
         this.parent();
-        this.bound.saveRecord = this.saveRecord.bind(this);
-        this.bound.onComplete = this.onComplete.bind(this);
+        this.bound = {
+            save: this.saveRecord.bind(this),
+            completed: this.onComplete.bind(this)
+        };
     },
     
     /**

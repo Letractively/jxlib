@@ -1,3 +1,19 @@
+/*
+---
+
+name: Jx.Selection
+
+description: A class to manage selection across multiple list objects
+
+license: MIT-style license.
+
+requires:
+- Jx.Object
+
+provides: [Jx.Selection]
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Selection
@@ -94,11 +110,6 @@ Jx.Selection = new Class({
         this.selection = [];
     },
     
-    cleanup: function() {
-      this.selection = null;
-      this.parent();
-    },
-    
     /**
      * APIMethod: defaultSelect
      * select an item if the selection does not yet contain the minimum
@@ -138,9 +149,7 @@ Jx.Selection = new Class({
                 }
                 this.fireEvent(this.options.eventToFire.select, item);
             } else {
-                if (this.options.selectToggle) {
-                  this.unselect(item);
-                }
+                this.unselect(item);
             }
         }
     },

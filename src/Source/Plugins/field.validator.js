@@ -1,3 +1,21 @@
+/*
+---
+
+name: Jx.Plugin.Field.Validator
+
+description: Provides validation services for Jx.Field subclasses
+
+license: MIT-style license.
+
+requires:
+- Jx.Plugin.Field
+- More/Form.Validator
+- More/Form.Validator.Extras
+
+provides: [Jx.Plugin.Field.Validator]
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Plugin.Field.Validator
@@ -62,8 +80,13 @@ Jx.Plugin.Field.Validator = new Class({
      * Property: errors
      * array of errors found on this field
      */
-    errors: null,
-    validators : null,
+    errors: [],
+    /**
+     * Property: bound
+     * storage for bound methods useful for working with events
+     */
+    bound: {},
+    validators : new Hash(),
     /**
      * APIMethod: init
      * construct a new instance of the plugin.  The plugin must be attached
@@ -71,8 +94,6 @@ Jx.Plugin.Field.Validator = new Class({
      */
     init: function () {
         this.parent();
-        this.errors = [];
-        this.validators = new Hash();
         this.bound.validate = this.validate.bind(this);
         this.bound.reset = this.reset.bind(this);
     },

@@ -1,3 +1,19 @@
+/*
+---
+
+name: Jx.Store.Strategy.Full
+
+description: Strategy for loading the full data set from a source.
+
+license: MIT-style license.
+
+requires:
+- Jx.Store.Strategy
+
+provides: [Jx.Store.Strategy.Full]
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Store.Strategy.Full
@@ -25,8 +41,10 @@ Jx.Store.Strategy.Full = new Class({
      */
     init: function () {
         this.parent();
-        this.bound.load = this.load.bind(this);
-        this.bound.loadStore = this.loadStore.bind(this);
+        this.bound = {
+            load: this.load.bind(this),
+            loadStore: this.loadStore.bind(this)
+        }
     },
     
     /**

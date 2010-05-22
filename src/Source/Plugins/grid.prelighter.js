@@ -1,6 +1,22 @@
+/*
+---
+
+name: Jx.Plugin.Grid.Prelighter
+
+description: Highlights rows, columns, cells, and headers in grids
+
+license: MIT-style license.
+
+requires:
+- Jx.Plugin.Grid
+
+provides: [Jx.Plugin.Grid.Prelighter]
+
+...
+ */
 // $Id$
 /**
- * Class: Jx.Plugin.Prelighter
+ * Class: Jx.Plugin.Grid.Prelighter
  *
  * Extends: <Jx.Plugin>
  *
@@ -50,6 +66,11 @@ Jx.Plugin.Grid.Prelighter = new Class({
          */
         columnHeader : false
     },
+    /**
+     * Property: bound
+     * storage for bound methods useful for working with events
+     */
+    bound: {},
     /**
      * APIMethod: init
      * construct a new instance of the plugin.  The plugin must be attached

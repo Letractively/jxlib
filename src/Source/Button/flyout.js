@@ -1,3 +1,23 @@
+/*
+---
+
+name: Jx.Button.Flyout
+
+description: Flyout buttons expose a panel when the user clicks the button.
+
+license: MIT-style license.
+
+requires:
+- Jx.Button
+
+provides: [Jx.Button.Flyout]
+
+images:
+- flyout_chrome.png
+- emblems.png
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.Button.Flyout
@@ -114,14 +134,6 @@ Jx.Button.Flyout = new Class({
         
         this.content.store('jxFlyout', this);
         this.loadContent(this.content);
-    },
-    cleanup: function() {
-      this.content.eliminate('jxFlyout');
-      this.content.destroy();
-      this.contentClasses.each(function(v,k){
-        this[k] = null;
-      }, this);
-      this.parent();
     },
     /**
      * APIMethod: clicked

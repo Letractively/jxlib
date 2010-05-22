@@ -1,3 +1,20 @@
+/*
+---
+
+name: Jx.List
+
+description: A class that is used to manage lists of DOM elements
+
+license: MIT-style license.
+
+requires:
+- Jx.Object
+- Jx.Selection
+
+provides: [Jx.List]
+
+...
+ */
 // $Id$
 /**
  * Class: Jx.List
@@ -129,7 +146,7 @@ Jx.List = new Class({
             var item = el.retrieve('jxListTargetItem') || el;
             return !item.hasClass('jxUnselectable');
         };
-        this.bound = $merge(this.bound, {
+        this.bound = {
             mousedown: function() {
                 if (isEnabled(this)) {
                     this.addClass(target.options.pressClass);
@@ -191,7 +208,7 @@ Jx.List = new Class({
               } 
               e.stop();
             }
-        });
+        };
         
         if (this.options.selection) {
             this.selection = this.options.selection;
@@ -216,23 +233,9 @@ Jx.List = new Class({
         this.container.getChildren().each(function(item){
             this.remove(item);
         }, this);
-        if (this.selection && this.ownsSelection) {
-            this.selection.removeEvents();
-            this.selection.destroy();
-        }
         this.setSelection(null);
+        this.bound = null;
         this.container.eliminate('jxList');
-        this.bound.mousedown=null;
-        this.bound.mouseup=null;
-        this.bound.mouseenter=null;
-        this.bound.mouseleave=null;
-        this.bound.keydown=null;
-        this.bound.keyup=null;
-        this.bound.click=null;
-        this.bound.select=null;
-        this.bound.unselect=null;
-        this.bound.contextmenu=null;
-        this.parent();
     },
     
     /**
@@ -250,9 +253,7 @@ Jx.List = new Class({
      */
     add: function(item, position) {
         if (Jx.type(item) == 'array') {
-            item.each(function(what){ 
-              this.add(what, position); 
-            }.bind(this) );
+            item.each(function(what){ this.add(what, position); }.bind(this) );
             return;
         }
         /* the element being wrapped */
