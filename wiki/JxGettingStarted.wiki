@@ -59,9 +59,8 @@ Now we need to get Jx in there.  You need to include two things in your page to 
 <head>
   <title>Hello World</title>
   
-  <!-- include the jx library and the delicious skin -->
-  <script src="jx/jxlib.js" type="text/javascript" charset="utf-8"></script>
-  <link rel="stylesheet" href="jx/themes/delicios/jxtheme.css" type="text/css" media="screen" charset="utf-8">
+ <!-- include the jx delicious skin -->
+   <link rel="stylesheet" href="jx/themes/delicios/jxtheme.css" type="text/css" media="screen" charset="utf-8">
   <!-- IE specific style sheets -->
   <!--[if LTE IE 6]>
   <link rel="stylesheet" href="jx/themes/delicios/ie6.css" type="text/css" media="screen" charset="utf-8">
@@ -69,6 +68,8 @@ Now we need to get Jx in there.  You need to include two things in your page to 
   <!--[if IE 7]>
   <link rel="stylesheet" href="jx/themes/delicios/ie7.css" type="text/css" media="screen" charset="utf-8">
   <![endif]-->
+ <!-- include the jx library -->
+  <script src="jx/jxlib.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
@@ -92,15 +93,14 @@ First, the layout.  Let's add a {{{script}}} tag to contain our javascript code 
 <head>
   <title>Hello World</title>
   
-  <!-- include the jx library and the delicious skin -->
-  <script src="jx/jxlib.js" type="text/javascript" charset="utf-8"></script>
-  <link rel="stylesheet" href="jx/themes/delicios/jxtheme.css" type="text/css" media="screen" charset="utf-8">
+ <!-- include the jx delicious skin -->
+   <link rel="stylesheet" href="jx/themes/delicios/jxtheme.css" type="text/css" media="screen" charset="utf-8">
   <!-- IE specific style sheets -->
-  <!--[if IE lte 6]>
+  <!--[if LTE IE 6]>
   <link rel="stylesheet" href="jx/themes/delicios/ie6.css" type="text/css" media="screen" charset="utf-8">
   <![endif]-->
   <!--[if IE 7]>
-  <link rel="stylesheet" href="jx/themes/delicious/ie7.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="jx/themes/delicios/ie7.css" type="text/css" media="screen" charset="utf-8">
   <![endif]-->
 
   <!-- this prevents scrollbars from appearing on the page -->
@@ -109,6 +109,10 @@ First, the layout.  Let's add a {{{script}}} tag to contain our javascript code 
     overflow: hidden;
   }
   </style>
+
+ <!-- include the jx library -->
+  <script src="jx/jxlib.js" type="text/javascript" charset="utf-8"></script>
+
 
   <!-- our application code -->
   <script type='text/javascript'>
